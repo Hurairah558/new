@@ -75,6 +75,5 @@ p{
 	transition: .1s ease-in;
 }
 p:hover{
-	/* font-size: 18px; */
 	font-weight: bold;
 }

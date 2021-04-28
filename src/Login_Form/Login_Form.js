@@ -4,9 +4,9 @@ import './Login_Form_Design.css';
 function Login() {
   return (
     <React.Fragment>
-		<div class="main">
+		<div className="main">
 			<input type="checkbox" id="chk" aria-hidden="true"/>
-			<div class="signup">
+			<div className="signup">
 				<form>
 					<label for="chk" aria-hidden="true">Login</label>
 					<input type="text" name="text" placeholder="User name" required=""/>
