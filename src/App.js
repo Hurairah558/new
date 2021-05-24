@@ -8,7 +8,7 @@ function App() {
     <React.Fragment>
       <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/admin" component={Login}/>
+          <Route exact path="/login" component={Login}/>
           <Route exact path="/admissionform" component={Admission_Form}/>
       </Switch>
     </React.Fragment>
