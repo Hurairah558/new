@@ -1,11 +1,11 @@
 
 .Admission_Form{
-	background: red;
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 	overflow: hidden;
-	background: url("../Login_Form/1.jpg") no-repeat center/ cover;
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
-	padding: 50px;
+	padding: 70px;
+	margin: 70px;
 }
 #chk{
 	display: none;

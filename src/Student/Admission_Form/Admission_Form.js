@@ -29,21 +29,28 @@ function Admission_Form() {
 	]
 
 	const MatricBoard = [
+		{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Matric_Board" },
+		{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Matric_Board" },
+		{ value: 'Faisalabad', label: 'Faisalabad', Name : "Matric_Board" },
 		{ value: 'Gujranwala', label: 'Gujranwala', Name : "Matric_Board" },
 		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
+		{ value: 'Multan', label: 'Multan', Name : "Matric_Board" },
+		{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Matric_Board" },
+		{ value: 'Sargodha', label: 'Sargodha', Name : "Matric_Board" },
 	]
 
 	const InterBoard = [
+		{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Inter_Board" },
+		{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Inter_Board" },
+		{ value: 'Faisalabad', label: 'Faisalabad', Name : "Inter_Board" },
 		{ value: 'Gujranwala', label: 'Gujranwala', Name : "Inter_Board" },
 		{ value: 'Lahore', label: 'Lahore', Name : "Inter_Board" },
+		{ value: 'Multan', label: 'Multan', Name : "Inter_Board" },
+		{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Inter_Board" },
+		{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
 	]
 
+	const [validate,setvalidate] = useState("")
 
 	const [formdata,setformdata] = useState({
 		Full_Name : "",
@@ -81,26 +88,27 @@ function Admission_Form() {
   
 	  const set = (e) => {
 		e.preventDefault()
-		if (formdata.Gender === "" || formdata.Department === "" || formdata.Matric_Board === "" || formdata.Inter_Board === "")
-		{
-		  console.log("Incomplete Form")
-		}
-		else
-		{
-		  axios.post(`http://127.0.0.1:8000/post/admissionform`,formdata)
-		  .then((res)=>{console.log("Yes",res)})
+		  axios.post(`http://localhost:3001/addmissonform`,formdata)
+		  .then((res)=>{
+			  console.log("Yes",res.data)
+			  if (res.data.message){
+			  setvalidate(res.data.message)
+			  }
+			  else{
+				setvalidate(res.data)
+			  }
+			})
 		  .catch((err)=>{console.log("No",err)})
-		}
 	  }
 
   return (
     <React.Fragment>
 		<div className="Admission_Form">
-			<input type="checkbox" id="chk" aria-hidden="true"/>
 			<div className="signup">
 				<div className="container">
 					<form>
 						<label className="Admission_Label">Admission Form</label>
+						<h3 className="Admission_Label">{validate}</h3>
 						<div className="row">
 							<div className="col" id="div1">
 								<h2 className="Admission_Form_Category">Personal Info</h2>
@@ -109,10 +117,10 @@ function Admission_Form() {
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Full_Name" placeholder="Username" required=""/>
 								<p className="Admission_p">Father's Name</p>
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Father_Name" placeholder="Father's Name" required=""/>
-								<p className="Admission_p">CNIC</p>
-								<input className="Admission_Form_Input" onChange={change} type="text" name="CNIC" placeholder="CNIC" required=""/>
 								<p className="Admission_p">Gender</p>
 								<Select className="Admission_Form_Select" onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required />
+								<p className="Admission_p">CNIC</p>
+								<input className="Admission_Form_Input" onChange={change} type="text" name="CNIC" placeholder="CNIC" required=""/>
 								<p className="Admission_p">Date Of Birth</p>
 								<div className="form-group" id="datetime">
 									<input onChange={change} type="date" name="DOB" className="form-control" required />
@@ -137,6 +145,8 @@ function Admission_Form() {
 									<input type="number" name="Matric_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric"  required/>
 									<p className="Admission_p">Obtained_Marks</p>
 									<input type="number" name="Matric_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Matric" required />
+									<p className="Admission_p">Matric Year</p>
+									<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Matric Year" required />
 									<p className="Admission_p">Matric_Board</p>
 									<Select name="Matric_Board" onChange={changeselect} className="Admission_Form_Select" placeholder="Select Board" options={MatricBoard} required />
 							</div>
@@ -149,6 +159,8 @@ function Admission_Form() {
 									<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
 									<p className="Admission_p">Obtained_Marks</p>
 									<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required />
+									<p className="Admission_p">Inter Year</p>
+									<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required />
 									<p className="Admission_p">Inter_Board</p>
 									<Select className="Admission_Form_Select" onChange={changeselect} name="Inter_Board" placeholder="Select Board" options={InterBoard} required />
 							</div>
