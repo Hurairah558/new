@@ -48,6 +48,9 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/hod/admissions" className="nav-link text-white" href="#">Admissions</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/hod/admissions" className="nav-link text-white" href="#">Merit List</Link>
+                        </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown

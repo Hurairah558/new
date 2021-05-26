@@ -108,7 +108,7 @@ function Admission_Form() {
 			<div className="signup">
 				<div className="container">
 					<form>
-						<label className="Admission_Label">Admission Form</label>
+						<label className="Admission_Label">Admission Form</label>z
 						<h3 className="Admission_Label">{validate}</h3>
 						<div className="row">
 							<div className="col" id="div1">

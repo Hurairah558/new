@@ -3,7 +3,7 @@ import './Login_Form_Design.css';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Set_Login_Status , Set_Login_Type } from '../redux/actions/Login_Status_Actions';
+import { Set_Login_Status , Set_Login_Type , Session_Data } from '../redux/actions/Login_Status_Actions';
 function Login () {
 
 	const dispatch = useDispatch();
@@ -28,6 +28,8 @@ function Login () {
 			if(res.data.LoggedIn){
 				dispatch(Set_Login_Status(res.data.LoggedIn))
 				dispatch(Set_Login_Type(res.data.HOD))
+				console.log(res.data.session)
+				dispatch(Session_Data(res.data.session))
 			}
 		})
 			.catch((err)=>{console.log(err)})

@@ -13,3 +13,17 @@ export const Set_Login_Type = (LoginType) => {
         payload : LoginType
     }
 }
+
+export const Merit_List_Data = (data) => {
+    return {
+        type : ActionType.Merit_List_Data,
+        payload : data
+    }
+}
+
+export const Session_Data = (Session_Datas) => {
+    return {
+        type : ActionType.Session_Data,
+        payload : Session_Datas
+    }
+}
