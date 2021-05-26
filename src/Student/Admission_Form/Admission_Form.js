@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './Admission_Form_Design.css';
 import Select from 'react-select';
 import axios from 'axios';
@@ -10,6 +10,7 @@ function Admission_Form() {
 		{ value: 'Female', label: 'Female', Name : "Gender" },
 	]
 	
+	axios.defaults.withCredentials = true
 	
 	const Department = [
 		{ value: 'BBA', label: 'BBA', Name : "Department" },
@@ -92,7 +93,7 @@ function Admission_Form() {
 		  .then((res)=>{
 			  console.log("Yes",res.data)
 			  if (res.data.message){
-			  setvalidate(res.data.message)
+			  	setvalidate(res.data.message)
 			  }
 			  else{
 				setvalidate(res.data)

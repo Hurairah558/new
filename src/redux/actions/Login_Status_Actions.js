@@ -6,3 +6,10 @@ export const Set_Login_Status = (IsLogin) => {
         payload : IsLogin
     }
 }
+
+export const Set_Login_Type = (LoginType) => {
+    return {
+        type : ActionType.Set_Login_Type,
+        payload : LoginType
+    }
+}

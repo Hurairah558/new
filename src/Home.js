@@ -3,26 +3,13 @@ import axios from 'axios';
 import {Redirect} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Set_Login_Status } from './redux/actions/Login_Status_Actions';
+import SideMenu from './Fixed Components/SideMenu';
 function Home() {
 
   const IsLogin = useSelector((state)=>state.Login.IsLogin)
   const dispatch = useDispatch();
 
   axios.defaults.withCredentials = true;
-
-
-  const Logout = () => {
-    axios.post("http://localhost:3001/logout").then((res)=>{
-      if(res.data.LoggedIn == false){
-				dispatch(Set_Login_Status(res.data.LoggedIn))}
-		})
-    .catch((err)=>{
-      console.log(err)
-    })
-  }
-
-
-
 
 
   useEffect(() => {
@@ -48,10 +35,10 @@ function Home() {
 
   return (
     <React.Fragment>
-        <div>
+      <SideMenu/>
+        <section>
           <h1>Home Page</h1>
-          <button onClick={Logout} >Logout</button>
-        </div>
+        </section>
     </React.Fragment>
   );
 }

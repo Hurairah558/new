@@ -1,35 +1,25 @@
 import React from 'react'
 import './SideMenu_Design.css';
+import {Link} from 'react-router-dom';
 const SideMenu = () => {
     return (
         <React.Fragment>
+            <input type="checkbox" id="check"/>
+            <label id="check">
+                <i className="fas fa-bars" id="btn"></i>
+                <i className="fas fa-times" id="cancel"></i>
+            </label>
             <div className="sidebar">
-                
-                <div className="sidebar-menu">
-                    <ul>
-                        <li>
-                            <a href="" className="active"><span className="las la-igloo"></span>
-                                <span>Dashboard</span></a>
-                        </li>
-                        <li>
-                            <a href=""><span className="las la-users"></span><span>Students</span></a>
-                        </li>
-                        <li>
-                            <a href=""><span className="las la-clipboard-list"></span><span>Departments</span></a>
-                        </li>
-                        <li>
-                            <a href=""><span className="las la-shopping-bag"></span><span>Shift</span></a>
-                        </li>
-                        <li>
-                            <a href=""><span className="las la-receipt"></span><span>Student Info</span></a>
-                        </li><li>
-                            <a href=""><span className="las la-user-circle"></span><span>Accounts</span></a>
-                        </li>
-                        <li>
-                            <a href=""><span className="las la-clipboard-list"></span><span>Task</span></a>
-                        </li>
-                    </ul>
-                </div>
+                <header>My App</header>
+                <ul>
+                    <li><a href="#"><i className="fas fa-qrcode"></i>Dashboard</a></li>
+                    <li><Link to="/hod/admissions"><i className="fas fa-link"></i>Admissions</Link></li>
+                    <li><Link to="/hod/meritlist"><i className="fas fa-stream"></i>Merit List</Link></li>
+                    <li><a href="#"><i className="fas fa-calendar-week"></i>Events</a></li>
+                    <li><a href="#"><i className="far fa-question-circle"></i>About</a></li>
+                    <li><a href="#"><i className="fas fa-sliders-h"></i>Services</a></li>
+                    <li><a href="#"><i className="far fa-envelope"></i>Contact</a></li>
+                </ul>
             </div>
         </React.Fragment>
     )

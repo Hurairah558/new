@@ -1,11 +1,13 @@
+import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import SideMenu from '../../Fixed Components/SideMenu';
+
 const Admissions = () => {
 
     const [data,setdata] = useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/student/admissions").then((res)=>{
+        axios.get("http://localhost:3001/hod/admissions").then((res)=>{
             setdata(res.data.data)
         }).catch((err)=>{console.log(err)})
     },[])
@@ -18,19 +20,22 @@ const Admissions = () => {
     
     return (
         <React.Fragment>
-            <div className="Student" >
+            <SideMenu/>
+            <section>
             <h1>Total Admissions : {data.length}</h1>
             { data.map((student,index)=>{
-                return (  
+                return (     
                     <div className="card m-4" key={index}>
                         <div className="card-body">
-                            <h5 className="card-title">{student.Full_Name}</h5>
-                            <p className="card-text">{student.Department}</p>
+                            <h5 className="card-title">Name : {student.Full_Name}</h5>
+                            <p className="card-text">Dept : {student.Department}</p>
+                            <p className="card-text">CNIC : {student.CNIC}</p>
+                            <p className="card-text">Inter Marks : {student.Inter_Obtained_Marks}</p>
                             <a href="#" className="btn btn-primary">View</a>
                         </div>
                     </div>
             )})}
-            </div>
+            </section>
         </React.Fragment>
     )
 }
