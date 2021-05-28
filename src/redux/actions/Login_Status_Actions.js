@@ -14,9 +14,9 @@ export const Set_Login_Type = (LoginType) => {
     }
 }
 
-export const Merit_List_Data = (data) => {
+export const MeritList_Controller = (data) => {
     return {
-        type : ActionType.Merit_List_Data,
+        type : ActionType.MeritList_Controller,
         payload : data
     }
 }

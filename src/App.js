@@ -7,7 +7,7 @@ import Header from './Fixed Components/Header';
 import Student_Addmissions from './Student/Admissions/Admissions';
 import Admissions from './HOD/Admissions/Admissions';
 import Merit_List from './Student/Merit_List/Merit_List';
-import MeritListData from './HOD/MeritListData/MeritListData';
+import MeritListData from './HOD/MeritList_Controller/MeritList_Controller';
 function App() {
   return (
     <React.Fragment>
@@ -19,7 +19,7 @@ function App() {
           <Route exact path="/student/admissions" component={Student_Addmissions}/>
           <Route exact path="/hod/admissions" component={Admissions}/>
           <Route exact path="/hod/meritlist" component={Merit_List}/>
-          <Route exact path="/hod/meritlistdata" component={MeritListData}/>
+          <Route exact path="/hod/meritlistcontroller" component={MeritListData}/>
       </Switch>
     </React.Fragment>
   );

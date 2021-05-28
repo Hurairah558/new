@@ -14,7 +14,7 @@ const SideMenu = () => {
                 <ul>
                     <li><a href="#"><i className="fas fa-qrcode"></i>Dashboard</a></li>
                     <li><Link to="/hod/admissions"><i className="fas fa-link"></i>Admissions</Link></li>
-                    <li><Link to="/hod/meritlistdata"><i className="fas fa-stream"></i>Merit List</Link></li>
+                    <li><Link to="/hod/meritlistcontroller"><i className="fas fa-stream"></i>Merit List</Link></li>
                     <li><a href="#"><i className="fas fa-calendar-week"></i>Events</a></li>
                     <li><a href="#"><i className="far fa-question-circle"></i>About</a></li>
                     <li><a href="#"><i className="fas fa-sliders-h"></i>Services</a></li>
