@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import './Admission_Form_Design.css';
 import Select from 'react-select';
 import axios from 'axios';
+import Header from '../Header/Header';
 
 function Admission_Form() {
 
@@ -104,6 +105,7 @@ function Admission_Form() {
 
   return (
     <React.Fragment>
+		<Header/>
 		<div className="Admission_Form">
 			<div className="signup">
 				<div className="container">

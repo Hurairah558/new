@@ -1,44 +1,13 @@
-import React, { useState , useEffect} from 'react';
-import './SideMenu_Design.css';
-import {Link,Redirect} from 'react-router-dom';
+import React from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 
 const Header = () => {
 
     axios.defaults.withCredentials = true;
 
-    const [login,setlogin] = useState(localStorage.getItem("HOD"))
-
-    useEffect(() => {
-        axios.get("http://localhost:3001/loginstatus").then((res)=>{
-        if(res.data.LoggedIn==false){
-            localStorage.removeItem("HOD")
-            setlogin(localStorage.getItem("HOD"))
-        }
-            })
-        .catch((err)=>{
-        console.log(err)
-        })
-    },[login]);
-
-
-    const Logout = () => {
-        localStorage.removeItem("HOD")
-        axios.post("http://localhost:3001/logout").then((res)=>{
-            setlogin(localStorage.getItem("HOD"))
-            })
-        .catch((err)=>{
-          console.log(err)
-        })
-      }
-
-
     return (
         <React.Fragment>
-            {login==null?
-          <Redirect to="/login" />:
-          <div></div>
-      }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
                 <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
@@ -50,10 +19,13 @@ const Header = () => {
                 <div className="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to="/hod/students" className="nav-link text-white" href="#">Students</Link>
+                            <Link to="/admissionform" className="nav-link text-white" href="#">Admission Form</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/hod/meritlistcontroller" className="nav-link text-white" href="#">Merit List Controller</Link>
+                            <Link to="/student/admissions" className="nav-link text-white" href="#">Total Admissions</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/student/meritlist" className="nav-link text-white" href="#">Merit List</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,11 +41,6 @@ const Header = () => {
                         <li className="nav-item">
                             <a className="nav-link text-white disabled" href="#">Disabled</a>
                         </li>
-                        { login!=null?
-                        <button className="btn btn-primary" onClick={Logout}>Logout</button>
-                        :
-                        <div></div>
-                    }
                     </ul>
                 </div>
             </nav>

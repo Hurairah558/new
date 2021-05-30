@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import SideMenu from "../../Fixed Components/SideMenu";
+import Header from "../Header/Header";
 const Admissions = () => {
 
     const [data,setdata] = useState([])
@@ -18,6 +20,7 @@ const Admissions = () => {
     
     return (
         <React.Fragment>
+            <Header/>
             <div className="Student" >
             <h1>Total Admissions : {data.length}</h1>
             { data.map((student,index)=>{

@@ -2,9 +2,7 @@ import axios from 'axios'
 import Select from 'react-select';
 import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { MeritList_Controller } from '../../redux/actions/Login_Status_Actions';
-import SideMenu from '../../Fixed Components/SideMenu';
+import Header from '../../Fixed Components/Header';
 const MeritListData = () => {
 
     axios.defaults.withCredentials = true;
@@ -71,6 +69,7 @@ const MeritListData = () => {
     }
 
     const changeselect = (e) => {
+        setmessage("")
 		setFormData({
 		  ...formData,
 		  [e.Name] : e.value
@@ -93,9 +92,8 @@ const MeritListData = () => {
 
     return (
         <React.Fragment>
-            <SideMenu/>
+            <Header/>
             <section>
-                <h1>Dept : {CurrentData.Department}</h1>
                 <h1>{message}</h1>
                 <div className="row d-flex justify-content-end">
                     <div className="col" id="Merit_List_Data">
@@ -122,6 +120,9 @@ const MeritListData = () => {
                             </div>
                             <div className="col">
                                 <p className="Merit_List">Display &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Display==1?"True":"False"}</p>
+                            </div>
+                            <div className="col">
+                                <p className="Merit_List">Department &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Department}</p>
                             </div>
                         </div>
                     </div>
