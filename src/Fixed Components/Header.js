@@ -24,8 +24,8 @@ const Header = () => {
 
     const Logout = () => {
         localStorage.removeItem("HOD")
+        setlogin(localStorage.getItem("HOD"))
         axios.post("http://localhost:3001/logout").then((res)=>{
-            setlogin(localStorage.getItem("HOD"))
             })
         .catch((err)=>{
           console.log(err)
@@ -54,6 +54,9 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <Link to="/hod/meritlistcontroller" className="nav-link text-white" href="#">Merit List Controller</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">Time Table Generate</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

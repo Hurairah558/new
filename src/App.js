@@ -7,6 +7,8 @@ import Student_Addmissions from './Student/Admissions/Admissions';
 import Students from './HOD/Students/Students';
 import Merit_List from './Student/Merit_List/Merit_List';
 import MeritListData from './HOD/MeritList_Controller/MeritList_Controller';
+import TimeTable_Generate from './HOD/TimeTable_Generate/TimeTable_Generate';
+import Time_Table from './Student/Time Table/Time_Table';
 function App() {
   return (
     <React.Fragment>
@@ -18,6 +20,8 @@ function App() {
           <Route exact path="/hod/students" component={Students}/>
           <Route exact path="/student/meritlist" component={Merit_List}/>
           <Route exact path="/hod/meritlistcontroller" component={MeritListData}/>
+          <Route exact path="/hod/timetablegenerate" component={TimeTable_Generate}/>
+          <Route exact path="/student/timetable" component={Time_Table}/>
       </Switch>
     </React.Fragment>
   );

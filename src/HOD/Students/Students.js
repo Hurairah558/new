@@ -30,8 +30,6 @@ const Admissions = () => {
     }
 
     const toggles=(e)=>{
-        // console.log(e.target.textContent)
-        // console.log(e.target.id)
         let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
         axios.post(`http://localhost:3001/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
         }))

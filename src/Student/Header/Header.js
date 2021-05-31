@@ -25,6 +25,9 @@ const Header = () => {
                             <Link to="/student/admissions" className="nav-link text-white" href="#">Total Admissions</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/student/timetable" className="nav-link text-white" href="#">Time Table</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/student/meritlist" className="nav-link text-white" href="#">Merit List</Link>
                         </li>
                         <li className="nav-item dropdown">
