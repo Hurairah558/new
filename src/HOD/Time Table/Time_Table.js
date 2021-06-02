@@ -5,29 +5,12 @@ const Time_Table = () => {
 
     const [data,setdata] = useState([])
 
-    const login = JSON.parse(localStorage.getItem("HOD"))
+    const login = localStorage.getItem("HOD")
 
     axios.defaults.withCredentials= true;
 
-    const Department = [
-		{ value: 'BBA', label: 'BBA', Name : "Department" },
-		{ value: 'Botany', label: 'Botany', Name : "Department" },
-		{ value: 'Chemistry', label: 'Chemistry', Name : "Department" },
-		{ value: 'Economics', label: 'Economics', Name : "Department" },
-		{ value: 'English', label: 'English', Name : "Department" },
-		{ value: 'Physics', label: 'Physics', Name : "Department" },
-		{ value: 'Political Science', label: 'Political Science', Name : "Department" },
-		{ value: 'Psychology', label: 'Psychology', Name : "Department" },
-		{ value: 'Mathematics', label: 'Mathematics', Name : "Department" },
-		{ value: 'Statistics', label: 'Statistics', Name : "Department" },
-		{ value: 'Information Technology', label: 'Information Technology', Name : "Department" },
-		{ value: 'Islamiyat', label: 'Islamiyat', Name : "Department" },
-		{ value: 'Urdu', label: 'Urdu', Name : "Department" },
-		{ value: 'Zoology', label: 'Zoology', Name : "Department" },
-	]
-
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/timetable",{Department:login}).then((res)=>{
                 setdata(res.data.data)
         })
     },[data])
@@ -36,6 +19,18 @@ const Time_Table = () => {
         axios.delete(`http://localhost:3001/api/hod/timetable/${id}`).then((res)=>{
         })
     }
+
+
+
+    // data.map((item)=>{
+    //     Instructors.map((item2)=>{
+    //         if (item2.Instructor!=item.Instructor){
+
+    //             console.log(item2.Instructor)
+                
+    //         }
+    //     })
+    // })
 
     return (
         <React.Fragment>

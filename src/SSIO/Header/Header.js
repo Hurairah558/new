@@ -1,5 +1,4 @@
-import React, { useState , useEffect} from 'react';
-import './SideMenu_Design.css';
+import React,{useState,useEffect} from 'react';
 import {Link,Redirect} from 'react-router-dom';
 import axios from 'axios';
 
@@ -19,7 +18,7 @@ const Header = () => {
         .catch((err)=>{
         console.log(err)
         })
-    },[]);
+    },[login]);
 
 
     const Logout = () => {
@@ -50,13 +49,10 @@ const Header = () => {
                 <div className="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to="/hod/students" className="nav-link text-white" href="#">Students</Link>
+                            <Link to="/ssio/students" className="nav-link text-white" href="#">Students</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/hod/meritlistcontroller" className="nav-link text-white" href="#">Merit List Controller</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">Time Table Generate</Link>
+                            <Link to="/ssio/freeinstructors" className="nav-link text-white" href="#">Free Instructors</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -83,4 +79,5 @@ const Header = () => {
         </React.Fragment>
     )
 }
+
 export default Header;

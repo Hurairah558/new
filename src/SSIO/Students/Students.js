@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
-import Headers from '../../Fixed Components/Header';
+import Headers from '../Header/Header';
 import { Button, Header, Modal } from 'semantic-ui-react'
 
 const Students = () => {
@@ -20,27 +20,6 @@ const Students = () => {
         }).catch((err)=>{console.log(err)})
     },[])
 
-    const update_data = () => {
-        axios.get("http://localhost:3001/hod/students").then((res)=>{
-            setdata(res.data.data)
-        }).catch((err)=>{console.log(err)})
-    }
-
-
-    const Delete=(id)=>{
-        axios.delete(`http://localhost:3001/hod/students/${id}`).then((res)=>{
-            update_data()
-            // Delete Success Message
-        })
-    }
-
-    const toggles=(e)=>{
-        let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
-        axios.post(`http://localhost:3001/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
-            update_data()
-        }))
-    }
-
     if (login==null){
         return <Redirect to="/login"/>;
     }
@@ -55,10 +34,9 @@ const Students = () => {
     return (
         <React.Fragment>
             <Headers/>
-            {console.log(login)}
             <section>
-            <h1>Total Students in {login} : {data.filter((student)=>student.Department==login).length}</h1>
-            { data.filter((student)=>student.Department==login).map((student,index)=>{
+            <h1>Total Students in GMC : {data.length}</h1>
+            { data.map((student,index)=>{
                 return (     
                     <div className="card m-4" key={index}>
                         <div className="card-body">
@@ -74,10 +52,6 @@ const Students = () => {
                             <p className="card-text"><b>Fee Status</b> : {student.Fee_Status}</p>
                             <p className="card-text"><b>Shift</b> : {student.Shift}</p>
                             <Modals student={student} />
-                            <Button toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
-                                {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
-                            </Button>
-                            <button onClick={() => Delete(student.id)} className="ml-4 btn btn-danger">Delete</button>
                         </div>
                     </div>
             )})}

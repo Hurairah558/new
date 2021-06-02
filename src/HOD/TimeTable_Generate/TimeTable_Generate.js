@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
 import TimeTable from "../Time Table/Time_Table";
@@ -10,10 +10,10 @@ const TimeTable_Generate = () => {
 
     const [Instructors, setInstructors] = useState([])
 
-    const login = JSON.parse(localStorage.getItem("HOD"))
+    const login = localStorage.getItem("HOD")
 
     const [FormData, setFormData] = useState({
-		Department: login.Department,
+		Department: login,
 		Instructor: '',
         Instructor_Department : '',
         Semester: '',

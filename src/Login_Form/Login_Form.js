@@ -7,6 +7,7 @@ function Login () {
 
 	const checklog = localStorage.getItem("HOD")
 
+
 	const [login,setlogin] = useState(localStorage.getItem("HOD"))
 
 	axios.defaults.withCredentials = true
@@ -24,12 +25,19 @@ function Login () {
 		e.preventDefault()
 		axios.post("http://localhost:3001/login",{formData}).then((res)=>{
 			if(res.data.LoggedIn){
-				localStorage.setItem("HOD",JSON.stringify(res.data.session))
+				localStorage.setItem("HOD",res.data.session)
 				setlogin(localStorage.getItem("HOD"))
 			}
 		})
 			.catch((err)=>{console.log(err)})
 	}
+
+	if (login==="SSIO"){
+		return(
+			<Redirect to="/ssio/students" />
+		   )
+	}
+
 
 	if (login!=null){
 		return(

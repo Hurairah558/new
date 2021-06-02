@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from './Student/Header/Header';
-function Home() {
+class Home extends React.Component{
+render(){
 
   return (
     <React.Fragment>
@@ -8,6 +9,7 @@ function Home() {
           <h1 className="mb-4 d-flex justify-content-center fixed-bottom" >Home Page</h1>
     </React.Fragment>
   );
+}
 }
 
 
