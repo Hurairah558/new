@@ -1,0 +1,160 @@
+.Voucher{
+    position: absolute;
+    margin-top: 100px;
+}
+
+#copy{
+    margin-left: 0px;
+}
+
+.copy_name{
+    position: absolute;
+    margin-top: 124px !important;
+    margin-left: 113px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+}
+
+.date{
+    position: absolute;
+    margin-top: 182px !important;
+    margin-left: 150px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.shift{
+    position: absolute;
+    margin-top: 217px !important;
+    margin-left: 172px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Name{
+    position: absolute;
+    margin-top: 235px !important;
+    margin-left: 144px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Father{
+    position: absolute;
+    margin-top: 253px;
+    margin-left: 133px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Roll{
+    position: absolute;
+    margin-top: 270px;
+    margin-left: 133px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Department{
+    position: absolute;
+    margin-top: 288px;
+    margin-left: 113px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Semester{
+    position: absolute;
+    margin-top: 305px;
+    margin-left: 80px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.Session{
+    position: absolute;
+    margin-top: 305px;
+    margin-left: 198px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.amount1{
+    position: absolute;
+    margin-top: 388px;
+    margin-left: 224px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.amount2{
+    position: absolute;
+    margin-top: 450px;
+    margin-left: 224px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.amount3{
+    position: absolute;
+    margin-top: 471px;
+    margin-left: 224px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.amount4{
+    position: absolute;
+    margin-top: 492px;
+    margin-left: 224px;
+    z-index: 500;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.amount_words{
+    position: absolute;
+    margin-top: 524px;
+    margin-left: 9px;
+    z-index: 500;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+#pdf{
+    margin-top: 1500px;
+    /* margin-bottom: 2000px; */
+    /* margin-left:-5; */
+}
+
+/* #pdf:first-child{
+    margin-top: 0px !important;
+} */
+
+@media (orientation: portrait){
+    #pdf{
+        transform: rotate(-90deg);
+        transform-origin: left top;
+    }
+    /*div[class^='col-xs'], div[class*='col-xs']{
+        width: 100%;
+    }*/
+ }
+
+/* 
+@page { 
+    size: landscape;
+} */

@@ -10,6 +10,8 @@ import MeritListData from './HOD/MeritList_Controller/MeritList_Controller';
 import TimeTable_Generate from './HOD/TimeTable_Generate/TimeTable_Generate';
 import Time_Table from './Student/Time Table/Time_Table';
 import Students_SSIO from './SSIO/Students/Students';
+import Students_RO from './RO/Students/Students';
+import Voucher from './RO/Voucher/Voucher';
 import Free_Instructors from './SSIO/Free_Instructors/Free_Instructors';
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route exact path="/hod/timetablegenerate" component={TimeTable_Generate}/>
           <Route exact path="/student/timetable" component={Time_Table}/>
           <Route exact path="/ssio/students" component={Students_SSIO}/>
+          <Route exact path="/ro/students" component={Students_RO}/>
+          <Route exact path="/ro/voucher" component={Voucher}/>
           <Route exact path="/ssio/freeinstructors" component={Free_Instructors}/>
       </Switch>
     </React.Fragment>

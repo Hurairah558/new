@@ -32,6 +32,12 @@ function Login () {
 			.catch((err)=>{console.log(err)})
 	}
 
+	if (login==="RO"){
+		return(
+			<Redirect to="/ro/students" />
+		   )
+	}
+
 	if (login==="SSIO"){
 		return(
 			<Redirect to="/ssio/students" />
