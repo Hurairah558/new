@@ -3,8 +3,14 @@
     margin-top: 100px;
 }
 
+.space{
+    margin-top: 700px;
+}
+
 #copy{
-    margin-left: 0px;
+    position: relative;
+    margin-left: 5px;
+    margin-right: 10px;
 }
 
 .copy_name{
@@ -20,7 +26,7 @@
 .date{
     position: absolute;
     margin-top: 182px !important;
-    margin-left: 150px;
+    margin-left: 186px;
     z-index: 500;
     font-size: 13px;
     font-weight: bold;
@@ -65,7 +71,7 @@
 .Department{
     position: absolute;
     margin-top: 288px;
-    margin-left: 113px;
+    margin-left: 131px;
     z-index: 500;
     font-size: 13px;
     font-weight: bold;
@@ -134,15 +140,11 @@
     font-weight: bold;
 }
 
-#pdf{
-    margin-top: 1500px;
-    /* margin-bottom: 2000px; */
-    /* margin-left:-5; */
-}
-
 /* #pdf:first-child{
     margin-top: 0px !important;
 } */
+
+
 
 @media (orientation: portrait){
     #pdf{
@@ -154,7 +156,7 @@
     }*/
  }
 
-/* 
+
 @page { 
     size: landscape;
-} */
+}

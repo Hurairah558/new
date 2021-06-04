@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import Headers from '../Header/Header';
-import { Button, Header, Modal } from 'semantic-ui-react'
+import { Button, Header, Modal } from 'semantic-ui-react';
 
 const Students = () => {
 

@@ -1,32 +1,60 @@
-import React, { useState,useEffect } from 'react';
+import React, {useRef, useState,useEffect } from 'react';
 import Header from './Student/Header/Header';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { render } from "react-dom";
+import { useReactToPrint } from "react-to-print";
+import Vouchers from './RO/Voucher/Voucher.JPG'
 
-class Home extends React.Component{
+class ComponentToPrint extends React.Component {
 
-  
-
-    render() {
-
-      function printt(){
-
-      html2canvas(document.getElementById('root')).then((canvas) => {
-        const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF("landscape");
-        pdf.addImage(imgData, 'PNG', 0, 0);
-        pdf.save("download.pdf");  
-      });
-      }
-      return (
-        <React.Fragment>
-        {/* <Header/> */}
-        <div className='App'>
-          <h1>Hurairah</h1>
+  render() {
+    return (
+      <div>
+        <div className="row" id="pdf" >
+            <div className="col-md-12" id="copy" >
+                <p className="date">3-June-21</p>
+                <p className="shift">Morning</p>
+                <p className="Name">Abu Hurairah</p>
+                <p className="Father" >Malik</p>
+                <p className="Roll" >17651556-18</p>
+                <p className="Department" >Information Technology</p>
+                <p className="Semester" >8</p>
+                <p className="Session" >2017-21</p>
+                <p className="amount1" >4500/-</p>
+                <p className="amount2" >4200/-</p>
+                <p className="amount3" >300/-</p>
+                <p className="amount4" >4500/-</p>
+                <p className="amount_words" >Fourty Five Hundred</p>
+                <div className="Voucher">
+                    <img src={Vouchers} />
+                </div>
+            </div>
+            <div className="space" ></div>
         </div>
-        <button onClick={printt} > Click </button>
-        </React.Fragment>
-      )
-    }
+      </div>
+    );
   }
-export default Home;
+}
+
+// const Example = () => {
+//   const componentRef = useRef();
+//   const handlePrint = useReactToPrint({
+//     content: () => componentRef.current,
+//   });
+
+//   const list=[1,2,3]
+
+//   return (
+//     <>
+//       {list.map((record)=>{
+//         return(
+//           <div>
+//             <ComponentToPrint ref={componentRef} />
+//             <button onClick={handlePrint}>Print this out!</button>
+//         </div>
+//         );
+//       })}
+//       </>
+//   );
+// };
+
+export default ComponentToPrint;
