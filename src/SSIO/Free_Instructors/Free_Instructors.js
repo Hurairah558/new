@@ -5,7 +5,8 @@ import Header from "../Header/Header";
 
 const Free_Instructors = () => {
 
-    const [data,setdata] = useState([]);
+    const [busy,setbusy] = useState([]);
+    const [free,setfree] = useState([]);
 
 
     const Time_Slot = [
@@ -22,8 +23,13 @@ const Free_Instructors = () => {
 
     const changeselect = (e) => {
 
-        axios.post("http://localhost:3001/api/ssio/freeinstructors",{Time_Slot:e.value}).then((res)=>{
-            setdata(res.data.data)
+        axios.post("http://localhost:3001/api/ssio/busyinstructors",{Time_Slot:e.value}).then((res)=>{
+            setbusy(res.data.data)
+
+            axios.post("http://localhost:3001/api/hod/instructors",{Time_Slot:e.value}).then((res)=>{
+                setfree(res.data.data)
+            })
+
     })
 }
 
@@ -33,9 +39,18 @@ const Free_Instructors = () => {
             <section>
             <p className="Admission_p">Select Time Slot</p>
             <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-            { data.length>0? <h1>Total Free Teachers in GMC : {data.length}</h1>:<div></div>}
+            { busy.length>0? <h1>Total Free Teachers in GMC : {busy.length}</h1>:<div></div>}
 
-            { data.map((record,index)=>{
+            { busy.map((record,index)=>{
+                return (     
+                    <div className="card m-4" key={index}>
+                        <div className="card-body">
+                        <h5 className="card-title"><b>Instructor</b> : {record.Instructor}</h5>
+                        </div>
+                    </div>)
+            })}
+            <hr/>
+            { free.map((record,index)=>{
                 return (     
                     <div className="card m-4" key={index}>
                         <div className="card-body">
