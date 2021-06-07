@@ -13,6 +13,8 @@ import Students_SSIO from './SSIO/Students/Students';
 import Students_RO from './RO/Students/Students';
 import Voucher from './RO/Voucher/Voucher';
 import Free_Instructors from './SSIO/Free_Instructors/Free_Instructors';
+import Announcement from './SSIO/Announcement/Announcement';
+import Announcements from './Student/Announcements/Announcements';
 function App() {
   return (
     <React.Fragment>
@@ -30,6 +32,8 @@ function App() {
           <Route exact path="/ro/students" component={Students_RO}/>
           <Route exact path="/ro/voucher" component={Voucher}/>
           <Route exact path="/ssio/freeinstructors" component={Free_Instructors}/>
+          <Route exact path="/ssio/announcement" component={Announcement}/>
+          <Route exact path="/student/announcements" component={Announcements}/>
       </Switch>
     </React.Fragment>
   );

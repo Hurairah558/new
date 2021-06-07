@@ -14,7 +14,7 @@ const Students = () => {
     const login = localStorage.getItem("HOD")
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/hod/students").then((res)=>{
+        axios.get("http://localhost:3001/api/all/students").then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{console.log(err)})

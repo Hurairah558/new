@@ -30,6 +30,9 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/student/meritlist" className="nav-link text-white" href="#">Merit List</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/student/announcements" className="nav-link text-white" href="#">Announcements</Link>
+                        </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown

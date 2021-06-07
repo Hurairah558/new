@@ -25,7 +25,7 @@ function Login () {
 		e.preventDefault()
 		axios.post("http://localhost:3001/login",{formData}).then((res)=>{
 			if(res.data.LoggedIn){
-				localStorage.setItem("HOD",res.data.session)
+				localStorage.setItem("HOD",res.data.session.Department)
 				setlogin(localStorage.getItem("HOD"))
 			}
 		})

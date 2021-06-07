@@ -14,21 +14,21 @@ const Students = () => {
     const login = localStorage.getItem("HOD")
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/hod/students").then((res)=>{
+        axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{console.log(err)})
     },[])
 
     const update_data = () => {
-        axios.get("http://localhost:3001/hod/students").then((res)=>{
+        axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
             setdata(res.data.data)
         }).catch((err)=>{console.log(err)})
     }
 
 
     const Delete=(id)=>{
-        axios.delete(`http://localhost:3001/hod/students/${id}`).then((res)=>{
+        axios.delete(`http://localhost:3001/api/hod/students/${id}`).then((res)=>{
             update_data()
             // Delete Success Message
         })
@@ -36,7 +36,7 @@ const Students = () => {
 
     const toggles=(e)=>{
         let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
-        axios.post(`http://localhost:3001/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
+        axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
             update_data()
         }))
     }
@@ -55,7 +55,6 @@ const Students = () => {
     return (
         <React.Fragment>
             <Headers/>
-            {console.log(login)}
             <section>
             <h1>Total Students in {login} : {data.filter((student)=>student.Department==login).length}</h1>
             { data.filter((student)=>student.Department==login).map((student,index)=>{
