@@ -48,8 +48,8 @@ textarea{
 	width: 300px;
 	height: 40px;
 	margin: 10px auto;
-	margin-left: 100px;
-	justify-content: center;
+	/* margin-left: 100px; */
+	/* justify-content: start; */
 	display: block;
 	color: #fff;
 	background: #573b8a;

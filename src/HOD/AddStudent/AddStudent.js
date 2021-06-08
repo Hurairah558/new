@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react';
-import './Admission_Form_Design.css';
 import Select from 'react-select';
 import axios from 'axios';
-import Header from '../Header/Header';
+import Header from '../../Fixed Components/Header';
 
-function Admission_Form() {
+function AddStudent() {
+
+    const login = localStorage.getItem("HOD")
 
 	const Gender = [
 		{ value: 'Male', label: 'Male', Name : "Gender" },
@@ -52,9 +53,35 @@ function Admission_Form() {
 		{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
 	]
 
+    const Semester = [
+		{ value: '1', label: '1', Name : "Semester" },
+		{ value: '2', label: '2', Name : "Semester" },
+		{ value: '3', label: '3', Name : "Semester" },
+		{ value: '4', label: '4', Name : "Semester" },
+		{ value: '5', label: '5', Name : "Semester" },
+		{ value: '6', label: '6', Name : "Semester" },
+		{ value: '7', label: '7', Name : "Semester" },
+		{ value: '8', label: '8', Name : "Semester" },
+		{ value: '9', label: '9', Name : "Semester" },
+		{ value: '10', label: '10', Name : "Semester" },
+		{ value: '11', label: '11', Name : "Semester" },
+		{ value: '12', label: '12', Name : "Semester" },
+	]
+
+    const Shift = [
+		{ value: 'Morning', label: 'Morning', Name : "Shift" },
+		{ value: 'Evening', label: 'Evening', Name : "Shift" },
+	]
+
+    const Fee_Status = [
+		{ value: 'Paid', label: 'Paid', Name : "Fee_Status" },
+		{ value: 'UnPaid', label: 'UnPaid', Name : "Fee_Status" },
+	]
+
 	const [validate,setvalidate] = useState("")
 
 	const [formdata,setformdata] = useState({
+        Roll : "",
 		Full_Name : "",
 		Father_Name : "",
 		Gender : "",
@@ -63,7 +90,7 @@ function Admission_Form() {
 		Email : "",
 		Phone : "",
 		Address : "",
-		Department : "",
+		Department : login,
 		Matric_Roll : "",
 		Matric_Total_Marks : "",
 		Matric_Obtained_Marks : "",
@@ -72,6 +99,9 @@ function Admission_Form() {
 		Inter_Total_Marks : "",
 		Inter_Obtained_Marks : "",
 		Inter_Board : "",
+        Semester : "",
+        Fee_Status : "",
+        Shift : ""
 	  });
   
 	  const change = (e) => {
@@ -90,7 +120,7 @@ function Admission_Form() {
   
 	  const set = (e) => {
 		e.preventDefault()
-		  axios.post(`http://localhost:3001/addmissonform`,formdata)
+		  axios.post(`http://localhost:3001/api/hod/addstudent`,formdata)
 		  .then((res)=>{
 			  if (res.data.message){
 			  	setvalidate(res.data.message)
@@ -112,9 +142,11 @@ function Admission_Form() {
 						<label className="Admission_Label">Admission Form</label>z
 						<h3 className="Admission_Label">{validate}</h3>
 						<div className="row">
-							<div className="col" id="div1">
+							<div className="col-md-3" id="div1">
 								<h2 className="Admission_Form_Category">Personal Info</h2>
 								<hr/>
+                                <p className="Admission_p">Roll No.</p>
+								<input className="Admission_Form_Input" onChange={change} type="text" name="Roll" placeholder="Roll No." required=""/>
 								<p className="Admission_p">Full Name</p>
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Full_Name" placeholder="Full Name" required=""/>
 								<p className="Admission_p">Father's Name</p>
@@ -128,7 +160,7 @@ function Admission_Form() {
 									<input onChange={change} type="date" name="DOB" className="form-control" required />
 								</div>
 							</div>
-							<div className="col" id="div1">
+							<div className="col-md-3" id="div1">
 								<h2 className="Admission_Form_Category">Contact</h2>
 								<hr/>
 								<p className="Admission_p">Email</p>
@@ -138,10 +170,10 @@ function Admission_Form() {
 								<p className="Admission_p">Address</p>
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Address" placeholder="Address" required=""/>
 							</div>
-							<div className="col" id="div1">
+							<div className="col-md-3" id="div1">
 								<h2 className="Admission_Form_Category">Matric Details</h2>
 								<hr className="col-md-12" />
-									<p className="Admission_p">Roll</p>
+									<p className="Admission_p">Matric Roll</p>
 									<input type="number" name="Matric_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Matric Roll #"  required/>
 									<p className="Admission_p">Total_Marks</p>
 									<input type="number" name="Matric_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric"  required/>
@@ -152,10 +184,10 @@ function Admission_Form() {
 									<p className="Admission_p">Matric_Board</p>
 									<Select name="Matric_Board" onChange={changeselect} className="Admission_Form_Select" placeholder="Select Board" options={MatricBoard} required />
 							</div>
-							<div className="col">
+							<div className="col-md-3">
 								<h2 className="Admission_Form_Category"><b>Inter Details</b></h2>
 								<hr className="col-md-12" />
-									<p className="Admission_p">Roll</p>
+									<p className="Admission_p">Inter Roll</p>
 									<input type="number" name="Inter_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Inter Roll #"  required/>
 									<p className="Admission_p">Total_Marks</p>
 									<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
@@ -166,12 +198,27 @@ function Admission_Form() {
 									<p className="Admission_p">Inter_Board</p>
 									<Select className="Admission_Form_Select" onChange={changeselect} name="Inter_Board" placeholder="Select Board" options={InterBoard} required />
 							</div>
-							<div className="Admission_Form_Select_Dept" style={{width:"200px"}}>	
-								<p className="Admission_Select_p">BS Department</p>
-								<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />							
-								<button className="Admission_Form_button" onClick={set} >Apply</button>
-							</div>
-						</div>  
+						</div>
+                        <hr/>
+                        <div className="row">
+                            <div className="col-md-4">
+                                <p className="Admission_p">Semester</p>
+                                <Select name="Semester" onChange={changeselect} className="Admission_Form_Select" placeholder="Semester" options={Semester} required />
+                            </div>
+                            <div className="col-md-4">
+                                <p className="Admission_p">Shift</p>
+                                <Select name="Shift" onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
+                            </div>
+                            <div className="col-md-4">
+                                <p className="Admission_p">Fee Status</p>
+                                <Select name="Fee_Status" onChange={changeselect} className="Admission_Form_Select" placeholder="Fee Status" options={Fee_Status} required />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-12">
+                                <button className="Admission_Form_button" onClick={set} >Apply</button>
+                            </div>
+                        </div>
 					</form>
 				</div>
 			</div>
@@ -179,4 +226,4 @@ function Admission_Form() {
     </React.Fragment>
   );
 }
-export default Admission_Form;
+export default AddStudent;
