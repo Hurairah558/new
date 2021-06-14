@@ -36,11 +36,9 @@ const Merit_List = () => {
 
             axios.post("http://localhost:3001/hod/meritlistcurrent",{Department:e.value}).then((res)=>{
                 setmerit(res.data.data[0])
-
-                axios.post("http://localhost:3001/hod/meritlist",{Department:e.value}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
                     setdata(res.data.data)
                 })
-    
         })
 
     }
@@ -49,10 +47,10 @@ const Merit_List = () => {
         <React.Fragment>
             <Header/>
             <div className="Student">
-                <Select className="ml-4 w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                <Select className="ml-4 w-25" value={merit.Department} onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
             </div>
             {merit.Display==1?
-             data.slice(merit.NOS_Start-1,merit.NOS_End-1).map((student,index)=>{
+             data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
                 return (     
                     <div className="card m-4" key={student.id}>
                         <div className="card-body">

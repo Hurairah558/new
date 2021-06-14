@@ -139,7 +139,7 @@ function AddStudent() {
 			<div className="signup">
 				<div className="container">
 					<form>
-						<label className="Admission_Label">Admission Form</label>z
+						<label className="Admission_Label">Add Student</label>z
 						<h3 className="Admission_Label">{validate}</h3>
 						<div className="row">
 							<div className="col-md-3" id="div1">

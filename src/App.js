@@ -16,6 +16,7 @@ import Free_Instructors from './SSIO/Free_Instructors/Free_Instructors';
 import Announcement from './SSIO/Announcement/Announcement';
 import Announcements from './Student/Announcements/Announcements';
 import AddStudent from './HOD/AddStudent/AddStudent';
+import HOD_Admissions from './HOD/Admissions/Admissions';
 function App() {
   return (
     <React.Fragment>
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/ssio/announcement" component={Announcement}/>
           <Route exact path="/student/announcements" component={Announcements}/>
           <Route exact path="/hod/addstudent" component={AddStudent}/>
+          <Route exact path="/hod/admissions" component={HOD_Admissions}/>
       </Switch>
     </React.Fragment>
   );

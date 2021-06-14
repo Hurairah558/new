@@ -52,6 +52,11 @@ function Admission_Form() {
 		{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
 	]
 
+	const Shift = [
+		{ value: 'Morning', label: 'Morning', Name : "Shift" },
+		{ value: 'Evening', label: 'Evening', Name : "Shift" },
+	]
+
 	const [validate,setvalidate] = useState("")
 
 	const [formdata,setformdata] = useState({
@@ -64,6 +69,7 @@ function Admission_Form() {
 		Phone : "",
 		Address : "",
 		Department : "",
+		Shift : "",
 		Matric_Roll : "",
 		Matric_Total_Marks : "",
 		Matric_Obtained_Marks : "",
@@ -90,7 +96,7 @@ function Admission_Form() {
   
 	  const set = (e) => {
 		e.preventDefault()
-		  axios.post(`http://localhost:3001/addmissonform`,formdata)
+		  axios.post(`http://localhost:3001/api/student/addmissonform`,formdata)
 		  .then((res)=>{
 			  if (res.data.message){
 			  	setvalidate(res.data.message)
@@ -166,10 +172,16 @@ function Admission_Form() {
 									<p className="Admission_p">Inter_Board</p>
 									<Select className="Admission_Form_Select" onChange={changeselect} name="Inter_Board" placeholder="Select Board" options={InterBoard} required />
 							</div>
-							<div className="Admission_Form_Select_Dept" style={{width:"200px"}}>	
-								<p className="Admission_Select_p">BS Department</p>
-								<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />							
-								<button className="Admission_Form_button" onClick={set} >Apply</button>
+							<div className="row">
+								<div className="col-md-6 Admission_Form_Select_Dept" style={{width:"200px"}}>	
+									<p className="Admission_Select_p">BS Department</p>
+									<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />							
+								</div>
+								<div className="col-md-6 Admission_Form_Select_Dept" style={{width:"200px"}}>	
+									<p className="Admission_Select_p">Shift</p>
+									<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required />							
+									<button className="Admission_Form_button" onClick={set} >Apply</button>
+								</div>
 							</div>
 						</div>  
 					</form>

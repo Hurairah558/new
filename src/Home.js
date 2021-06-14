@@ -16,26 +16,4 @@ class ComponentToPrint extends React.Component {
   }
 }
 
-// const Example = () => {
-//   const componentRef = useRef();
-//   const handlePrint = useReactToPrint({
-//     content: () => componentRef.current,
-//   });
-
-//   const list=[1,2,3]
-
-//   return (
-//     <>
-//       {list.map((record)=>{
-//         return(
-//           <div>
-//             <ComponentToPrint ref={componentRef} />
-//             <button onClick={handlePrint}>Print this out!</button>
-//         </div>
-//         );
-//       })}
-//       </>
-//   );
-// };
-
 export default ComponentToPrint;
