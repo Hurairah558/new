@@ -2,7 +2,7 @@ import axios from 'axios';
 import React,{useState} from 'react'
 import Select from 'react-select';
 import Header from "../Header/Header";
-const Merit_List = () => {
+const Merit_List2 = () => {
 
     const [data,setdata] = useState([])
 
@@ -34,9 +34,9 @@ const Merit_List = () => {
 
     const changeselect = (e) => {
 
-            axios.post("http://localhost:3001/hod/meritlistcurrent",{Department:e.value}).then((res)=>{
+            axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:e.value}).then((res)=>{
                 setmerit(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
                     setdata(res.data.data)
                 })
         })
@@ -47,7 +47,7 @@ const Merit_List = () => {
         <React.Fragment>
             <Header/>
             <div className="Student">
-                <h1>Morning Shift</h1>
+                <h1>Evening Shift</h1>
                 <Select className="ml-4 w-25" value={merit.Department} onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
             </div>
             {merit.Display==1?
@@ -70,4 +70,4 @@ const Merit_List = () => {
     )
 }
 
-export default Merit_List;
+export default Merit_List2;

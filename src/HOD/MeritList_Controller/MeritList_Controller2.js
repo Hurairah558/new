@@ -3,7 +3,7 @@ import Select from 'react-select';
 import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
-const MeritListData = () => {
+const MeritList_Controller2 = () => {
     
     axios.defaults.withCredentials = true;
 
@@ -28,9 +28,9 @@ const MeritListData = () => {
     })
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/hod/meritlistcurrent",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
                     setdata(res.data.data)
                 })
         })
@@ -51,9 +51,9 @@ const MeritListData = () => {
 
 
       const update_data = () => {
-        axios.post("http://localhost:3001/hod/meritlistcurrent",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
                     setdata(res.data.data)
                 })
     
@@ -61,7 +61,7 @@ const MeritListData = () => {
       }
 
     const Apply_MeritList =()=>{
-        axios.post("http://localhost:3001/hod/meritlistcontroller",{formData}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcontroller2",{formData}).then((res)=>{
             if(res.data.message){
                 setmessage(res.data.message)
                 update_data()
@@ -77,7 +77,7 @@ const MeritListData = () => {
     }
 
     const changeselectYear = (e) => {
-        axios.post("http://localhost:3001/hod/meritlist",{Department:login,Year: e.value}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: e.value}).then((res)=>{
             setdata(res.data.data)
         })
 	  }
@@ -107,7 +107,7 @@ const MeritListData = () => {
             <Header/>
             <section>
                 <h1>{message}</h1>
-                <h1>Morning Shift</h1>
+                <h1>Evening Shift</h1>
                 <div className="row d-flex justify-content-end">
                     <div className="col" id="Merit_List_Data">
                         <h2 className="Admission_Form_Category">Manage Merit List</h2>
@@ -163,4 +163,4 @@ const MeritListData = () => {
     )
 }
 
-export default MeritListData;
+export default MeritList_Controller2;

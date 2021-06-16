@@ -53,9 +53,6 @@ const Header = () => {
                             <Link to="/hod/students" className="nav-link text-white" href="#">Students</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/hod/meritlistcontroller" className="nav-link text-white" href="#">Merit List Controller</Link>
-                        </li>
-                        <li className="nav-item">
                             <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">Time Table Generate</Link>
                         </li>
                         <li className="nav-item">
@@ -66,11 +63,11 @@ const Header = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                            Merit List Controller
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
+                            <Link to="/hod/meritlistcontroller" className="nav-link text-dark"> Morning </Link>
+                            <Link to="/hod/meritlistcontroller2" className="nav-link text-dark"> Evening </Link>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#">Something else here</a>
                             </div>

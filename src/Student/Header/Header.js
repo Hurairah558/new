@@ -28,18 +28,15 @@ const Header = () => {
                             <Link to="/student/timetable" className="nav-link text-white" href="#">Time Table</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/student/meritlist" className="nav-link text-white" href="#">Merit List</Link>
-                        </li>
-                        <li className="nav-item">
                             <Link to="/student/announcements" className="nav-link text-white" href="#">Announcements</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Dropdown
+                                Merit List
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a className="dropdown-item" href="#">Action</a>
-                            <a className="dropdown-item" href="#">Another action</a>
+                            <Link to="/student/meritlist" className="nav-link text-dark">Morning</Link>
+                            <Link to="/student/meritlist2" className="nav-link text-dark">Evening</Link>
                             <div className="dropdown-divider"></div>
                             <a className="dropdown-item" href="#">Something else here</a>
                             </div>
