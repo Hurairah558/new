@@ -14,7 +14,7 @@ const Students = () => {
     const login = localStorage.getItem("HOD")
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/hod/students").then((res)=>{
+        axios.get("http://localhost:3001/api/all/students").then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{console.log(err)})
@@ -36,7 +36,7 @@ const Students = () => {
             <Headers/>
             <section>
             <h1>Total Students in GMC : {data.length}</h1>
-            {/* { data.map((student,index)=>{
+            { data.map((student,index)=>{
                 return (     
                     <div className="card m-4" key={index}>
                         <div className="card-body">
@@ -54,7 +54,7 @@ const Students = () => {
                             <Modals student={student} />
                         </div>
                     </div>
-            )})} */}
+            )})}
             </section>
         </React.Fragment>
     )

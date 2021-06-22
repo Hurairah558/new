@@ -40,7 +40,7 @@ const Header = () => {
       }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
+                <Link to="/instructor/home"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>
@@ -49,16 +49,7 @@ const Header = () => {
                 <div className="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link to="/ssio/students" className="nav-link text-white" href="#">Students</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/ssio/freeinstructors" className="nav-link text-white" href="#">Free Instructors</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/ssio/announcement" className="nav-link text-white" href="#">Announcement</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/ssio/awardlists" className="nav-link text-white" href="#">Award Lists</Link>
+                            <Link to="/instructor/awardlist" className="nav-link text-white" href="#">Award List</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

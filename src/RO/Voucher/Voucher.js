@@ -3,6 +3,7 @@ import './Voucher_Design.css';
 import Vouchers from './Voucher.JPG';
 import Header from '../Header/Header';
 import ReactToPrint from 'react-to-print';
+// import { ComponentToPrint } from './ComponentToPrint';
 import { useReactToPrint } from 'react-to-print';
 import Pdf from "react-to-pdf";
 import ReactDOMServer from "react-dom/server";
@@ -13,47 +14,44 @@ import { renderToString } from "react-dom/server";
 import Printer, { print } from 'react-pdf-print';
 
 
-const Voucher =()=> {
-
-    var list = [1,2,3,4,5]
-    return (
-        <React.Fragment>
-            {list.map((record,index)=>{
-        return(
-            <div>
-                <h1 className="d-flex justify-content-center">{index+1}</h1>
-                <div className="row" >
-                    <div className="col-md-12" id="copy" >
-                        <p className="copy_name">1-Bank Copy</p>
-                        <p className="date">3-June-21</p>
-                        <p className="shift">Morning</p>
-                        <p className="Name">Abu Hurairah</p>
-                        <p className="Father" >Malik</p>
-                        <p className="Roll" >17651556-18</p>
-                        <p className="Department" >Information Technology</p>
-                        <p className="Semester" >8</p>
-                        <p className="Session" >2017-21</p>
-                        <p className="amount1" >4500/-</p>
-                        <p className="amount2" >4200/-</p>
-                        <p className="amount3" >300/-</p>
-                        <p className="amount4" >4500/-</p>
-                        <p className="amount_words" >Fourty Five Hundred</p>
-                        <div className="Voucher">
-                            <img src={Vouchers} />
-                        </div>
-                        <div className="space" ></div>
-                    </div>
-                </div>
-            </div>
-        );
-    })}
+class ComponentToPrint extends React.PureComponent {
+    render() {
+      return (
+          <React.Fragment>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>data 1</td>
+                        <td>data 2</td>
+                        <td>data 3</td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr>
+                        <td className="second">data 4</td>
+                        <td className="second">data 5</td>
+                        <td className="second">data 6</td>
+                    </tr>
+                </tbody>
+            </table>
         </React.Fragment>
+      );
+    }
+  }
+
+  const Example = () => {
+    const componentRef = useRef();
+  
+    return (
+      <div>
+        <ReactToPrint
+          trigger={() => <button>Print this out!</button>}
+          content={() => componentRef.current}
+        />
+        <ComponentToPrint ref={componentRef} />
+      </div>
     );
-    
-}
- 
+  };
 
-export default Voucher;
-
-
+export default Example;
 

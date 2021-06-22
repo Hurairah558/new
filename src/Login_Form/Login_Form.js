@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import './Login_Form_Design.css';
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
@@ -32,6 +32,12 @@ function Login () {
 			.catch((err)=>{console.log(err)})
 	}
 
+	if (login==="Teacher"){
+		return(
+			<Redirect to="/instructor/home" />
+		   )
+	}
+
 	if (login==="RO"){
 		return(
 			<Redirect to="/ro/students" />
@@ -40,7 +46,7 @@ function Login () {
 
 	if (login==="SSIO"){
 		return(
-			<Redirect to="/ssio/students" />
+			<Redirect to="/ssio/freeinstructors" />
 		   )
 	}
 

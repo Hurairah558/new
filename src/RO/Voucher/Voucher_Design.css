@@ -1,4 +1,4 @@
-.Voucher{
+/* .Voucher{
     position: absolute;
     margin-top: 100px;
 }
@@ -146,7 +146,7 @@
 
 
 
-@media (orientation: portrait){
+/* @media (orientation: portrait){
     #pdf{
         transform: rotate(-90deg);
         transform-origin: left top;
@@ -154,9 +154,41 @@
     /*div[class^='col-xs'], div[class*='col-xs']{
         width: 100%;
     }*/
- }
+ /* }*/
 
 
 @page { 
     size: landscape;
+} 
+
+td,tr,thead,tbody,table{
+    position: fixed;
+}
+
+td:first-child{
+    margin-top:100px;
+    margin-left:0;
+}
+
+td:nth-child(2){
+    margin-top:100px;
+    margin-left:50px;
+}
+
+td:last-child{
+    margin-top:100px;
+    margin-left:100px;
+}
+
+.second:first-child{
+    margin-top:100px;
+    margin-left:150px;
+}
+.second:nth-child(2){
+    margin-top:100px;
+    margin-left:200px;
+}
+.second:last-child{
+    margin-top:100px;
+    margin-left:250px;
 }
