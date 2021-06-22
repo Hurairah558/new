@@ -22,6 +22,7 @@ import Announcements from './Student/Announcements/Announcements';
 import AddStudent from './HOD/AddStudent/AddStudent';
 import HOD_Admissions from './HOD/Admissions/Admissions';
 import Awardlist from './Instructor/Award list/Award list';
+import AwardlistDetails from './SSIO/AwardLists/Details';
 import InstructorHome from './Instructor/Home/Home';
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/hod/addstudent" component={AddStudent}/>
           <Route exact path="/hod/admissions" component={HOD_Admissions}/>
           <Route exact path="/instructor/awardlist" component={Awardlist}/>
+          <Route exact path="/ssio/awardlistdetails" component={AwardlistDetails}/>
           <Route exact path="/instructor/home" component={InstructorHome}/>
       </Switch>
     </React.Fragment>
