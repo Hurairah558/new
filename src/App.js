@@ -11,6 +11,10 @@ import MeritList_Controller from './HOD/MeritList_Controller/MeritList_Controlle
 import MeritList_Controller2 from './HOD/MeritList_Controller/MeritList_Controller2';
 import AddInstructor from './HOD/AddInstructor/AddInstructor';
 import TimeTable_Generate from './HOD/TimeTable_Generate/TimeTable_Generate';
+import Datesheet from './HOD/Datesheet/Datesheet';
+import Datesheet2 from './HOD/Datesheet/Datesheet2';
+import DatesheetStudent from './Student/Datesheet/Datesheet';
+import DatesheetStudent2 from './Student/Datesheet/Datesheet2';
 import Time_Table from './Student/Time Table/Time_Table';
 import Students_SSIO from './SSIO/Students/Students';
 import Awardlists from './SSIO/AwardLists/AwardLists';
@@ -39,6 +43,10 @@ function App() {
           <Route exact path="/hod/meritlistcontroller2" component={MeritList_Controller2}/>
           <Route exact path="/hod/addinstructor" component={AddInstructor}/>
           <Route exact path="/hod/timetablegenerate" component={TimeTable_Generate}/>
+          <Route exact path="/hod/datesheet" component={Datesheet}/>
+          <Route exact path="/hod/datesheet2" component={Datesheet2}/>
+          <Route exact path="/student/datesheet" component={DatesheetStudent}/>
+          <Route exact path="/student/datesheet2" component={DatesheetStudent2}/>
           <Route exact path="/student/timetable" component={Time_Table}/>
           <Route exact path="/ssio/students" component={Students_SSIO}/>
           <Route exact path="/ssio/awardlists" component={Awardlists}/>

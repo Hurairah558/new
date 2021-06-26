@@ -66,6 +66,15 @@ const Header = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Datesheet
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link to="/hod/datesheet" className="nav-link text-dark"> Morning </Link>
+                            <Link to="/hod/datesheet2" className="nav-link text-dark"> Evening </Link>
+                            </div>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Merit List Controller
                             </a>
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
