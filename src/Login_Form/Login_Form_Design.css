@@ -32,9 +32,24 @@
 	transition: .2s ease-in;
 }
 
+.button{
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	color: #fff;
+}
+.button:hover{
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.buttonPaid{
+	background-color: #00A300;
+	color: #fff;
+}
+.buttonPaid:hover{
+	background-color: #00D100;
+	color: #fff;
+}
+
 .Student{
 	margin-top: 100px;
-	margin-left: 100px;
 }
 
 .Login_Button{

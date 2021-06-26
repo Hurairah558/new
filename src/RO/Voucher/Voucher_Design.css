@@ -162,7 +162,7 @@
 } 
 
 td,tr,thead,tbody,table{
-    position: fixed;
+    /* position: fixed; */
 }
 
 td:first-child{

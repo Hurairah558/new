@@ -3,6 +3,7 @@ import Select from 'react-select';
 import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
+import { Table } from 'semantic-ui-react';
 const MeritList_Controller2 = () => {
     
     axios.defaults.withCredentials = true;
@@ -105,60 +106,85 @@ const MeritList_Controller2 = () => {
     return (
         <React.Fragment>
             <Header/>
-            <section>
-                <h1>{message}</h1>
-                <h1>Evening Shift</h1>
-                <div className="row d-flex justify-content-end">
-                    <div className="col" id="Merit_List_Data">
-                        <h2 className="Admission_Form_Category">Manage Merit List</h2>
-                        <hr/>
-                        <p className="Admission_p">Merit List</p>
-                        <Select className="Admission_Form_Select" onChange={changeselect} name="MeritList" placeholder="Merit List" options={MeritList} required />
-                        <p className="Admission_p">Starts From</p>
-                        <input className="Admission_Form_Input" value={formData.Start} onChange={change} type="text" name="Start" placeholder="0" required=""/>
-                        <p className="Admission_p">Ends at</p>
-                        <input className="Admission_Form_Input" value={formData.End} onChange={change} type="text" name="End" placeholder="55" required=""/>
-                        <p className="Admission_p">Diplay Merit List</p>
-                        <Select className="Admission_Form_Select" onChange={changeselect} name="Display" placeholder="Diplay Merit List" options={Display} required />
-                        <button className="Login_Button" onClick={Apply_MeritList} >Apply Changes</button>
-                    </div>
-                    <div className="col d-flex justify-content-start">
-                        <div id="Merit_List_Data">
-                        <h2 className="Admission_Form_Category">Currently</h2>
-                            <div className="col">
-                                <p className="Merit_List">Merit List &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.MeritList}</p>
-                            </div>
-                            <div className="col">
-                                <p className="Merit_List">Students &nbsp;&nbsp;: &nbsp;&nbsp;From {CurrentData.NOS_Start} to {CurrentData.NOS_End}</p>
-                            </div>
-                            <div className="col">
-                                <p className="Merit_List">Display &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Display==1?"True":"False"}</p>
-                            </div>
-                            <div className="col">
-                                <p className="Merit_List">Department &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Department}</p>
+            <div className="Student">
+                <div class="container">
+                    <h1>{message}</h1>
+                    <div className="row d-flex justify-content-end">
+                        <div className="col" id="Merit_List_Data">
+                            <h2 className="Admission_Form_Category">Manage Merit List</h2>
+                            <hr/>
+                            <p className="Admission_p">Merit List</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} name="MeritList" placeholder="Merit List" options={MeritList} required />
+                            <p className="Admission_p">Starts From</p>
+                            <input className="Admission_Form_Input" value={formData.Start} onChange={change} type="text" name="Start" placeholder="0" required=""/>
+                            <p className="Admission_p">Ends at</p>
+                            <input className="Admission_Form_Input" value={formData.End} onChange={change} type="text" name="End" placeholder="55" required=""/>
+                            <p className="Admission_p">Diplay Merit List</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} name="Display" placeholder="Diplay Merit List" options={Display} required />
+                            <button className="Login_Button" onClick={Apply_MeritList} >Apply Changes</button>
+                        </div>
+                        <div className="col d-flex justify-content-start">
+                            <div id="Merit_List_Data">
+                                <h2 className="Admission_Form_Category">Currently</h2>
+                                <div className="col">
+                                    <p className="Merit_List">Merit List &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.MeritList}</p>
+                                </div>
+                                <div className="col">
+                                    <p className="Merit_List">Students &nbsp;&nbsp;: &nbsp;&nbsp;From {CurrentData.NOS_Start} to {CurrentData.NOS_End}</p>
+                                </div>
+                                <div className="col">
+                                    <p className="Merit_List">Display &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Display==1?"True":"False"}</p>
+                                </div>
+                                <div className="col">
+                                    <p className="Merit_List">Department &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Department}</p>
+                                </div>
+                                <div className="col">
+                                    <p className="Merit_List">Shift &nbsp;&nbsp;: &nbsp;&nbsp;Evening</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <hr/>
+                    <Select className="Admission_Form_Select" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
+                    {CurrentData.NOS_End-1>0?
+                        <div class="row">
+                            <div className="col-md-12">
+                                <Table celled selectable color="grey">
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                            <Table.HeaderCell>ID</Table.HeaderCell>
+                                            <Table.HeaderCell>Name</Table.HeaderCell>
+                                            <Table.HeaderCell>Father's Name'</Table.HeaderCell>
+                                            <Table.HeaderCell>Department</Table.HeaderCell>
+                                            <Table.HeaderCell>CNIC</Table.HeaderCell>
+                                            <Table.HeaderCell>Inter Marks</Table.HeaderCell>
+                                            <Table.HeaderCell>Year</Table.HeaderCell>
+                                            <Table.HeaderCell>Shift</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    <Table.Body>               
+                                        {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End-1).map((student,index)=>{
+                                            return (     
+                                                <Table.Row key={index}>
+                                                    <Table.Cell><b>{index+1}</b></Table.Cell>
+                                                    <Table.Cell><b>{student.id}</b></Table.Cell>
+                                                    <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
+                                                    <Table.Cell>{student.Father_Name}</Table.Cell>
+                                                    <Table.Cell>{student.Department}</Table.Cell>
+                                                    <Table.Cell>{student.CNIC}</Table.Cell>
+                                                    <Table.Cell>{student.Inter_Obtained_Marks}</Table.Cell>
+                                                    <Table.Cell>{student.Year}</Table.Cell>
+                                                    <Table.Cell>{student.Shift}</Table.Cell>
+                                                </Table.Row>
+                                        )})}
+                                    </Table.Body>
+                                </Table>
+                            </div>
+                        </div>
+                    :<div></div>}
                 </div>
-                <hr/>
-                <p className="Admission_p">Select Year</p>
-			<Select className="Admission_Form_Select" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
-                {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End-1).map((student,index)=>{
-                return (     
-                    <div className="card m-4" key={student.id}>
-                        <div className="card-body">
-                            <h5 className="card-title">Name : {student.Full_Name}</h5>
-                            <p className="card-text">Index : {index+1}</p>
-                            <p className="card-text">ID : {student.id}</p>
-                            <p className="card-text">Dept : {student.Department}</p>
-                            <p className="card-text">CNIC : {student.CNIC}</p>
-                            <p className="card-text">Inter Marks : {student.Inter_Obtained_Marks}</p>
-                            <p className="card-text">Inter Marks : {student.Year}</p>
-                            <p className="card-text">Inter Marks : {student.Shift}</p>
-                        </div>
-                    </div>
-            )})}
-            </section>
+            </div>
         </React.Fragment>
     )
 }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
+import { Table } from 'semantic-ui-react';
 
 const TimeTable_Generate = () => {
 
@@ -153,51 +154,79 @@ const TimeTable_Generate = () => {
     return (
         <React.Fragment>
             <Header/>
-            <section>
-                <div className="row" id="Merit_List_Data">
-                    <div className="col-md-6">
-                        <h2 className="Admission_Form_Category">Time Table Generate</h2>
-                        <hr/>
-                        <p className="Admission_p">Instructor Department</p>
-                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
-                        <p className="Admission_p">Select Instructor</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
-                        <p className="Admission_p">Select Semester</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Semester}  name="Semester" placeholder="Select Semester" required />
-                        <p className="Admission_p">Course Code</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                    </div>
-                    <div className="col-md-6 mt-4">
-                        <p className="Admission_p">Course Title</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
-                        <p className="Admission_p">Time Slot</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-                        <p className="Admission_p">Shift</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Shift}  name="Shift" placeholder="Shift" required />
-                        <p className="Admission_p">Room No.</p>
-                        <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Room_no}  name="Room_no" placeholder="Room No." required />
-                        <button className="Login_Button" onClick={send} >Apply Changes</button>
-                    </div>
-                </div>
-                {data.map((timetable,index)=>{
-                return (     
-                    <div className="card m-4" key={timetable.id}>
-                        <div className="card-body">
-                            <p className="card-text">Index : {index+1}</p>
-                            <h5 className="card-title">	Instructor : {timetable.Instructor}</h5>
-                            <p className="card-text">Instructor's Department : {timetable.Instructor_Department}</p>
-                            <p className="card-text">Course Title : {timetable.Course_Title}</p>
-                            <p className="card-text">Course Code : {timetable.Course_Code}</p>
-                            <p className="card-text">Semester : {timetable.Semester}</p>
-                            <p className="card-text">Time_Slot : {timetable.Time_Slot}</p>
-                            <p className="card-text">Shift : {timetable.Shift}</p>
-                            <p className="card-text">Room_no : {timetable.Room_no}</p>
-                            <button className="btn btn-danger" onClick={()=>Delete(timetable.id)} >Delete</button>
+            <div className="Student">
+                <div class="container">
+                    <div className="row" id="Merit_List_Data">
+                        <div className="col-md-6">
+                            <h2 className="Admission_Form_Category">Time Table Generate</h2>
+                            <hr/>
+                            <p className="Admission_p">Instructor Department</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
+                            <p className="Admission_p">Select Instructor</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
+                            <p className="Admission_p">Select Semester</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Semester}  name="Semester" placeholder="Select Semester" required />
+                            <p className="Admission_p">Course Code</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                        </div>
+                        <div className="col-md-6 mt-4">
+                            <p className="Admission_p">Course Title</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
+                            <p className="Admission_p">Time Slot</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                            <p className="Admission_p">Shift</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Shift}  name="Shift" placeholder="Shift" required />
+                            <p className="Admission_p">Room No.</p>
+                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Room_no}  name="Room_no" placeholder="Room No." required />
+                            <button className="Login_Button" onClick={send} >Apply Changes</button>
                         </div>
                     </div>
-            )})
-            }
-            </section>
+                    <hr/>
+                    {data.length>0?
+                        <>
+                            <h1>Currently Displaying Time Table</h1>
+                            <div class="row">
+                                <div className="col-md-12">
+                                    <Table celled selectable>
+                                        <Table.Header>
+                                            <Table.Row>
+                                                <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell>Instructor's Department</Table.HeaderCell>
+                                                <Table.HeaderCell>Course Title</Table.HeaderCell>
+                                                <Table.HeaderCell>Course Code</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
+                                                <Table.HeaderCell>Time</Table.HeaderCell>
+                                                <Table.HeaderCell>Shift</Table.HeaderCell>
+                                                <Table.HeaderCell>Room #</Table.HeaderCell>
+                                                <Table.HeaderCell>Delete</Table.HeaderCell>
+                                            </Table.Row>
+                                        </Table.Header>
+                                        <Table.Body>
+                                            {data.map((timetable,index)=>{
+                                            return (
+                                                <Table.Row key={index}>
+                                                    <Table.Cell>{index+1}</Table.Cell>
+                                                    <Table.Cell>{timetable.Instructor}</Table.Cell>
+                                                    <Table.Cell>{timetable.Instructor_Department}</Table.Cell>
+                                                    <Table.Cell>{timetable.Course_Title}</Table.Cell>
+                                                    <Table.Cell>{timetable.Course_Code}</Table.Cell>
+                                                    <Table.Cell>{timetable.Semester}</Table.Cell>
+                                                    <Table.Cell>{timetable.Time_Slot}</Table.Cell>
+                                                    <Table.Cell>{timetable.Shift}</Table.Cell>
+                                                    <Table.Cell>{timetable.Room_no}</Table.Cell>
+                                                    <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(timetable.id)} >Delete</button></Table.Cell>
+                                                </Table.Row>
+                                            )})
+                                            }
+                                        </Table.Body>
+                                    </Table>
+                                </div>
+                            </div>
+                        </>
+                    :<div></div>}
+                </div>
+            </div>
         </React.Fragment>
     )
 }

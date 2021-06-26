@@ -5,12 +5,10 @@
 	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 	border-radius: 10px;
 	box-shadow: 5px 20px 50px #000;
-    margin-top: 80px;
     padding: 50px;
 }
 
 .Merit_List{
     color: #fff;
-    margin-top: 30px;
     font-size: 18px;
 }

@@ -1,10 +1,10 @@
-import React, {useRef, useState,useEffect } from 'react';
+import React from 'react';
 import Header from './Student/Header/Header';
-import { render } from "react-dom";
-import { useReactToPrint } from "react-to-print";
-import Vouchers from './RO/Voucher/Voucher.JPG'
+import { Table } from 'semantic-ui-react'
 
 class ComponentToPrint extends React.Component {
+
+  l = ["sdfasdfasdfsdfsfsdfs",2,3,5,6,2,3,5]
 
   render() {
     return (

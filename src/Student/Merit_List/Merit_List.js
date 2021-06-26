@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{useState} from 'react'
 import Select from 'react-select';
 import Header from "../Header/Header";
+import { Table } from 'semantic-ui-react';
 const Merit_List = () => {
 
     const [data,setdata] = useState([])
@@ -47,25 +48,50 @@ const Merit_List = () => {
         <React.Fragment>
             <Header/>
             <div className="Student">
-                <h1>Morning Shift</h1>
-                <Select className="ml-4 w-25" value={merit.Department} onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
-            </div>
-            {merit.Display==1?
-             data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
-                return (     
-                    <div className="card m-4" key={student.id}>
-                        <div className="card-body">
-                            <h5 className="card-title">Name : {student.Full_Name}</h5>
-                            <p className="card-text">Index : {index+1}</p>
-                            <p className="card-text">ID : {student.id}</p>
-                            <p className="card-text">Dept : {student.Department}</p>
-                            <p className="card-text">CNIC : {student.CNIC}</p>
-                            <p className="card-text">Inter Marks : {student.Inter_Obtained_Marks}</p>
+                <div class="container">
+                    <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                    {data.length>0?
+                        <div class="row mt-4">
+                            <div className="col-md-12">
+                                <Table celled selectable color="grey">
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                            <Table.HeaderCell>ID</Table.HeaderCell>
+                                            <Table.HeaderCell>Name</Table.HeaderCell>
+                                            <Table.HeaderCell>Father's Name'</Table.HeaderCell>
+                                            <Table.HeaderCell>Department</Table.HeaderCell>
+                                            <Table.HeaderCell>CNIC</Table.HeaderCell>
+                                            <Table.HeaderCell>Inter Marks</Table.HeaderCell>
+                                            <Table.HeaderCell>Year</Table.HeaderCell>
+                                            <Table.HeaderCell>Shift</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {merit.Display==1?
+                                        data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
+                                            return (     
+                                                <Table.Row key={index}>
+                                                    <Table.Cell><b>{index+1}</b></Table.Cell>
+                                                    <Table.Cell><b>{student.id}</b></Table.Cell>
+                                                    <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
+                                                    <Table.Cell>{student.Father_Name}</Table.Cell>
+                                                    <Table.Cell>{student.Department}</Table.Cell>
+                                                    <Table.Cell>{student.CNIC}</Table.Cell>
+                                                    <Table.Cell>{student.Inter_Obtained_Marks}</Table.Cell>
+                                                    <Table.Cell>{student.Year}</Table.Cell>
+                                                    <Table.Cell>{student.Shift}</Table.Cell>
+                                                </Table.Row>
+                                        )}):
+                                        <h1>Not published yet</h1>
+                                        }
+                                    </Table.Body>
+                                </Table>
+                            </div>
                         </div>
-                    </div>
-            )}):
-            <h1>Not published yet</h1>
-            }
+                    :<div></div>}
+                </div>
+            </div>
         </React.Fragment>
     )
 }

@@ -71,12 +71,7 @@ const Header = () => {
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <Link to="/hod/meritlistcontroller" className="nav-link text-dark"> Morning </Link>
                             <Link to="/hod/meritlistcontroller2" className="nav-link text-dark"> Evening </Link>
-                            <div className="dropdown-divider"></div>
-                            <a className="dropdown-item" href="#">Something else here</a>
                             </div>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link text-white disabled" href="#">Disabled</a>
                         </li>
                         { login!=null?
                         <button className="btn btn-primary" onClick={Logout}>Logout</button>
