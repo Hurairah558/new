@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
+import { Table } from 'semantic-ui-react';
 
 function Details() {
 
@@ -23,19 +24,41 @@ function Details() {
         <React.Fragment>
             <Header/>
             <div className="Student">
-            {data.map((student,index)=>{
-                return(
-                    <div className="card m-4" key={index}>
-                    <div className="card-body">
-                    <h5 className="card-title"><b>Roll</b> : {student.Roll}</h5>
-                    <h5 className="card-title"><b>index</b> : {index}</h5>
-                        <h5 className="card-title"><b>Name</b> : {student.Name}</h5>
-                        <p className="card-text"><b>Mids</b> : {student.Mids}</p>
-                        <p className="card-text"><b>Sessional</b> : {student.Sessional}</p>
+                <div class="container">
+                    <h1>Currently Displaying Award List</h1>
+                        <div class="row">
+                            <div className="col-md-12">
+                                <Table celled selectable>
+                                    <Table.Header>
+                                        <Table.Row>
+                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                            <Table.HeaderCell>Roll</Table.HeaderCell>
+                                            <Table.HeaderCell>Name</Table.HeaderCell>
+                                            <Table.HeaderCell>Mids</Table.HeaderCell>
+                                            <Table.HeaderCell>Sessional</Table.HeaderCell>
+                                            <Table.HeaderCell>Shift</Table.HeaderCell>
+                                            <Table.HeaderCell>Semester</Table.HeaderCell>
+                                        </Table.Row>
+                                    </Table.Header>
+                                    <Table.Body>
+                                        {data.map((Student,index)=>{
+                                            return(
+                                                <Table.Row key={index}>
+                                                    <Table.Cell>{index+1}</Table.Cell>
+                                                    <Table.Cell>{Student.Roll}</Table.Cell>
+                                                    <Table.Cell>{Student.Name}</Table.Cell>
+                                                    <Table.Cell>{Student.Mids}</Table.Cell>
+                                                    <Table.Cell>{Student.Sessional}</Table.Cell>
+                                                    <Table.Cell>{Student.Shift}</Table.Cell>
+                                                    <Table.Cell>{Student.Fall_Spring}</Table.Cell>
+                                                </Table.Row>
+                                        )
+                                        })}
+                                    </Table.Body>
+                            </Table>
+                        </div>
                     </div>
                 </div>
-                        )
-                        })}
             </div>
         </React.Fragment>
     )

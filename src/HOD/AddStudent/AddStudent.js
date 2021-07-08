@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import Select from 'react-select';
 import axios from 'axios';
 import Header from '../../Fixed Components/Header';
+import { Button, Modal } from 'semantic-ui-react';
 
 function AddStudent() {
 
@@ -139,8 +140,6 @@ function AddStudent() {
 			<div className="signup">
 				<div className="container">
 					<form>
-						<label className="Admission_Label">Add Student</label>z
-						<h3 className="Admission_Label">{validate}</h3>
 						<div className="row">
 							<div className="col-md-3" id="div1">
 								<h2 className="Admission_Form_Category">Personal Info</h2>
@@ -199,7 +198,7 @@ function AddStudent() {
 									<Select className="Admission_Form_Select" onChange={changeselect} name="Inter_Board" placeholder="Select Board" options={InterBoard} required />
 							</div>
 						</div>
-                        <hr/>
+                        <hr style={{background:"white"}} />
                         <div className="row">
                             <div className="col-md-4">
                                 <p className="Admission_p">Semester</p>
@@ -216,7 +215,7 @@ function AddStudent() {
                         </div>
                         <div className="row">
                             <div className="col-md-12">
-                                <button className="Admission_Form_button" onClick={set} >Apply</button>
+                                <button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button>
                             </div>
                         </div>
 					</form>
@@ -227,3 +226,25 @@ function AddStudent() {
   );
 }
 export default AddStudent;
+
+
+function Modals(props) {
+	const [open, setOpen] = React.useState(false)
+	return (
+	<Modal
+	  onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+		style={{height:"23%",margin:"auto"}}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Add Student</Button>}
+	  >
+		<Modal.Header><h1>Response</h1></Modal.Header>
+		<Modal.Content image>
+			<Modal.Description>
+				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
+				<hr/>
+			</Modal.Description>
+		</Modal.Content>
+	</Modal>
+	)
+  }

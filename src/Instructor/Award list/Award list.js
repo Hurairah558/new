@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useState} from 'react';
 import { useEffect } from 'react';
+import Select from "react-select";
 import Header from '../Header/Header';
 const Awardlist = () => {
 
@@ -9,7 +10,8 @@ const Awardlist = () => {
     const [fixdata, setfixdata] = useState({
 		Course_Title: '',
 		Course_Code: '',
-		Fall_Spring: ''
+		Fall_Spring: '',
+		Shift: ''
 	  })
     
     const [data, setdata] = useState({
@@ -36,7 +38,34 @@ const Awardlist = () => {
     },[])
 
 
-    
+    const Fall_Spring = [
+		{ value: 'Fall-2021', label: 'Fall-2021', Name : "Fall_Spring" },
+		{ value: 'Spring-2021', label: 'Spring-2021', Name : "Fall_Spring" },
+		{ value: 'Fall-2022', label: 'Fall-2022', Name : "Fall_Spring" },
+		{ value: 'Spring-2022', label: 'Spring-2022', Name : "Fall_Spring" },
+		{ value: 'Fall-2023', label: 'Fall-2023', Name : "Fall_Spring" },
+		{ value: 'Spring-2023', label: 'Spring-2023', Name : "Fall_Spring" },
+		{ value: 'Fall-2024', label: 'Fall-2024', Name : "Fall_Spring" },
+		{ value: 'Spring-2024', label: 'Spring-2024', Name : "Fall_Spring" },
+		{ value: 'Fall-2025', label: 'Fall-2025', Name : "Fall_Spring" },
+		{ value: 'Spring-2025', label: 'Spring-2025', Name : "Fall_Spring" },
+		{ value: 'Fall-2026', label: 'Fall-2026', Name : "Fall_Spring" },
+		{ value: 'Spring-2026', label: 'Spring-2026', Name : "Fall_Spring" },
+		{ value: 'Fall-2027', label: 'Fall-2027', Name : "Fall_Spring" },
+		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
+	]
+
+    const Shift = [
+		{ value: 'Morning', label: 'Morning', Name : "Shift" },
+		{ value: 'Evening', label: 'Evening', Name : "Shift" },
+	]
+
+    const changeselect = (e) => {
+        setdata({
+            ...data,
+            [e.Name] : e.value
+          })
+    }
 
     
     
@@ -62,14 +91,19 @@ const Awardlist = () => {
 				    <div className="container">
                     <label className="Admission_Label">Upload Award List</label>
                     <div className="row mb-4">
-                        <div className="col-md-4">
+                        <div className="col-md-3">
                             <input className="Login_input" onChange={change} type="text" name="Course_Title" placeholder="Course Title" required=""/>
                         </div>
-                        <div className="col-md-4">
+                        <div className="col-md-3">
                             <input className="Login_input" onChange={change} type="text" name="Course_Code" placeholder="Course Code" required=""/>
                         </div>
-                        <div className="col-md-4">
-                            <input className="Login_input" onChange={change} type="text" name="Fall_Spring" placeholder="Fall / Spring" required=""/>
+                        <div className="col-md-3">
+                            <p className="Admission_p">Shift</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Select Shift" required />
+                        </div>
+                        <div className="col-md-3">
+                            <p className="Admission_p">Fall / Spring</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                         </div>
                     </div>
                     {[...Array(n)].map((elementInArray, index) => ( 

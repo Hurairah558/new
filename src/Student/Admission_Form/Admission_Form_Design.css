@@ -50,7 +50,6 @@ textarea{
 	height: 40px;
 	margin: 10px auto;
 	margin-left: 7px;
-	/* justify-content: start; */
 	display: block;
 	color: #fff;
 	background: #573b8a;
@@ -83,12 +82,9 @@ button:hover{
 	color: #fff;
 	text-decoration: underline;
 }
-/* #div1{
-	margin-right: 5%;
-} */
 .Admission_Form_Select_Dept{
 	margin: 20px auto;
-	width: 500px;
+	width: 300px;
 	margin-left: 7px;
 }
 .Admission_Select_p{
@@ -96,4 +92,8 @@ button:hover{
 	margin-left: 7px;
 	margin-bottom: -15px;
 	font-weight: bold;
+}
+
+.error{
+	margin:auto;
 }

@@ -158,7 +158,7 @@ const MeritList_Controller2 = () => {
                                             <Table.HeaderCell>Father's Name'</Table.HeaderCell>
                                             <Table.HeaderCell>Department</Table.HeaderCell>
                                             <Table.HeaderCell>CNIC</Table.HeaderCell>
-                                            <Table.HeaderCell>Inter Marks</Table.HeaderCell>
+                                            <Table.HeaderCell>Merit</Table.HeaderCell>
                                             <Table.HeaderCell>Year</Table.HeaderCell>
                                             <Table.HeaderCell>Shift</Table.HeaderCell>
                                         </Table.Row>
@@ -173,7 +173,7 @@ const MeritList_Controller2 = () => {
                                                     <Table.Cell>{student.Father_Name}</Table.Cell>
                                                     <Table.Cell>{student.Department}</Table.Cell>
                                                     <Table.Cell>{student.CNIC}</Table.Cell>
-                                                    <Table.Cell>{student.Inter_Obtained_Marks}</Table.Cell>
+                                                    <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
                                                     <Table.Cell>{student.Year}</Table.Cell>
                                                     <Table.Cell>{student.Shift}</Table.Cell>
                                                 </Table.Row>

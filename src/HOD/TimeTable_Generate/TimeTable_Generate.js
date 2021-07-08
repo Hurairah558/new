@@ -42,6 +42,7 @@ const TimeTable_Generate = () => {
 		Course_Title: '',
 		Time_Slot: '',
 		Shift: '',
+		Fall_Spring: '',
 		Room_no: ''
 	  })
 
@@ -122,6 +123,25 @@ const TimeTable_Generate = () => {
         Instructorss.push( { value: Instructor.Instructor, label: Instructor.Instructor, Name : "Instructor" })
     })
 
+
+    const Fall_Spring = [
+		{ value: 'Fall-2021', label: 'Fall-2021', Name : "Fall_Spring" },
+		{ value: 'Spring-2021', label: 'Spring-2021', Name : "Fall_Spring" },
+		{ value: 'Fall-2022', label: 'Fall-2022', Name : "Fall_Spring" },
+		{ value: 'Spring-2022', label: 'Spring-2022', Name : "Fall_Spring" },
+		{ value: 'Fall-2023', label: 'Fall-2023', Name : "Fall_Spring" },
+		{ value: 'Spring-2023', label: 'Spring-2023', Name : "Fall_Spring" },
+		{ value: 'Fall-2024', label: 'Fall-2024', Name : "Fall_Spring" },
+		{ value: 'Spring-2024', label: 'Spring-2024', Name : "Fall_Spring" },
+		{ value: 'Fall-2025', label: 'Fall-2025', Name : "Fall_Spring" },
+		{ value: 'Spring-2025', label: 'Spring-2025', Name : "Fall_Spring" },
+		{ value: 'Fall-2026', label: 'Fall-2026', Name : "Fall_Spring" },
+		{ value: 'Spring-2026', label: 'Spring-2026', Name : "Fall_Spring" },
+		{ value: 'Fall-2027', label: 'Fall-2027', Name : "Fall_Spring" },
+		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
+	]
+
+
     const changeselect = (e) => {
         setFormData({
             ...FormData,
@@ -135,10 +155,9 @@ const TimeTable_Generate = () => {
 }
 
         const changeselects = (e) => {
-            setFormData({
-                ...FormData,
-                [e.Name] : e.value
-              })
+            axios.post("http://localhost:3001/api/hod/timetable",{Department:login,Fall_Spring:e.value}).then((res)=>{
+                setdata(res.data.data)
+        })
         }
 
 
@@ -163,24 +182,28 @@ const TimeTable_Generate = () => {
                             <p className="Admission_p">Instructor Department</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
                             <p className="Admission_p">Select Instructor</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
                             <p className="Admission_p">Select Semester</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Semester}  name="Semester" placeholder="Select Semester" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Select Semester" required />
                             <p className="Admission_p">Course Code</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
                         </div>
                         <div className="col-md-6 mt-4">
+                            <p className="Admission_p">Fall / Spring</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                             <p className="Admission_p">Course Title</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                             <p className="Admission_p">Time Slot</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
                             <p className="Admission_p">Shift</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Shift}  name="Shift" placeholder="Shift" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
                             <p className="Admission_p">Room No.</p>
-                            <Select className="Admission_Form_Select" onChange={changeselects} isDisabled={isDisabled} options={Room_no}  name="Room_no" placeholder="Room No." required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
                             <button className="Login_Button" onClick={send} >Apply Changes</button>
                         </div>
                     </div>
+                    <hr/>
+                    <Select className="w-25" onChange={changeselects} name="Department" placeholder="Select Semester" options={Fall_Spring} required />
                     <hr/>
                     {data.length>0?
                         <>
@@ -198,6 +221,7 @@ const TimeTable_Generate = () => {
                                                 <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Time</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Room #</Table.HeaderCell>
                                                 <Table.HeaderCell>Delete</Table.HeaderCell>
                                             </Table.Row>
@@ -214,6 +238,7 @@ const TimeTable_Generate = () => {
                                                     <Table.Cell>{timetable.Semester}</Table.Cell>
                                                     <Table.Cell>{timetable.Time_Slot}</Table.Cell>
                                                     <Table.Cell>{timetable.Shift}</Table.Cell>
+                                                    <Table.Cell>{timetable.Fall_Spring}</Table.Cell>
                                                     <Table.Cell>{timetable.Room_no}</Table.Cell>
                                                     <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(timetable.id)} >Delete</button></Table.Cell>
                                                 </Table.Row>

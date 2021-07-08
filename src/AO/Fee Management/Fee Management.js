@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import Headers from '../Header/Header';
-import { Button, Header, Modal , Table } from 'semantic-ui-react';
+import {Table } from 'semantic-ui-react';
 
 const Students = () => {
 
@@ -10,6 +10,7 @@ const Students = () => {
 
     const [data,setdata] = useState([])
     const [loading, setloading] = useState(true)
+    const [message, setmessage] = useState("")
 
     const login = localStorage.getItem("HOD")
 
@@ -17,17 +18,49 @@ const Students = () => {
         axios.get("http://localhost:3001/api/all/students").then((res)=>{
             setdata(res.data.data)
             setloading(false)
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
     },[])
+
+    const update_data = () => {
+        axios.get("http://localhost:3001/api/all/students").then((res)=>{
+            setdata(res.data.data)
+            setloading(false)
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
+    }
+
+    const toggles=(e)=>{
+        let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
+        axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
+            update_data()
+        }))
+    }
 
     if (login==null){
         return <Redirect to="/login"/>;
     }
 
 
-    if(false){
+    if(loading){
         return (
-            <h1>Loading...</h1>
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+            </React.Fragment>
+        )
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
         )
     }
 
@@ -36,7 +69,7 @@ const Students = () => {
             <Headers/>
             <div className="Student">
                 <div class="container">
-                    <h1>Total Students in GMC {data.length}</h1>
+                    <h1>Total Students in GMC (Morning Shift) {data.length}</h1>
                     <div class="row">
                         <div className="col-md-12">
                             <Table celled selectable color="grey">
@@ -50,6 +83,7 @@ const Students = () => {
                                         <Table.HeaderCell>Address</Table.HeaderCell>
                                         <Table.HeaderCell>Email</Table.HeaderCell>
                                         <Table.HeaderCell>Semester</Table.HeaderCell>
+                                        <Table.HeaderCell>Shift</Table.HeaderCell>
                                         <Table.HeaderCell>Fee Status</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
@@ -60,12 +94,16 @@ const Students = () => {
                                                 <Table.Cell><b>{index+1}</b></Table.Cell>
                                                 <Table.Cell><b>{student.Roll}</b></Table.Cell>
                                                 <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
-                                                <Table.Cell><b>{student.Father_Name}</b></Table.Cell>
+                                                <Table.Cell>{student.Father_Name}</Table.Cell>
                                                 <Table.Cell>{student.Department}</Table.Cell>
                                                 <Table.Cell>{student.Address}</Table.Cell>
                                                 <Table.Cell>{student.Email}</Table.Cell>
                                                 <Table.Cell>{student.Semester}</Table.Cell>
-                                                <Table.Cell>{student.Fee_Status}</Table.Cell>
+                                                <Table.Cell>{student.Shift}</Table.Cell>
+                                                {student.Semester==="1"?<></>:
+                                                <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
+                                                    {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
+                                                </button></Table.Cell>}
                                             </Table.Row>
                                     )})}
                                 </Table.Body>
@@ -79,44 +117,3 @@ const Students = () => {
 }
 
 export default Students;
-
-
-
-
-
-
-
-function Modals(props) {
-    const [open, setOpen] = React.useState(false)
-  
-    return (
-      <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={<Button toggle active={true} >View</Button>}
-      ><section>
-          <Button
-            content="Yep, that's me"
-            labelPosition='right'
-            icon='checkmark'
-            onClick={() => setOpen(false)}
-            positive
-          />
-          <Modal.Description>
-            <Header>Default Profile Image</Header>
-            <h5 className="card-title"><b>Roll</b> : {props.student.Roll}</h5>
-            <h5 className="card-title"><b>Name</b> : {props.student.Full_Name}</h5>
-            <p className="card-text"><b>Department</b> : {props.student.Department}</p>
-            <p className="card-text"><b>CNIC</b>: {props.student.CNIC}</p>
-            <p className="card-text"><b>DOB</b> : {props.student.DOB}</p>
-            <p className="card-text"><b>Email</b> : {props.student.Email}</p>
-            <p className="card-text"><b>Address</b> : {props.student.Address}</p>
-            <p className="card-text"><b>Semester</b> : {props.student.Semester}</p>
-            <p className="card-text"><b>Fee Status</b> : {props.student.Fee_Status}</p>
-            <p className="card-text"><b>Shift</b> : {props.student.Shift}</p>
-          </Modal.Description>
-          </section>
-      </Modal>
-    )
-  }

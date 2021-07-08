@@ -65,6 +65,18 @@ function Datesheet() {
     const Fall_Spring = [
 		{ value: 'Fall-2021', label: 'Fall-2021', Name : "Fall_Spring" },
 		{ value: 'Spring-2021', label: 'Spring-2021', Name : "Fall_Spring" },
+		{ value: 'Fall-2022', label: 'Fall-2022', Name : "Fall_Spring" },
+		{ value: 'Spring-2022', label: 'Spring-2022', Name : "Fall_Spring" },
+		{ value: 'Fall-2023', label: 'Fall-2023', Name : "Fall_Spring" },
+		{ value: 'Spring-2023', label: 'Spring-2023', Name : "Fall_Spring" },
+		{ value: 'Fall-2024', label: 'Fall-2024', Name : "Fall_Spring" },
+		{ value: 'Spring-2024', label: 'Spring-2024', Name : "Fall_Spring" },
+		{ value: 'Fall-2025', label: 'Fall-2025', Name : "Fall_Spring" },
+		{ value: 'Spring-2025', label: 'Spring-2025', Name : "Fall_Spring" },
+		{ value: 'Fall-2026', label: 'Fall-2026', Name : "Fall_Spring" },
+		{ value: 'Spring-2026', label: 'Spring-2026', Name : "Fall_Spring" },
+		{ value: 'Fall-2027', label: 'Fall-2027', Name : "Fall_Spring" },
+		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
 	]
 
     const changeselect = (e) => {
@@ -72,6 +84,12 @@ function Datesheet() {
             ...FormData,
             [e.Name] : e.value
           })
+}
+
+const changeselects = (e) => {
+    axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login,Fall_Spring:e.value}).then((res)=>{
+                setdata(res.data.data)
+        })
 }
 
         const send = (e) => {
@@ -104,10 +122,12 @@ function Datesheet() {
                         </div>
                     </div>
                     <hr/>
+                    <Select className="w-25" onChange={changeselects} name="Department" placeholder="Select Semester" options={Fall_Spring} required />
+                    <hr/>
                     {data.length>0?
                         <>
                             <h1>Currently Displaying Datesheet</h1>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div className="col-md-12">
                                     <Table celled selectable>
                                         <Table.Header>
@@ -117,6 +137,7 @@ function Datesheet() {
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
                                                 <Table.HeaderCell>Time</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Delete</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
@@ -129,6 +150,7 @@ function Datesheet() {
                                                     <Table.Cell>{datesheet.Course_Code}</Table.Cell>
                                                     <Table.Cell>{datesheet.Time_Slot}</Table.Cell>
                                                     <Table.Cell>{datesheet.Shift}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Fall_Spring}</Table.Cell>
                                                     <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(datesheet.id)} >Delete</button></Table.Cell>
                                                 </Table.Row>
                                             )})

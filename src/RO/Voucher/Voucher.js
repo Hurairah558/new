@@ -12,28 +12,30 @@ import html2canvas from 'html2canvas';
 import { render } from '@testing-library/react';
 import { renderToString } from "react-dom/server";
 import Printer, { print } from 'react-pdf-print';
+import Voucherss from './Vouchers';
 
 
 class ComponentToPrint extends React.PureComponent {
+
     render() {
       return (
           <React.Fragment>
-            <table>
-                <tbody>
-                    <tr>
-                        <td>data 1</td>
-                        <td>data 2</td>
-                        <td>data 3</td>
-                    </tr>
-                </tbody>
-                <tbody>
-                    <tr>
-                        <td className="second">data 4</td>
-                        <td className="second">data 5</td>
-                        <td className="second">data 6</td>
-                    </tr>
-                </tbody>
-            </table>
+                  {/* <tbody>
+                      <tr>
+                          <td>data 1</td>
+                          <td>data 2</td>
+                          <td>data 3</td>
+                      </tr>
+                  </tbody>
+                  <tbody>
+                      <tr>
+                          <td className="second">data 4</td>
+                          <td className="second">data 5</td>
+                          <td className="second">data 6</td>
+                      </tr>
+                  </tbody> */}
+                      <Voucherss/>
+
         </React.Fragment>
       );
     }
@@ -45,7 +47,9 @@ class ComponentToPrint extends React.PureComponent {
     return (
       <div>
         <ReactToPrint
-          trigger={() => <button>Print this out!</button>}
+          trigger={() => 
+            <button style={{marginTop:100}} >Print this out!</button>
+        }
           content={() => componentRef.current}
         />
         <ComponentToPrint ref={componentRef} />

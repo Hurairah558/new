@@ -10,6 +10,7 @@ const Students = () => {
 
     const [data,setdata] = useState([])
     const [loading, setloading] = useState(true)
+    const [message, setmessage] = useState("")
 
     const login = localStorage.getItem("HOD")
 
@@ -17,13 +18,19 @@ const Students = () => {
         axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
     },[])
 
     const update_data = () => {
         axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
             setdata(res.data.data)
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
     }
 
 
@@ -33,12 +40,12 @@ const Students = () => {
         })
     }
 
-    const toggles=(e)=>{
-        let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
-        axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
-            update_data()
-        }))
-    }
+    // const toggles=(e)=>{
+    //     let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
+    //     axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
+    //         update_data()
+    //     }))
+    // }
 
     if (login==null){
         return <Redirect to="/login"/>;
@@ -47,7 +54,19 @@ const Students = () => {
 
     if(loading){
         return (
-            <h1>Loading...</h1>
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+            </React.Fragment>
+        )
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
         )
     }
 
@@ -98,9 +117,13 @@ const Students = () => {
                                         <Table.Cell>{student.Father_Name}</Table.Cell>
                                         <Table.Cell>{student.Email}</Table.Cell>
                                         <Table.Cell>{student.Address}</Table.Cell>
-                                        <Table.Cell><button className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
+                                        {/* <Table.Cell><button className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
                                                     {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
-                                                </button></Table.Cell>
+                                                </button></Table.Cell> */}
+                                        {
+                                            student.Fee_Status==="Unpaid"?<Table.Cell style={{color:"red"}} >{student.Fee_Status}</Table.Cell>:
+                                            <Table.Cell style={{color:"green"}} >{student.Fee_Status}</Table.Cell>
+                                        }
                                         <Table.Cell><Modals student={student} /></Table.Cell>
                                         <Table.Cell><button onClick={() => Delete(student.id)} className="btn btn-danger">Delete</button></Table.Cell>
                                     </Table.Row>

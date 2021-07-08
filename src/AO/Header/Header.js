@@ -48,14 +48,14 @@ const Header = () => {
 
                 <div className="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <Link to="/ro/students" className="nav-link text-white" href="#">Students</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/ro/voucher" className="nav-link text-white" href="#">Voucher</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link to="/ro/admission_controller" className="nav-link text-white" href="#">Admission Controller</Link>
+                        <li className="nav-item dropdown">
+                            <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Fee Management
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link to="/ao/feemanagement" className="nav-link text-dark">Morning</Link>
+                            <Link to="/ao/feemanagement2" className="nav-link text-dark">Evening</Link>
+                            </div>
                         </li>
                         { login!=null?
                         <button className="btn btn-primary" onClick={Logout}>Logout</button>

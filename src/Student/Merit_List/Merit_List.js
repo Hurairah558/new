@@ -50,9 +50,11 @@ const Merit_List = () => {
             <div className="Student">
                 <div class="container">
                     <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                    <h1 className="d-flex justify-content-center">{merit.MeritList} (Morning)</h1>
                     {data.length>0?
                         <div class="row mt-4">
                             <div className="col-md-12">
+                            {merit.Display==1?
                                 <Table celled selectable color="grey">
                                     <Table.Header>
                                         <Table.Row>
@@ -62,13 +64,13 @@ const Merit_List = () => {
                                             <Table.HeaderCell>Father's Name'</Table.HeaderCell>
                                             <Table.HeaderCell>Department</Table.HeaderCell>
                                             <Table.HeaderCell>CNIC</Table.HeaderCell>
-                                            <Table.HeaderCell>Inter Marks</Table.HeaderCell>
+                                            <Table.HeaderCell>Merit</Table.HeaderCell>
                                             <Table.HeaderCell>Year</Table.HeaderCell>
                                             <Table.HeaderCell>Shift</Table.HeaderCell>
                                         </Table.Row>
                                     </Table.Header>
                                     <Table.Body>
-                                        {merit.Display==1?
+                                        {
                                         data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
                                             return (     
                                                 <Table.Row key={index}>
@@ -78,15 +80,17 @@ const Merit_List = () => {
                                                     <Table.Cell>{student.Father_Name}</Table.Cell>
                                                     <Table.Cell>{student.Department}</Table.Cell>
                                                     <Table.Cell>{student.CNIC}</Table.Cell>
-                                                    <Table.Cell>{student.Inter_Obtained_Marks}</Table.Cell>
+                                                    <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
                                                     <Table.Cell>{student.Year}</Table.Cell>
                                                     <Table.Cell>{student.Shift}</Table.Cell>
                                                 </Table.Row>
-                                        )}):
-                                        <h1>Not published yet</h1>
+                                        )})
                                         }
+                                
                                     </Table.Body>
                                 </Table>
+                                :<div></div>
+                            }
                             </div>
                         </div>
                     :<div></div>}

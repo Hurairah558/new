@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState,useEffect } from 'react';
+import React, { useState} from 'react';
 import Select from "react-select";
 import { Table } from 'semantic-ui-react';
 import Header from '../Header/Header';
@@ -10,7 +10,7 @@ function Datesheet() {
 
     const changeselect = (e) => {
 
-            axios.post("http://localhost:3001/api/hod/datesheet",{Department:e.value,}).then((res)=>{
+            axios.post("http://localhost:3001/api/hod/datesheet",{Department:e.value}).then((res)=>{
                 setdata(res.data.data)
             })
 
@@ -52,6 +52,7 @@ const Department = [
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
                                                 <Table.HeaderCell>Time</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>
@@ -63,6 +64,7 @@ const Department = [
                                                     <Table.Cell>{datesheet.Course_Code}</Table.Cell>
                                                     <Table.Cell>{datesheet.Time_Slot}</Table.Cell>
                                                     <Table.Cell>{datesheet.Shift}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Fall_Spring}</Table.Cell>
                                                 </Table.Row>
                                             )})
                                             }

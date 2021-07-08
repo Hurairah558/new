@@ -3,8 +3,28 @@ import './Admission_Form_Design.css';
 import Select from 'react-select';
 import axios from 'axios';
 import Header from '../Header/Header';
+import { Button, Modal } from 'semantic-ui-react';
 
 function Admission_Form() {
+
+	const [Loading, setLoading] = useState(true)
+
+	const [open, setopen] = useState(false)
+
+	const [message, setmessage] = useState("Admission Closed")
+
+	useEffect(()=>{
+		axios.get("http://localhost:3001/api/ro/admission_control/").then((res)=>{
+			if (res.data.data[0].Open === "Open"){
+				setopen(true)
+			}
+			setLoading(false)
+		})
+		.catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+			setLoading(false)
+		})
+	})
 
 	const Gender = [
 		{ value: 'Male', label: 'Male', Name : "Gender" },
@@ -12,6 +32,8 @@ function Admission_Form() {
 	]
 	
 	axios.defaults.withCredentials = true
+
+	const [validate,setvalidate] = useState("")
 	
 	const Department = [
 		{ value: 'BBA', label: 'BBA', Name : "Department" },
@@ -30,34 +52,32 @@ function Admission_Form() {
 		{ value: 'Zoology', label: 'Zoology', Name : "Department" },
 	]
 
-	const MatricBoard = [
-		{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Matric_Board" },
-		{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Matric_Board" },
-		{ value: 'Faisalabad', label: 'Faisalabad', Name : "Matric_Board" },
-		{ value: 'Gujranwala', label: 'Gujranwala', Name : "Matric_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-		{ value: 'Multan', label: 'Multan', Name : "Matric_Board" },
-		{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Matric_Board" },
-		{ value: 'Sargodha', label: 'Sargodha', Name : "Matric_Board" },
-	]
+	// const MatricBoard = [
+	// 	{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Matric_Board" },
+	// 	{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Matric_Board" },
+	// 	{ value: 'Faisalabad', label: 'Faisalabad', Name : "Matric_Board" },
+	// 	{ value: 'Gujranwala', label: 'Gujranwala', Name : "Matric_Board" },
+	// 	{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
+	// 	{ value: 'Multan', label: 'Multan', Name : "Matric_Board" },
+	// 	{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Matric_Board" },
+	// 	{ value: 'Sargodha', label: 'Sargodha', Name : "Matric_Board" },
+	// ]
 
-	const InterBoard = [
-		{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Inter_Board" },
-		{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Inter_Board" },
-		{ value: 'Faisalabad', label: 'Faisalabad', Name : "Inter_Board" },
-		{ value: 'Gujranwala', label: 'Gujranwala', Name : "Inter_Board" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Inter_Board" },
-		{ value: 'Multan', label: 'Multan', Name : "Inter_Board" },
-		{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Inter_Board" },
-		{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
-	]
+	// const InterBoard = [
+	// 	{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Inter_Board" },
+	// 	{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Inter_Board" },
+	// 	{ value: 'Faisalabad', label: 'Faisalabad', Name : "Inter_Board" },
+	// 	{ value: 'Gujranwala', label: 'Gujranwala', Name : "Inter_Board" },
+	// 	{ value: 'Lahore', label: 'Lahore', Name : "Inter_Board" },
+	// 	{ value: 'Multan', label: 'Multan', Name : "Inter_Board" },
+	// 	{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Inter_Board" },
+	// 	{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
+	// ]
 
 	const Shift = [
 		{ value: 'Morning', label: 'Morning', Name : "Shift" },
 		{ value: 'Evening', label: 'Evening', Name : "Shift" },
 	]
-
-	const [validate,setvalidate] = useState("")
 
 	const [formdata,setformdata] = useState({
 		Full_Name : "",
@@ -73,10 +93,12 @@ function Admission_Form() {
 		Matric_Roll : "",
 		Matric_Total_Marks : "",
 		Matric_Obtained_Marks : "",
+		Matric_Year : "",
 		Matric_Board : "",
 		Inter_Roll : "",
 		Inter_Total_Marks : "",
 		Inter_Obtained_Marks : "",
+		Inter_Year : "",
 		Inter_Board : "",
 	  });
   
@@ -96,7 +118,7 @@ function Admission_Form() {
   
 	  const set = (e) => {
 		e.preventDefault()
-		  axios.post(`http://localhost:3001/api/student/addmissonform`,formdata)
+		  axios.post("http://localhost:3001/api/student/addmissonform",formdata)
 		  .then((res)=>{
 			  if (res.data.message){
 			  	setvalidate(res.data.message)
@@ -105,20 +127,32 @@ function Admission_Form() {
 				setvalidate(res.data)
 			  }
 			})
-		  .catch((err)=>{console.log("No",err)})
+		  .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
 	  }
 
   return (
     <React.Fragment>
 		<Header/>
+		{!Loading?
+		open?
 		<div className="Admission_Form">
 			<div className="signup">
 				<div className="container">
 					<form>
 						<label className="Admission_Label">Admission Form</label>
-						<h3 className="Admission_Label">{validate}</h3>
+						<div style={{marginLeft:-30}} className="row">
+							<div className="col-md-5 Admission_Form_Select_Dept">	
+								<p className="Admission_Select_p">BS Department</p>
+								<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />							
+							</div>
+							<div className="col-md-5 Admission_Form_Select_Dept">	
+								<p className="Admission_Select_p">Shift</p>
+								<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required />							
+							</div>
+						</div>
+						<hr style={{background:"white",marginBottom:20,marginTop:-10}} />
 						<div className="row">
-							<div className="col" id="div1">
+							<div className="col">
 								<h2 className="Admission_Form_Category">Personal Info</h2>
 								<hr/>
 								<p className="Admission_p">Full Name</p>
@@ -134,7 +168,7 @@ function Admission_Form() {
 									<input onChange={change} type="date" name="DOB" className="form-control" required />
 								</div>
 							</div>
-							<div className="col" id="div1">
+							<div className="col">
 								<h2 className="Admission_Form_Category">Contact</h2>
 								<hr/>
 								<p className="Admission_p">Email</p>
@@ -144,51 +178,65 @@ function Admission_Form() {
 								<p className="Admission_p">Address</p>
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Address" placeholder="Address" required=""/>
 							</div>
-							<div className="col" id="div1">
+							<div className="col">
 								<h2 className="Admission_Form_Category">Matric Details</h2>
 								<hr className="col-md-12" />
 									<p className="Admission_p">Roll</p>
 									<input type="number" name="Matric_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Matric Roll #"  required/>
-									<p className="Admission_p">Total_Marks</p>
+									<p className="Admission_p">Total Marks</p>
 									<input type="number" name="Matric_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric"  required/>
-									<p className="Admission_p">Obtained_Marks</p>
+									<p className="Admission_p">Obtained Marks</p>
 									<input type="number" name="Matric_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Matric" required />
 									<p className="Admission_p">Matric Year</p>
 									<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Matric Year" required />
-									<p className="Admission_p">Matric_Board</p>
-									<Select name="Matric_Board" onChange={changeselect} className="Admission_Form_Select" placeholder="Select Board" options={MatricBoard} required />
+									<p className="Admission_p">Matric Board</p>
+									<input name="Matric_Board" onChange={change} className="Admission_Form_Input" placeholder="Select Board" required />
 							</div>
 							<div className="col">
 								<h2 className="Admission_Form_Category"><b>Inter Details</b></h2>
 								<hr className="col-md-12" />
-									<p className="Admission_p">Roll</p>
-									<input type="number" name="Inter_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Inter Roll #"  required/>
-									<p className="Admission_p">Total_Marks</p>
-									<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
-									<p className="Admission_p">Obtained_Marks</p>
-									<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required />
-									<p className="Admission_p">Inter Year</p>
-									<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required />
-									<p className="Admission_p">Inter_Board</p>
-									<Select className="Admission_Form_Select" onChange={changeselect} name="Inter_Board" placeholder="Select Board" options={InterBoard} required />
+								<p className="Admission_p">Roll</p>
+								<input type="number" name="Inter_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Inter Roll #"  required/>
+								<p className="Admission_p">Total Marks</p>
+								<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
+								<p className="Admission_p">Obtained Marks</p>
+								<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required />
+								<p className="Admission_p">Inter Year</p>
+								<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required />
+								<p className="Admission_p">Inter Board</p>
+								<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Select Board" required />
 							</div>
-							<div className="row">
-								<div className="col-md-6 Admission_Form_Select_Dept" style={{width:"200px"}}>	
-									<p className="Admission_Select_p">BS Department</p>
-									<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />							
-								</div>
-								<div className="col-md-6 Admission_Form_Select_Dept" style={{width:"200px"}}>	
-									<p className="Admission_Select_p">Shift</p>
-									<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required />							
-									<button className="Admission_Form_button" onClick={set} >Apply</button>
-								</div>
-							</div>
+							<div style={{marginBottom:100}} className="col"><button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button></div>
 						</div>  
 					</form>
 				</div>
 			</div>
 		</div>
+		:<h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+		:<h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>}
     </React.Fragment>
   );
 }
 export default Admission_Form;
+
+
+function Modals(props) {
+	const [open, setOpen] = React.useState(false)
+	return (
+	<Modal
+	  onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+		style={{height:"23%",margin:"auto"}}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Apply</Button>}
+	  >
+		<Modal.Header><h1>Response</h1></Modal.Header>
+		<Modal.Content image>
+			<Modal.Description>
+				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
+				<hr/>
+			</Modal.Description>
+		</Modal.Content>
+	</Modal>
+	)
+  }

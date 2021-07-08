@@ -15,7 +15,7 @@ function Login () {
 	const [formData, setFormData] = useState({
 		Username: '',
 		Password: ''
-	  })	
+	  })
 
 	const change = (e) => {
 		setFormData({...formData,[e.target.name] : e.target.value})
@@ -30,6 +30,12 @@ function Login () {
 			}
 		})
 			.catch((err)=>{console.log(err)})
+	}
+
+	if (login==="AO"){
+		return(
+			<Redirect to="/ao/feemanagement" />
+		   )
 	}
 
 	if (login==="Teacher"){
