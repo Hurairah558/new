@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
-import { Table } from 'semantic-ui-react';
+import { Table , Button, Modal  } from 'semantic-ui-react';
 
 const TimeTable_Generate = () => {
 
@@ -112,7 +112,7 @@ const TimeTable_Generate = () => {
 
     var i;
     for (i = 0; i < 100; i++) {
-        Room_no.push({ value: i+1, label: i+1, Name : "Room_no" })
+        Room_no.push({ value: String(i+1), label: String(i+1), Name : "Room_no" })
     }
 
     var Instructorss = [
@@ -160,11 +160,18 @@ const TimeTable_Generate = () => {
         })
         }
 
+        const [validate,setvalidate] = useState("")
 
         const send = (e) => {
             e.preventDefault()
               axios.post(`http://localhost:3001/api/hod/timetablegenerate`,FormData)
               .then((res)=>{
+                if (res.data.message){
+                    setvalidate(res.data.message)
+                }
+                else{
+                  setvalidate(res.data)
+                }
                 update()
                 })
               .catch((err)=>{console.log("No",err)})
@@ -179,6 +186,8 @@ const TimeTable_Generate = () => {
                         <div className="col-md-6">
                             <h2 className="Admission_Form_Category">Time Table Generate</h2>
                             <hr/>
+                            <p className="Admission_p">Fall / Spring</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                             <p className="Admission_p">Instructor Department</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
                             <p className="Admission_p">Select Instructor</p>
@@ -189,9 +198,7 @@ const TimeTable_Generate = () => {
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
                         </div>
                         <div className="col-md-6 mt-4">
-                            <p className="Admission_p">Fall / Spring</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                            <p className="Admission_p">Course Title</p>
+                            <p className="Admission_p" style={{marginTop:40}}>Course Title</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                             <p className="Admission_p">Time Slot</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
@@ -199,7 +206,7 @@ const TimeTable_Generate = () => {
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
                             <p className="Admission_p">Room No.</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
-                            <button className="Login_Button" onClick={send} >Apply Changes</button>
+                            <button style={{marginLeft:-0,marginTop:40,width:205}} className="Login_Button" onClick={send} ><Modals validate={validate} /></button>
                         </div>
                     </div>
                     <hr/>
@@ -257,3 +264,25 @@ const TimeTable_Generate = () => {
 }
 
 export default TimeTable_Generate;
+
+
+function Modals(props) {
+	const [open, setOpen] = React.useState(false)
+	return (
+	<Modal
+	  onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+		style={{height:"23%",margin:"auto"}}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Generate Time Table</Button>}
+	  >
+		<Modal.Header><h1>Response</h1></Modal.Header>
+		<Modal.Content image>
+			<Modal.Description>
+				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
+				<hr/>
+			</Modal.Description>
+		</Modal.Content>
+	</Modal>
+	)
+  }

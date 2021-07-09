@@ -52,28 +52,6 @@ function Admission_Form() {
 		{ value: 'Zoology', label: 'Zoology', Name : "Department" },
 	]
 
-	// const MatricBoard = [
-	// 	{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Matric_Board" },
-	// 	{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Matric_Board" },
-	// 	{ value: 'Faisalabad', label: 'Faisalabad', Name : "Matric_Board" },
-	// 	{ value: 'Gujranwala', label: 'Gujranwala', Name : "Matric_Board" },
-	// 	{ value: 'Lahore', label: 'Lahore', Name : "Matric_Board" },
-	// 	{ value: 'Multan', label: 'Multan', Name : "Matric_Board" },
-	// 	{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Matric_Board" },
-	// 	{ value: 'Sargodha', label: 'Sargodha', Name : "Matric_Board" },
-	// ]
-
-	// const InterBoard = [
-	// 	{ value: 'Bahawalpur', label: 'Bahawalpur', Name : "Inter_Board" },
-	// 	{ value: 'D.G.Khan', label: 'D.G.Khan', Name : "Inter_Board" },
-	// 	{ value: 'Faisalabad', label: 'Faisalabad', Name : "Inter_Board" },
-	// 	{ value: 'Gujranwala', label: 'Gujranwala', Name : "Inter_Board" },
-	// 	{ value: 'Lahore', label: 'Lahore', Name : "Inter_Board" },
-	// 	{ value: 'Multan', label: 'Multan', Name : "Inter_Board" },
-	// 	{ value: 'Rawalpindi', label: 'Rawalpindi', Name : "Inter_Board" },
-	// 	{ value: 'Sargodha', label: 'Sargodha', Name : "Inter_Board" },
-	// ]
-
 	const Shift = [
 		{ value: 'Morning', label: 'Morning', Name : "Shift" },
 		{ value: 'Evening', label: 'Evening', Name : "Shift" },
@@ -206,7 +184,7 @@ function Admission_Form() {
 								<p className="Admission_p">Inter Board</p>
 								<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Select Board" required />
 							</div>
-							<div style={{marginBottom:100}} className="col"><button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button></div>
+							<div style={{marginLeft:-10}} className="col"><button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button></div>
 						</div>  
 					</form>
 				</div>
@@ -228,7 +206,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Apply</Button>}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Submit Form</Button>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

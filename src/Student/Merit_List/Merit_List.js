@@ -50,7 +50,7 @@ const Merit_List = () => {
             <div className="Student">
                 <div class="container">
                     <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
-                    <h1 className="d-flex justify-content-center">{merit.MeritList} (Morning)</h1>
+                    <h1 className="d-flex justify-content-center">{merit.MeritList}</h1>
                     {data.length>0?
                         <div class="row mt-4">
                             <div className="col-md-12">

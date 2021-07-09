@@ -2,7 +2,7 @@ import Header from '../../Fixed Components/Header';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
-import { Table } from 'semantic-ui-react';
+import { Table, Button, Modal  } from 'semantic-ui-react';
 
 function Datesheet() {
 
@@ -34,6 +34,7 @@ function Datesheet() {
 		Course_Code: '',
 		Course_Title: '',
 		Time_Slot: '',
+		Shift: '',
         Fall_Spring:''
 	  })
 
@@ -79,23 +80,37 @@ function Datesheet() {
 		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
 	]
 
-    const changeselect = (e) => {
-        setFormData({
-            ...FormData,
-            [e.Name] : e.value
-          })
-}
+    const Shift = [
+		{ value: 'Morning', label: 'Morning', Name : "Shift" },
+		{ value: 'Evening', label: 'Evening', Name : "Shift" },
+	]
 
-const changeselects = (e) => {
-    axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login,Fall_Spring:e.value}).then((res)=>{
-                setdata(res.data.data)
-        })
-}
+        const changeselect = (e) => {
+            setFormData({
+                ...FormData,
+                [e.Name] : e.value
+            })
+        }
+
+        const changeselects = (e) => {
+            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login,Fall_Spring:e.value}).then((res)=>{
+                        setdata(res.data.data)
+                })
+        }
+
+
+        const [validate,setvalidate] = useState("")
 
         const send = (e) => {
             e.preventDefault()
               axios.post(`http://localhost:3001/api/hod/generatedatesheet2`,FormData)
               .then((res)=>{
+                if (res.data.message){
+                    setvalidate(res.data.message)
+                }
+                else{
+                  setvalidate(res.data)
+                }
                 update()
                 })
               .catch((err)=>{console.log("No",err)})
@@ -107,18 +122,22 @@ const changeselects = (e) => {
             <div className="Student">
                 <div class="container">
                     <div className="row" id="Merit_List_Data">
-                        <div className="col-md-12">
+                        <div className="col-md-6">
                             <h2 className="Admission_Form_Category">Datesheet Generate</h2>
                             <hr/>
                             <p className="Admission_p">Course Title</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Instructor_Department" placeholder="Instructor Department" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                             <p className="Admission_p">Course Code</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Instructor" placeholder="Select Instructor" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
                             <p className="Admission_p">Time</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Semester" placeholder="Select Semester" required />
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                            <p className="Admission_p">Shift</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
                             <p className="Admission_p">Fall / Spring</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Semester" placeholder="Select Semester" required />
-                            <button className="Login_Button" onClick={send} >Apply Changes</button>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                        </div>
+                        <div style={{marginTop:400}} className="col-md-6">
+                            <button className="Login_Button float-left" style={{width:200}} onClick={send} ><Modals validate={validate} /></button>
                         </div>
                     </div>
                     <hr/>
@@ -168,3 +187,24 @@ const changeselects = (e) => {
 }
 
 export default Datesheet;
+
+function Modals(props) {
+	const [open, setOpen] = React.useState(false)
+	return (
+	<Modal
+	  onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+		style={{height:"23%",margin:"auto"}}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Generate Datesheet</Button>}
+	  >
+		<Modal.Header><h1>Response</h1></Modal.Header>
+		<Modal.Content image>
+			<Modal.Description>
+				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
+				<hr/>
+			</Modal.Description>
+		</Modal.Content>
+	</Modal>
+	)
+  }

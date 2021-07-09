@@ -3,7 +3,7 @@ import Select from 'react-select';
 import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
-import { Table } from 'semantic-ui-react';
+import { Table , Button, Modal} from 'semantic-ui-react';
 const MeritListData = () => {
     
     axios.defaults.withCredentials = true;
@@ -61,12 +61,18 @@ const MeritListData = () => {
         })
       }
 
+
+    const [validate,setvalidate] = useState("")
+
     const Apply_MeritList =()=>{
         axios.post("http://localhost:3001/hod/meritlistcontroller",{formData}).then((res)=>{
-            if(res.data.message){
-                setmessage(res.data.message)
+                if (res.data.message){
+                    setvalidate(res.data.message)
+                }
+                else{
+                  setvalidate(res.data)
+                }
                 update_data()
-            }
         }).catch((err)=>{console.log(err)})
     }
 
@@ -108,7 +114,6 @@ const MeritListData = () => {
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <h1>{message}</h1>
                     <div className="row d-flex justify-content-end">
                         <div className="col" id="Merit_List_Data">
                             <h2 className="Admission_Form_Category">Manage Merit List</h2>
@@ -121,7 +126,7 @@ const MeritListData = () => {
                             <input className="Admission_Form_Input" value={formData.End} onChange={change} type="text" name="End" placeholder="55" required=""/>
                             <p className="Admission_p">Diplay Merit List</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} name="Display" placeholder="Diplay Merit List" options={Display} required />
-                            <button className="Login_Button" onClick={Apply_MeritList} >Apply Changes</button>
+                            <button style={{marginLeft:-0,width:200}} className="Login_Button" onClick={Apply_MeritList} ><Modals validate={validate} /></button>
                         </div>
                         <div className="col d-flex justify-content-start">
                             <div id="Merit_List_Data">
@@ -190,3 +195,25 @@ const MeritListData = () => {
 }
 
 export default MeritListData;
+
+
+function Modals(props) {
+	const [open, setOpen] = React.useState(false)
+	return (
+	<Modal
+	  onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      open={open}
+		style={{height:"23%",margin:"auto"}}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Generate Merit List</Button>}
+	  >
+		<Modal.Header><h1>Response</h1></Modal.Header>
+		<Modal.Content image>
+			<Modal.Description>
+				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
+				<hr/>
+			</Modal.Description>
+		</Modal.Content>
+	</Modal>
+	)
+  }

@@ -10,20 +10,20 @@ const Header = () => {
         <React.Fragment>
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                    <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
+                    <Link to="/"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>
                 </button>
 
-                <div className="ml-4 collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="ml-4 collapse navbar-collapse mb-3" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
                             <Link to="/admissionform" className="nav-link text-white" href="#">Admission Form</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link to="/student/admissions" className="nav-link text-white" href="#">Total Admissions</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link to="/student/timetable" className="nav-link text-white" href="#">Time Table</Link>
                         </li>

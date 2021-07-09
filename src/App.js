@@ -19,6 +19,7 @@ import Time_Table from './Student/Time Table/Time_Table';
 import Students_SSIO from './SSIO/Students/Students';
 import Awardlists from './SSIO/AwardLists/AwardLists';
 import Students_RO from './RO/Students/Students';
+import Students_RO2 from './RO/Students/Students2';
 import Admission_Controller from './RO/Admission_Controller/Admission_Controller';
 import Voucher from './RO/Voucher/Voucher';
 import Free_Instructors from './SSIO/Free_Instructors/Free_Instructors';
@@ -54,6 +55,7 @@ function App() {
           <Route exact path="/ssio/students" component={Students_SSIO}/>
           <Route exact path="/ssio/awardlists" component={Awardlists}/>
           <Route exact path="/ro/students" component={Students_RO}/>
+          <Route exact path="/ro/students2" component={Students_RO2}/>
           <Route exact path="/ro/admission_controller" component={Admission_Controller}/>
           <Route exact path="/ro/voucher" component={Voucher}/>
           <Route exact path="/ssio/freeinstructors" component={Free_Instructors}/>

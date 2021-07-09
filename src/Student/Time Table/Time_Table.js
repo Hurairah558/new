@@ -40,7 +40,7 @@ const Time_Table = () => {
                     <Select className="ml-4 w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
                     {data.length>0?
                         <>
-                            <h1>Currently Displaying Datesheet</h1>
+                            <h1>Currently Displaying Time Table</h1>
                             <div class="row">
                                 <div className="col-md-12">
                                     <Table celled selectable>
@@ -60,21 +60,7 @@ const Time_Table = () => {
                                         </Table.Header>
                                         <Table.Body>
                                             {data.map((timetable,index)=>{
-                                                return (     
-                                                    // <div className="card m-4" key={timetable.id}>
-                                                    //     <div className="card-body">
-                                                    //         <p className="card-text">Index : {index+1}</p>
-                                                    //         <h5 className="card-title">	Instructor : {timetable.Instructor}</h5>
-                                                    //         <p className="card-text">Instructor's Department : {timetable.Instructor_Department}</p>
-                                                    //         <p className="card-text">Course Title : {timetable.Course_Title}</p>
-                                                    //         <p className="card-text">Course Code : {timetable.Course_Code}</p>
-                                                    //         <p className="card-text">Semester : {timetable.Semester}</p>
-                                                    //         <p className="card-text">Time_Slot : {timetable.Time_Slot}</p>
-                                                    //         <p className="card-text">Shift : {timetable.Shift}</p>
-                                                    //         <p className="card-text">Session : {timetable.Fall_Spring}</p>
-                                                    //         <p className="card-text">Room_no : {timetable.Room_no}</p>
-                                                    //     </div>
-                                                    // </div>
+                                                return (
                                                     <Table.Row key={index}>
                                                         <Table.Cell>{index+1}</Table.Cell>
                                                         <Table.Cell>{timetable.Instructor}</Table.Cell>
