@@ -2,6 +2,8 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import Headers from '../Header/Header';
+import Select from "react-select";
+import {Export} from '../../Export';
 import { Button, Header, Modal , Table } from 'semantic-ui-react';
 
 const Students = () => {
@@ -9,25 +11,156 @@ const Students = () => {
     axios.defaults.withCredentials = true
 
     const [data,setdata] = useState([])
+    const [seach,setseach] = useState([])
     const [loading, setloading] = useState(true)
+    const [message, setmessage] = useState("")
 
-    const login = localStorage.getItem("HOD")
+    const login = JSON.parse(localStorage.getItem("HOD"))
+
+    const [filter, setfilter] = useState({
+        Status:"",
+        Fee_Status:"",
+        Semester:"",
+        Department:"",
+        Names : "",
+        Roll:""
+    })
 
     useEffect(()=>{
-        axios.get("http://localhost:3001/api/all/students").then((res)=>{
+        axios.post("http://localhost:3001/api/ro/students",filter).then((res)=>{
             setdata(res.data.data)
+            update()
             setloading(false)
-        }).catch((err)=>{console.log(err)})
-    },[])
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
+    },[filter])
+
+
+    const update=()=>{
+        axios.get("http://localhost:3001/api/all/students").then((res)=>{
+            setseach(res.data.data)
+            setloading(false)
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
+    }
+
+    const Department = [
+		{ value: 'BBA', label: 'BBA', Name : "Department" },
+		{ value: 'Botany', label: 'Botany', Name : "Department" },
+		{ value: 'Chemistry', label: 'Chemistry', Name : "Department" },
+		{ value: 'Economics', label: 'Economics', Name : "Department" },
+		{ value: 'English', label: 'English', Name : "Department" },
+		{ value: 'Physics', label: 'Physics', Name : "Department" },
+		{ value: 'Political Science', label: 'Political Science', Name : "Department" },
+		{ value: 'Psychology', label: 'Psychology', Name : "Department" },
+		{ value: 'Mathematics', label: 'Mathematics', Name : "Department" },
+		{ value: 'Statistics', label: 'Statistics', Name : "Department" },
+		{ value: 'Information Technology', label: 'Information Technology', Name : "Department" },
+		{ value: 'Islamiyat', label: 'Islamiyat', Name : "Department" },
+		{ value: 'Urdu', label: 'Urdu', Name : "Department" },
+		{ value: 'Zoology', label: 'Zoology', Name : "Department" },
+	]
+
+    const Semester = [
+		{ value: '1', label: '1', Name : "Semester" },
+		{ value: '2', label: '2', Name : "Semester" },
+		{ value: '3', label: '3', Name : "Semester" },
+		{ value: '4', label: '4', Name : "Semester" },
+		{ value: '5', label: '5', Name : "Semester" },
+		{ value: '6', label: '6', Name : "Semester" },
+		{ value: '7', label: '7', Name : "Semester" },
+		{ value: '8', label: '8', Name : "Semester" },
+		{ value: '9', label: '9', Name : "Semester" },
+		{ value: '10', label: '10', Name : "Semester" },
+		{ value: '11', label: '11', Name : "Semester" },
+		{ value: '12', label: '12', Name : "Semester" },
+	]
+
+    const Status = [
+		{ value: 'Active', label: 'Active', Name : "Status" },
+		{ value: 'Inactive', label: 'Inactive', Name : "Status" },
+	]
+
+    const Fee_Status = [
+		{ value: 'Paid', label: 'Paid', Name : "Fee_Status" },
+		{ value: 'Unpaid', label: 'Unpaid', Name : "Fee_Status" },
+	]
+
+    var Names = [
+		
+	]
+
+    seach.map((Stu)=>{
+        Names.push( { value: Stu.Full_Name, label: Stu.Full_Name, Name : "Names" })
+    })
+
+    var Roll = [
+		
+	]
+
+    seach.map((Stu)=>{
+        Roll.push( { value: Stu.Roll, label: Stu.Roll, Name : "Roll" })
+    })
+
+    
+
+    const changeselect = (e) => {
+
+        setfilter({
+            ...filter,
+            Names : "",
+            Roll:"",
+            [e.Name] : e.value
+          })
+    }
+
+    const seachbyroll = (e) => {
+        setfilter({
+            ...filter,
+            Status:"",
+            Fee_Status:"",
+            Semester:"",
+            Department:"",
+            Names : "",
+            Roll:e.value
+        })
+    }
+
+    const seachbyname = (e) => {
+        setfilter({
+            ...filter,
+            Status:"",
+            Fee_Status:"",
+            Semester:"",
+            Department:"",
+            Names : e.value,
+            Roll : ""
+        })
+    }
 
     if (login==null){
         return <Redirect to="/login"/>;
     }
 
-
-    if(false){
+    if(loading){
         return (
-            <h1>Loading...</h1>
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}}>Loading...</h1>
+            </React.Fragment>
+        )
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Headers/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
         )
     }
 
@@ -35,9 +168,37 @@ const Students = () => {
         <React.Fragment>
             <Headers/>
             <div className="Student">
-                <div class="container">
-                    <h1>Total Students in GMC {data.length}</h1>
-                    <div class="row">
+                <div className="container">
+                    <h1>Total Students Displaying (Morning Shift) {data.length}</h1>
+                    <hr/>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Status}  name="Status" placeholder="Active / Inactive" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Department}  name="Department" placeholder="Department" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                            </div>
+                        </div>
+                    <hr/>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <Select defaultInputValue="" className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
+                        </div>
+                        <div className="col-md-3">
+                            <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
+                        </div>
+                        <div className="col-md-6">
+                            <Export csvData={data} fileName={"Students"} />
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="row">
                         <div className="col-md-12">
                             <Table celled selectable color="grey">
                                 <Table.Header>
@@ -50,8 +211,9 @@ const Students = () => {
                                         <Table.HeaderCell>Address</Table.HeaderCell>
                                         <Table.HeaderCell>Email</Table.HeaderCell>
                                         <Table.HeaderCell>Semester</Table.HeaderCell>
-                                        <Table.HeaderCell>Shift</Table.HeaderCell>
+                                        <Table.HeaderCell>Status</Table.HeaderCell>
                                         <Table.HeaderCell>Fee Status</Table.HeaderCell>
+                                        <Table.HeaderCell>View</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
@@ -66,8 +228,15 @@ const Students = () => {
                                                 <Table.Cell>{student.Address}</Table.Cell>
                                                 <Table.Cell>{student.Email}</Table.Cell>
                                                 <Table.Cell>{student.Semester}</Table.Cell>
-                                                <Table.Cell>{student.Shift}</Table.Cell>
-                                                <Table.Cell>{student.Fee_Status}</Table.Cell>
+                                                {
+                                                    student.Status==="Inactive"?<Table.Cell style={{color:"red"}} >{student.Status}</Table.Cell>:
+                                                    <Table.Cell style={{color:"green"}} >{student.Status}</Table.Cell>
+                                                }
+                                                {
+                                                    student.Fee_Status==="Unpaid"?<Table.Cell style={{color:"red"}} >{student.Fee_Status}</Table.Cell>:
+                                                    <Table.Cell style={{color:"green"}} >{student.Fee_Status}</Table.Cell>
+                                                }
+                                                <Table.Cell><Modals student={student} /></Table.Cell>
                                             </Table.Row>
                                     )})}
                                 </Table.Body>

@@ -7,7 +7,8 @@ const Header = () => {
 
     axios.defaults.withCredentials = true;
 
-    const [login,setlogin] = useState(localStorage.getItem("HOD"))
+    const [login,setlogin] = useState(JSON.parse(localStorage.getItem("HOD")))
+
 
     useEffect(() => {
         axios.get("http://localhost:3001/loginstatus").then((res)=>{
@@ -24,7 +25,7 @@ const Header = () => {
 
     const Logout = () => {
         localStorage.removeItem("HOD")
-        setlogin(localStorage.getItem("HOD"))
+        setlogin(JSON.parse(localStorage.getItem("HOD")))
         axios.post("http://localhost:3001/logout").then((res)=>{
             })
         .catch((err)=>{
@@ -32,13 +33,16 @@ const Header = () => {
         })
       }
 
+      if(login==null){
+        return <Redirect to="/login"/>;
+    }
 
     return (
         <React.Fragment>
             {login==null?
-          <Redirect to="/login" />:
-          <div></div>
-      }
+            <Redirect to="/login" />:
+            <div></div>
+            }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
                 <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
@@ -56,6 +60,9 @@ const Header = () => {
                             <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">Time Table Generate</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/hod/awardlists" className="nav-link text-white" href="#">AwardLists</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/hod/addstudent" className="nav-link text-white" href="#">Add Student</Link>
                         </li>
                         <li className="nav-item">
@@ -63,6 +70,12 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <Link to="/hod/addinstructor" className="nav-link text-white" href="#">Add Instructor</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/hod/addcourses" className="nav-link text-white" href="#">Add Courses</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/password/reset" className="nav-link text-white" href="#">Change</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

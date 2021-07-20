@@ -5,11 +5,14 @@ import Header from '../../Fixed Components/Header';
 import { Button, Modal } from 'semantic-ui-react';
 function AddInstructor() {
 
+	const login = JSON.parse(localStorage.getItem("HOD"))
+
     const [formData, setFormData] = useState({
-		Full_Name : "",
+		Name : "",
 		Email : "",
 		Username: '',
-		Password: ''
+		Password: '',
+		Department: login.Department
 	  })	
 
 	const change = (e) => {
@@ -40,7 +43,7 @@ function AddInstructor() {
 						<div className="signup">
 							<form>
 								<label name="chk" className="Login_Label" aria-hidden="true">Add Instructor</label>
-								<input className="Login_input" onChange={change} type="text" name="Full_Name" placeholder="Full Name" value={formData.Full_Name} required=""/>
+								<input className="Login_input" onChange={change} type="text" name="Name" placeholder="Name" value={formData.Full_Name} required=""/>
 								<input className="Login_input" onChange={change} type="text" name="Email" placeholder="Email" value={formData.Email} required=""/>
 								<input className="Login_input" onChange={change} type="text" name="Username" placeholder="Username" value={formData.Username} required=""/>
 								<input className="Login_input" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required=""/>

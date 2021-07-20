@@ -6,18 +6,34 @@ import { Table, Button, Modal  } from 'semantic-ui-react';
 
 function Datesheet() {
 
-    const login = localStorage.getItem("HOD")
+    const login = JSON.parse(localStorage.getItem("HOD"))
+
     const [data,setdata] = useState([])
+
+    const [Instructors, setInstructors] = useState([])
+
+    const [courses,setcourses] = useState([])
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login}).then((res)=>{
-                setdata(res.data.data)
+        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department}).then((res)=>{
+                
+            setdata(res.data.data)
+            
+            axios.post("http://localhost:3001/hod/instructors",{Department:login.Department}).then((res)=>{
+                setInstructors(res.data.data)
+
+                axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+                    setcourses(res.data.data)
+                })
+
+            })
+
         })
     },[])
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
         })
     }
@@ -30,25 +46,55 @@ function Datesheet() {
 
 
     const [FormData, setFormData] = useState({
-		Department: login,
+		Department: login.Department,
 		Course_Code: '',
 		Course_Title: '',
+		Instructor: '',
+		Semester: '',
 		Time_Slot: '',
 		Shift: '',
         Fall_Spring:''
 	  })
 
 
-    const Course_Code = [
-		{ value: 'IT-209', label: 'IT-209', Name : "Course_Code" },
-		{ value: 'IT-210', label: 'IT-210', Name : "Course_Code" },
-		{ value: 'IT-211', label: 'IT-211', Name : "Course_Code" },
+    
+    var Course_Title = [
+		
 	]
 
-    const Course_Title = [
-		{ value: 'Data Structures', label: 'Data Structures', Name : "Course_Title" },
-		{ value: 'Psychology', label: 'Psychology', Name : "Course_Title" },
-		{ value: 'Accounting', label: 'Accounting', Name : "Course_Title" },
+    courses.map((coursess)=>{
+        Course_Title.push( { value: coursess.Course_Title, label: coursess.Course_Title, Name : "Course_Title" })
+    })
+
+    var Course_Code = [
+		
+	]
+
+    courses.map((coursess)=>{
+        Course_Code.push( { value: coursess.Course_Code, label: coursess.Course_Code, Name : "Course_Code" })
+    })
+
+    var Instructorss = [
+		
+	]
+
+    Instructors.map((Instructor)=>{
+        Instructorss.push( { value: Instructor.Instructor, label: Instructor.Instructor, Name : "Instructor" })
+    })
+
+    const Semester = [
+		{ value: '1', label: '1', Name : "Semester" },
+		{ value: '2', label: '2', Name : "Semester" },
+		{ value: '3', label: '3', Name : "Semester" },
+		{ value: '4', label: '4', Name : "Semester" },
+		{ value: '5', label: '5', Name : "Semester" },
+		{ value: '6', label: '6', Name : "Semester" },
+		{ value: '7', label: '7', Name : "Semester" },
+		{ value: '8', label: '8', Name : "Semester" },
+		{ value: '9', label: '9', Name : "Semester" },
+		{ value: '10', label: '10', Name : "Semester" },
+		{ value: '11', label: '11', Name : "Semester" },
+		{ value: '12', label: '12', Name : "Semester" },
 	]
 
     const Time_Slot = [
@@ -80,24 +126,24 @@ function Datesheet() {
 		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
 	]
 
+
     const Shift = [
 		{ value: 'Morning', label: 'Morning', Name : "Shift" },
 		{ value: 'Evening', label: 'Evening', Name : "Shift" },
 	]
 
-        const changeselect = (e) => {
-            setFormData({
-                ...FormData,
-                [e.Name] : e.value
-            })
-        }
+    const changeselect = (e) => {
+        setFormData({
+            ...FormData,
+            [e.Name] : e.value
+          })
+}
 
         const changeselects = (e) => {
-            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login,Fall_Spring:e.value}).then((res)=>{
+            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department,Fall_Spring:e.value}).then((res)=>{
                         setdata(res.data.data)
                 })
         }
-
 
         const [validate,setvalidate] = useState("")
 
@@ -136,7 +182,11 @@ function Datesheet() {
                             <p className="Admission_p">Fall / Spring</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                         </div>
-                        <div style={{marginTop:400}} className="col-md-6">
+                        <div style={{marginTop:50}} className="col-md-6">
+                            <p className="Admission_p">Instructor</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
+                            <p className="Admission_p">Semester</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
                             <button className="Login_Button float-left" style={{width:200}} onClick={send} ><Modals validate={validate} /></button>
                         </div>
                     </div>
@@ -154,9 +204,11 @@ function Datesheet() {
                                                 <Table.HeaderCell>Sr#</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Title</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
+                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Time</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
+                                                <Table.HeaderCell>Fall / Spring</Table.HeaderCell>
                                                 <Table.HeaderCell>Delete</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
@@ -167,6 +219,8 @@ function Datesheet() {
                                                     <Table.Cell>{index+1}</Table.Cell>
                                                     <Table.Cell>{datesheet.Course_Title}</Table.Cell>
                                                     <Table.Cell>{datesheet.Course_Code}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Instructor}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Semester}</Table.Cell>
                                                     <Table.Cell>{datesheet.Time_Slot}</Table.Cell>
                                                     <Table.Cell>{datesheet.Shift}</Table.Cell>
                                                     <Table.Cell>{datesheet.Fall_Spring}</Table.Cell>
@@ -187,6 +241,7 @@ function Datesheet() {
 }
 
 export default Datesheet;
+
 
 function Modals(props) {
 	const [open, setOpen] = React.useState(false)

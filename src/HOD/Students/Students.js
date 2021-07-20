@@ -2,53 +2,160 @@ import React,{useState,useEffect} from 'react'
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import Headers from '../../Fixed Components/Header';
+import Select from "react-select";
 import { Header, Modal, Table } from 'semantic-ui-react';
+import {Export} from '../../Export';
 
 const Students = () => {
 
     axios.defaults.withCredentials = true
 
+    var login = JSON.parse(localStorage.getItem("HOD"))
+
     const [data,setdata] = useState([])
     const [loading, setloading] = useState(true)
     const [message, setmessage] = useState("")
+    const [seach,setseach] = useState([])
+    const [toggle, setmtoggle] = useState("")
 
-    const login = localStorage.getItem("HOD")
+    const [filter, setfilter] = useState({
+        Status:"",
+        Fee_Status:"",
+        Department: login.Department,
+        Semester:"",
+        Shift:"",
+        Names : "",
+        Roll:""
+    })
+
+    var dep = ""
+
+    const Shift = [
+		{ value: 'Morning', label: 'Morning', Name : "Shift" },
+		{ value: 'Evening', label: 'Evening', Name : "Shift" }
+	]
+
+    const Semester = [
+		{ value: '1', label: '1', Name : "Semester" },
+		{ value: '2', label: '2', Name : "Semester" },
+		{ value: '3', label: '3', Name : "Semester" },
+		{ value: '4', label: '4', Name : "Semester" },
+		{ value: '5', label: '5', Name : "Semester" },
+		{ value: '6', label: '6', Name : "Semester" },
+		{ value: '7', label: '7', Name : "Semester" },
+		{ value: '8', label: '8', Name : "Semester" },
+		{ value: '9', label: '9', Name : "Semester" },
+		{ value: '10', label: '10', Name : "Semester" },
+		{ value: '11', label: '11', Name : "Semester" },
+		{ value: '12', label: '12', Name : "Semester" },
+	]
+
+    const Status = [
+		{ value: 'Active', label: 'Active', Name : "Status" },
+		{ value: 'Inactive', label: 'Inactive', Name : "Status" },
+	]
+
+    const Fee_Status = [
+		{ value: 'Paid', label: 'Paid', Name : "Fee_Status" },
+		{ value: 'Unpaid', label: 'Unpaid', Name : "Fee_Status" },
+	]
+
+
+    if(login!=null){
+        dep = login.Department
+    }
+    else{
+        dep = login
+    }
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/students",filter).then((res)=>{
             setdata(res.data.data)
             setloading(false)
-        }).catch((err)=>{
-            setmessage("Something Went Wrong! Please Try Again After Sometime")
-            setloading(false)
+            setmtoggle("")
+            axios.get("http://localhost:3001/api/alll/students").then((res)=>{
+                setseach(res.data.data)
+            }).catch((err)=>{
+                setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
-    },[])
 
-    const update_data = () => {
-        axios.post("http://localhost:3001/api/hod/students",{Department:login}).then((res)=>{
-            setdata(res.data.data)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
             setloading(false)
         })
-    }
+    },[filter,toggle])
 
 
     const Delete=(id)=>{
         axios.delete(`http://localhost:3001/api/hod/students/${id}`).then((res)=>{
-            update_data()
+            setmtoggle("Delete")
         })
     }
 
-    // const toggles=(e)=>{
-    //     let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
-    //     axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
-    //         update_data()
-    //     }))
-    // }
+    const toggles=(e)=>{
+        setmtoggle(e.value)
+        let Status = e.target.textContent === "Inactive" ? "Active" : "Inactive"
+        axios.put(`http://localhost:3001/api/hod/students/status/${e.target.id}`,{Statuss:Status}).then((res=>{
+        }))
+    }
 
-    if (login==null){
-        return <Redirect to="/login"/>;
+    const Upgrade = (e) => {
+        e.preventDefault()
+        axios.post("http://localhost:3001/api/hod/semesterupgrade",{Department:login.Department}).then((res)=>{
+            setmtoggle("Upgrade")
+        })
+    }
+
+    var Names = [
+		
+	]
+
+    seach.filter((student)=>student.Department==login.Department).map((Stu)=>{
+        Names.push( { value: Stu.Full_Name, label: Stu.Full_Name, Name : "Names" })
+    })
+
+    var Roll = [
+		
+	]
+
+    seach.filter((student)=>student.Department==login.Department).map((Stu)=>{
+        Roll.push( { value: Stu.Roll, label: Stu.Roll, Name : "Roll" })
+    })
+
+    
+
+    const changeselect = (e) => {
+
+        setfilter({
+            ...filter,
+            Names : "",
+            Roll:"",
+            [e.Name] : e.value
+          })
+    }
+
+    const seachbyroll = (e) => {
+        setfilter({
+            ...filter,
+            Status:"",
+            Fee_Status:"",
+            Semester:"",
+            Shift:"",
+            Names : "",
+            Roll:e.value
+        })
+    }
+
+    const seachbyname = (e) => {
+        setfilter({
+            ...filter,
+            Status:"",
+            Fee_Status:"",
+            Semester:"",
+            Shift:"",
+            Names : e.value,
+            Roll : ""
+        })
     }
 
 
@@ -74,9 +181,44 @@ const Students = () => {
         <React.Fragment>
             <Headers/>
             <div className="Student">
-                <div class="container">
-                    <h1>Total Students in {login} : {data.filter((student)=>student.Department==login).length}</h1>
-                    <div class="row">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <h1>Total Students in {login.Department} : {data.filter((student)=>student.Department==login.Department).length}</h1>
+                        </div>
+                        <div className="col-md-6">
+                            <button onClick={Upgrade} className="btn btn-success float-right">Semester Upgrade</button>
+                        </div>
+                    </div>
+                    <hr/>
+                        <div className="row">
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Status}  name="Status" placeholder="Active / Inactive" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                            </div>
+                        </div>
+                    <hr/>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <Select className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
+                        </div>
+                        <div className="col-md-3">
+                            <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
+                        </div>
+                        <div className="col-md-6">
+                            <Export csvData={data} fileName={"Students"} />
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="row">
                         <div className="col-md-12">
                             <Table celled selectable color="grey">
                                 <Table.Header>
@@ -85,15 +227,16 @@ const Students = () => {
                                         <Table.HeaderCell>Roll</Table.HeaderCell>
                                         <Table.HeaderCell>Name</Table.HeaderCell>
                                         <Table.HeaderCell>Father's Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Email</Table.HeaderCell>
-                                        <Table.HeaderCell>Address</Table.HeaderCell>
+                                        <Table.HeaderCell>Semester</Table.HeaderCell>
+                                        <Table.HeaderCell>Shift</Table.HeaderCell>
                                         <Table.HeaderCell>Fee Status</Table.HeaderCell>
+                                        <Table.HeaderCell>Status</Table.HeaderCell>
                                         <Table.HeaderCell>Full Details</Table.HeaderCell>
-                                        <Table.HeaderCell>Delete</Table.HeaderCell>
+                                        {/* <Table.HeaderCell>Delete</Table.HeaderCell> */}
                                     </Table.Row>
                                 </Table.Header>
                                 <Table.Body>
-                                    { data.filter((student)=>student.Department==login).map((student,index)=>{
+                                    { data.filter((student)=>student.Department==login.Department).map((student,index)=>{
                                         return (     
                                         // <div style={{border:"1px dashed",paddingBottom:"10px",paddingTop:"10px",marginBottom:"10px"}} className="col-xl-3">
                                         //     <h4>{student.Full_Name} - {student.Roll}</h4>
@@ -115,17 +258,19 @@ const Students = () => {
                                         <Table.Cell><b>{student.Roll}</b></Table.Cell>
                                         <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
                                         <Table.Cell>{student.Father_Name}</Table.Cell>
-                                        <Table.Cell>{student.Email}</Table.Cell>
-                                        <Table.Cell>{student.Address}</Table.Cell>
-                                        {/* <Table.Cell><button className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
-                                                    {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
-                                                </button></Table.Cell> */}
+                                        <Table.Cell>{student.Semester}</Table.Cell>
+                                        <Table.Cell>{student.Shift}</Table.Cell>
                                         {
                                             student.Fee_Status==="Unpaid"?<Table.Cell style={{color:"red"}} >{student.Fee_Status}</Table.Cell>:
                                             <Table.Cell style={{color:"green"}} >{student.Fee_Status}</Table.Cell>
                                         }
+                                        {
+                                            <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Status==="Inactive"?"button":"buttonPaid"}`} toggle active={student.Status==="Inactive"?false:true} id={student.id} onClick={toggles} >
+                                            {student.Status==="Inactive"?"Inactive":"Active"}
+                                            </button></Table.Cell>
+                                        }
                                         <Table.Cell><Modals student={student} /></Table.Cell>
-                                        <Table.Cell><button onClick={() => Delete(student.id)} className="btn btn-danger">Delete</button></Table.Cell>
+                                        {/* <Table.Cell><button onClick={() => Delete(student.id)} className="btn btn-danger">Delete</button></Table.Cell> */}
                                     </Table.Row>
                                     )})}
                                 </Table.Body>
@@ -154,7 +299,7 @@ function Modals(props) {
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}
         open={open}
-        trigger={<button style={{marginRight:"10px"}} className="btn button" toggle active={true} >View</button>}
+        trigger={<button style={{marginRight:"10px"}} className="btn button" toggle="true" active={"true"} >View</button>}
       >
           <div style={{marginLeft:"100px"}} className="Student">
           <Modal.Description>

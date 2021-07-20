@@ -9,12 +9,10 @@ function Datesheet() {
     const [data,setdata] = useState([])
 
     const changeselect = (e) => {
-
-            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:e.value}).then((res)=>{
-                setdata(res.data.data)
-            })
-
-}
+        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:e.value}).then((res)=>{
+            setdata(res.data.data)
+        })
+    }
 
 const Department = [
     { value: 'BBA', label: 'BBA', Name : "Department" },
@@ -51,6 +49,8 @@ const Department = [
                                                 <Table.HeaderCell>Sr#</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Title</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
+                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Time</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
                                                 <Table.HeaderCell>Semester</Table.HeaderCell>
@@ -63,6 +63,8 @@ const Department = [
                                                     <Table.Cell>{index+1}</Table.Cell>
                                                     <Table.Cell>{datesheet.Course_Title}</Table.Cell>
                                                     <Table.Cell>{datesheet.Course_Code}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Instructor}</Table.Cell>
+                                                    <Table.Cell>{datesheet.Semester}</Table.Cell>
                                                     <Table.Cell>{datesheet.Time_Slot}</Table.Cell>
                                                     <Table.Cell>{datesheet.Shift}</Table.Cell>
                                                     <Table.Cell>{datesheet.Fall_Spring}</Table.Cell>

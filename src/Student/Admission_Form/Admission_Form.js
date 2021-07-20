@@ -168,7 +168,7 @@ function Admission_Form() {
 									<p className="Admission_p">Matric Year</p>
 									<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Matric Year" required />
 									<p className="Admission_p">Matric Board</p>
-									<input name="Matric_Board" onChange={change} className="Admission_Form_Input" placeholder="Select Board" required />
+									<input name="Matric_Board" onChange={change} className="Admission_Form_Input" placeholder="Matric Board" required />
 							</div>
 							<div className="col">
 								<h2 className="Admission_Form_Category"><b>Inter Details</b></h2>
@@ -182,7 +182,7 @@ function Admission_Form() {
 								<p className="Admission_p">Inter Year</p>
 								<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required />
 								<p className="Admission_p">Inter Board</p>
-								<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Select Board" required />
+								<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Inter Board" required />
 							</div>
 							<div style={{marginLeft:-10}} className="col"><button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button></div>
 						</div>  

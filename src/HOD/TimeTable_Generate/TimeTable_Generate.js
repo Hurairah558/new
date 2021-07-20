@@ -10,18 +10,24 @@ const TimeTable_Generate = () => {
 
     const [Instructors, setInstructors] = useState([])
 
-    const login = localStorage.getItem("HOD")
+    const login = JSON.parse(localStorage.getItem("HOD"))
     const [data,setdata] = useState([])
+    const [courses,setcourses] = useState([])
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/timetable",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
+
+                axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+                    setcourses(res.data.data)
+                })
+
         })
     },[])
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/hod/timetable",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
         })
     }
@@ -34,7 +40,7 @@ const TimeTable_Generate = () => {
 
 
     const [FormData, setFormData] = useState({
-		Department: login,
+		Department: login.Department,
 		Instructor: '',
         Instructor_Department : '',
         Semester: '',
@@ -61,19 +67,6 @@ const TimeTable_Generate = () => {
 		{ value: 'Islamiyat', label: 'Islamiyat', Name : "Instructor_Department" },
 		{ value: 'Urdu', label: 'Urdu', Name : "Instructor_Department" },
 		{ value: 'Zoology', label: 'Zoology', Name : "Instructor_Department" },
-	]
-
-
-    const Course_Code = [
-		{ value: 'IT-209', label: 'IT-209', Name : "Course_Code" },
-		{ value: 'IT-210', label: 'IT-210', Name : "Course_Code" },
-		{ value: 'IT-211', label: 'IT-211', Name : "Course_Code" },
-	]
-
-    const Course_Title = [
-		{ value: 'Data Structures', label: 'Data Structures', Name : "Course_Title" },
-		{ value: 'Psychology', label: 'Psychology', Name : "Course_Title" },
-		{ value: 'Accounting', label: 'Accounting', Name : "Course_Title" },
 	]
 
     const Time_Slot = [
@@ -124,6 +117,23 @@ const TimeTable_Generate = () => {
     })
 
 
+    var Course_Title = [
+		
+	]
+
+    courses.map((coursess)=>{
+        Course_Title.push( { value: coursess.Course_Title, label: coursess.Course_Title, Name : "Course_Title" })
+    })
+
+    var Course_Code = [
+		
+	]
+
+    courses.map((coursess)=>{
+        Course_Code.push( { value: coursess.Course_Code, label: coursess.Course_Code, Name : "Course_Code" })
+    })
+
+
     const Fall_Spring = [
 		{ value: 'Fall-2021', label: 'Fall-2021', Name : "Fall_Spring" },
 		{ value: 'Spring-2021', label: 'Spring-2021', Name : "Fall_Spring" },
@@ -155,7 +165,7 @@ const TimeTable_Generate = () => {
 }
 
         const changeselects = (e) => {
-            axios.post("http://localhost:3001/api/hod/timetable",{Department:login,Fall_Spring:e.value}).then((res)=>{
+            axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department,Fall_Spring:e.value}).then((res)=>{
                 setdata(res.data.data)
         })
         }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './Login_Form_Design.css';
 import axios from 'axios';
-import {Redirect} from 'react-router-dom';
+import {Redirect,Link} from 'react-router-dom';
 import Header from '../Student/Header/Header';
 function Login () {
 
@@ -25,44 +25,47 @@ function Login () {
 		e.preventDefault()
 		axios.post("http://localhost:3001/login",{formData}).then((res)=>{
 			if(res.data.LoggedIn){
-				localStorage.setItem("HOD",res.data.session.Department)
+				localStorage.setItem("HOD",`{"Designation":"${res.data.session.Designation}", "Department":"${res.data.session.Department}", "id":"${res.data.session.id}", "Name":"${res.data.session.Name}"}`)
 				setlogin(localStorage.getItem("HOD"))
 			}
 		})
 			.catch((err)=>{console.log(err)})
 	}
 
-	if (login==="AO"){
+
+	if (String(login).includes("AO")){
 		return(
 			<Redirect to="/ao/feemanagement" />
 		   )
 	}
 
-	if (login==="Teacher"){
+	else if (String(login).includes("Teacher")){
 		return(
 			<Redirect to="/instructor/home" />
 		   )
 	}
 
-	if (login==="RO"){
+	else if (String(login).includes("RO")){
 		return(
 			<Redirect to="/ro/students" />
 		   )
 	}
 
-	if (login==="SSIO"){
+	else if (String(login).includes("SSIO")){
 		return(
 			<Redirect to="/ssio/freeinstructors" />
 		   )
 	}
 
 
-	if (login!=null){
+	else if (String(login).includes("HOD")){
 		return(
 		 <Redirect to="/hod/students" />
 		)
 	  }
+
 	  else{
+
 	return (
 		<React.Fragment>
 			<Header/>
@@ -76,7 +79,7 @@ function Login () {
 								<input className="Login_input" onChange={change} type="text" name="Username" placeholder="User name" value={formData.Username} required=""/>
 								<input className="Login_input" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required=""/>
 								<button className="Login_Button" onClick={Login} >Login</button>
-								<p className="Login_p" >Forget Password ?</p>
+								<Link to="/forget/password"> <p className="Login_p" >Forget Password ?</p></Link>
 							</form>
 						</div>
 					</div>
@@ -84,6 +87,6 @@ function Login () {
 			</div>
 		</React.Fragment>
 	  );
-}
+	}
 }
 export default Login;

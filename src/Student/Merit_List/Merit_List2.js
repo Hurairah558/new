@@ -15,6 +15,10 @@ const Merit_List2 = () => {
         Department : ""
     })
 
+    const [Departments,setDepartments] = useState("")
+
+    const [Loading,setLoading] = useState(false)
+
 
     const Department = [
 		{ value: 'BBA', label: 'BBA', Name : "Department" },
@@ -35,69 +39,84 @@ const Merit_List2 = () => {
 
     const changeselect = (e) => {
 
+            setLoading(true)
+            setDepartments(e.value)
+
             axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:e.value}).then((res)=>{
                 setmerit(res.data.data[0])
                 axios.post("http://localhost:3001/hod/meritlist2",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
                     setdata(res.data.data)
+                    setLoading(false)
                 })
         })
 
     }
 
-    return (
-        <React.Fragment>
-            <Header/>
-            <div className="Student">
-                <div class="container">
-                    <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
-                    <h1 className="d-flex justify-content-center">{merit.MeritList}</h1>
-                    {data.length>0?
-                        <div class="row mt-4">
-                            <div className="col-md-12">
-                            {merit.Display==1?
-                                <Table celled selectable color="grey">
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                            <Table.HeaderCell>ID</Table.HeaderCell>
-                                            <Table.HeaderCell>Name</Table.HeaderCell>
-                                            <Table.HeaderCell>Father's Name'</Table.HeaderCell>
-                                            <Table.HeaderCell>Department</Table.HeaderCell>
-                                            <Table.HeaderCell>CNIC</Table.HeaderCell>
-                                            <Table.HeaderCell>Merit</Table.HeaderCell>
-                                            <Table.HeaderCell>Year</Table.HeaderCell>
-                                            <Table.HeaderCell>Shift</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        {
-                                        data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
-                                            return (     
-                                                <Table.Row key={index}>
-                                                    <Table.Cell><b>{index+1}</b></Table.Cell>
-                                                    <Table.Cell><b>{student.id}</b></Table.Cell>
-                                                    <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
-                                                    <Table.Cell>{student.Father_Name}</Table.Cell>
-                                                    <Table.Cell>{student.Department}</Table.Cell>
-                                                    <Table.Cell>{student.CNIC}</Table.Cell>
-                                                    <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
-                                                    <Table.Cell>{student.Year}</Table.Cell>
-                                                    <Table.Cell>{student.Shift}</Table.Cell>
-                                                </Table.Row>
-                                        )})
-                                        }
-                                
-                                    </Table.Body>
-                                </Table>
-                                :<div></div>
-                            }
-                            </div>
-                        </div>
-                    :<div></div>}
+    if(Loading){
+        return(
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+            </React.Fragment>
+        )
+    }
+    else{
+        return (
+            <React.Fragment>
+                <Header/>
+                <div className="Student">
+                    <div class="container">
+                        <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                        <hr/>
+                        {data.length>0?
+                                <div class="row mt-4">
+                                    <div className="col-md-12">
+                                    {merit.Display==1?
+                                        <React.Fragment>
+                                            <div className="row ml-4">
+                                                <div className="col-md-4"><h1>{Departments} </h1></div>
+                                                <div className="col-md-3"><h1>Evening</h1></div>
+                                                <div className="col-md-3"><h1>{merit.MeritList}</h1></div>
+                                                <div className="col-md-2"><h1>{new Date().getFullYear()}</h1></div>
+                                            </div>
+                                            <Table celled selectable color="grey">
+                                                <Table.Header>
+                                                    <Table.Row>
+                                                        <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                                        <Table.HeaderCell>ID</Table.HeaderCell>
+                                                        <Table.HeaderCell>Name</Table.HeaderCell>
+                                                        <Table.HeaderCell>Father's Name'</Table.HeaderCell>
+                                                        <Table.HeaderCell>CNIC</Table.HeaderCell>
+                                                        <Table.HeaderCell>Merit</Table.HeaderCell>
+                                                    </Table.Row>
+                                                </Table.Header>
+                                                <Table.Body>
+                                                    {
+                                                    data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
+                                                        return (     
+                                                            <Table.Row key={index}>
+                                                                <Table.Cell><b>{index+1}</b></Table.Cell>
+                                                                <Table.Cell><b>{student.id}</b></Table.Cell>
+                                                                <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
+                                                                <Table.Cell>{student.Father_Name}</Table.Cell>
+                                                                <Table.Cell>{student.CNIC}</Table.Cell>
+                                                                <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
+                                                            </Table.Row>
+                                                    )})
+                                                    }
+                                            
+                                                </Table.Body>
+                                            </Table>
+                                        </React.Fragment>
+                                    :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>
+                                    }
+                                    </div>
+                                </div>
+                        :<div></div>}
+                    </div>
                 </div>
-            </div>
-        </React.Fragment>
-    )
+            </React.Fragment>
+        )
+    }
 }
-
 export default Merit_List2;

@@ -63,6 +63,9 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/ro/admission_controller" className="nav-link text-white" href="#">Admission Controller</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/password/reset" className="nav-link text-white" href="#">Change</Link>
+                        </li>
                         { login!=null?
                         <button className="btn btn-primary ml-2" onClick={Logout}>Logout</button>
                         :

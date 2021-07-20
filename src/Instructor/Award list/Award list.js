@@ -7,9 +7,12 @@ const Awardlist = () => {
 
     const n = 100;
 
+    const login = JSON.parse(localStorage.getItem("HOD"))
+
     const [fixdata, setfixdata] = useState({
 		Course_Title: '',
 		Course_Code: '',
+		Semester: '',
 		Fall_Spring: '',
 		Shift: ''
 	  })
@@ -28,6 +31,9 @@ const Awardlist = () => {
         d["Course_Title"] = ""
         d["Course_Code"] = ""
         d["Fall_Spring"] = ""
+        d["Instructor"] = login.Name
+        d["Department"] = login.Department
+        d["Semester"] = ""
         for (i=0;i<100;i++){
             d[`Roll${i}`] = ""
             d[`Name${i}`] = ""
@@ -58,6 +64,21 @@ const Awardlist = () => {
     const Shift = [
 		{ value: 'Morning', label: 'Morning', Name : "Shift" },
 		{ value: 'Evening', label: 'Evening', Name : "Shift" },
+	]
+
+    const Semester = [
+		{ value: '1', label: '1', Name : "Semester" },
+		{ value: '2', label: '2', Name : "Semester" },
+		{ value: '3', label: '3', Name : "Semester" },
+		{ value: '4', label: '4', Name : "Semester" },
+		{ value: '5', label: '5', Name : "Semester" },
+		{ value: '6', label: '6', Name : "Semester" },
+		{ value: '7', label: '7', Name : "Semester" },
+		{ value: '8', label: '8', Name : "Semester" },
+		{ value: '9', label: '9', Name : "Semester" },
+		{ value: '10', label: '10', Name : "Semester" },
+		{ value: '11', label: '11', Name : "Semester" },
+		{ value: '12', label: '12', Name : "Semester" },
 	]
 
     const changeselect = (e) => {
@@ -104,6 +125,10 @@ const Awardlist = () => {
                         <div className="col-md-3">
                             <p className="Admission_p">Fall / Spring</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                        </div>
+                        <div className="col-md-3">
+                            <p className="Admission_p">Semester</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
                         </div>
                     </div>
                     {[...Array(n)].map((elementInArray, index) => ( 

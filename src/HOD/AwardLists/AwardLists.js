@@ -1,17 +1,18 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import Header from '../Header/Header';
+import Header from '../../Fixed Components/Header';
 import Select from 'react-select';
 import { Table } from 'semantic-ui-react';
 
 function AwardLists() {
 
+    const login = JSON.parse(localStorage.getItem("HOD"))
 
     const [data, setdata] = useState([])
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/ssio/awardlists").then((res)=>{
+        axios.post("http://localhost:3001/api/hod/awardlists",{Department:login.Department}).then((res)=>{
 			setdata(res.data.data)
 		})
 			.catch((err)=>{console.log(err)})
@@ -19,7 +20,7 @@ function AwardLists() {
 
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/ssio/awardlists").then((res)=>{
+        axios.post("http://localhost:3001/api/hod/awardlists",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
         })
     }
@@ -49,7 +50,7 @@ function AwardLists() {
 	]
 
     const changeselects = (e) => {
-        axios.post("http://localhost:3001/api/ssio/awardlists",{Fall_Spring:e.value}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/awardlists",{Fall_Spring:e.value,Department:login.Department}).then((res)=>{
             setdata(res.data.data)
     })
     }
@@ -67,14 +68,13 @@ function AwardLists() {
                             <h1>Currently Displaying Award Lists</h1>
                             <div class="row">
                                 <div className="col-md-12">
-                                <Table style={{textAlign:"center"}} celled selectable>
+                                    <Table style={{textAlign:"center"}} celled selectable>
                                         <Table.Header>
                                             <Table.Row>
                                                 <Table.HeaderCell>Sr#</Table.HeaderCell>
                                                 <Table.HeaderCell>Instructor</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Title</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell>Department</Table.HeaderCell>
                                                 <Table.HeaderCell>Shift</Table.HeaderCell>
                                                 <Table.HeaderCell>Semester</Table.HeaderCell>
                                                 <Table.HeaderCell>Fall / Spring</Table.HeaderCell>
@@ -90,11 +90,10 @@ function AwardLists() {
                                                         <Table.Cell>{Course.Instructor}</Table.Cell>
                                                         <Table.Cell>{Course.Course_Title}</Table.Cell>
                                                         <Table.Cell>{Course.Course_Code}</Table.Cell>
-                                                        <Table.Cell>{Course.Department}</Table.Cell>
                                                         <Table.Cell>{Course.Shift}</Table.Cell>
                                                         <Table.Cell>{Course.Semester}</Table.Cell>
                                                         <Table.Cell>{Course.Fall_Spring}</Table.Cell>
-                                                        <Table.Cell><Link to={{pathname:"/ssio/awardlistdetails",state:{Course}}} ><button className="btn btn-primary">View</button></Link></Table.Cell>
+                                                        <Table.Cell><Link to={{pathname:"/hod/awardlistdetails",state:{Course}}} ><button className="btn btn-primary">View</button></Link></Table.Cell>
                                                         <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(Course.id)} >Delete</button></Table.Cell>
                                                     </Table.Row>
                                             )})

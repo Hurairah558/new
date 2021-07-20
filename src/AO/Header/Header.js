@@ -57,6 +57,9 @@ const Header = () => {
                             <Link to="/ao/feemanagement2" className="nav-link text-dark">Evening</Link>
                             </div>
                         </li>
+                        <li className="nav-item">
+                            <Link to="/password/reset" className="nav-link text-white" href="#">Change</Link>
+                        </li>
                         { login!=null?
                         <button className="btn btn-primary" onClick={Logout}>Logout</button>
                         :

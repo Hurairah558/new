@@ -27,7 +27,7 @@ const Students = () => {
     })
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/ro/students",filter).then((res)=>{
+        axios.post("http://localhost:3001/api/ro/students2",filter).then((res)=>{
             setdata(res.data.data)
             update()
             setloading(false)
@@ -39,7 +39,7 @@ const Students = () => {
 
 
     const update=()=>{
-        axios.get("http://localhost:3001/api/all/students").then((res)=>{
+        axios.get("http://localhost:3001/api/all/students2").then((res)=>{
             setseach(res.data.data)
             setloading(false)
         }).catch((err)=>{
@@ -169,7 +169,7 @@ const Students = () => {
             <Headers/>
             <div className="Student">
                 <div className="container">
-                    <h1>Total Students Displaying (Morning Shift) {data.length}</h1>
+                    <h1>Total Students Displaying (Morning Evening) {data.length}</h1>
                     <hr/>
                         <div className="row">
                             <div className="col-md-3">

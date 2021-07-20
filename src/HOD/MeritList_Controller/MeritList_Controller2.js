@@ -8,7 +8,7 @@ const MeritList_Controller2 = () => {
     
     axios.defaults.withCredentials = true;
 
-    const login = localStorage.getItem("HOD")
+    const login = JSON.parse(localStorage.getItem("HOD"))
     const [data,setdata] = useState([])
     const [Year, setYear] = useState([])
 
@@ -17,7 +17,7 @@ const MeritList_Controller2 = () => {
 		Start: '',
 		End: '',
 		Display: '',
-		Department: login,
+		Department: login.Department
 	  })
 
     const [CurrentData, setCurrentData] = useState({
@@ -25,13 +25,13 @@ const MeritList_Controller2 = () => {
         NOS_Start : "",
         NOS_End : "",
         Display : "",
-        Department : login
+        Department : login.Department
     })
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: new Date().getFullYear()}).then((res)=>{
                     setdata(res.data.data)
                 })
         })
@@ -52,9 +52,9 @@ const MeritList_Controller2 = () => {
 
 
       const update_data = () => {
-        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: new Date().getFullYear()}).then((res)=>{
                     setdata(res.data.data)
                 })
     
@@ -85,7 +85,7 @@ const MeritList_Controller2 = () => {
     }
 
     const changeselectYear = (e) => {
-        axios.post("http://localhost:3001/hod/meritlist2",{Department:login,Year: e.value}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: e.value}).then((res)=>{
             setdata(res.data.data)
         })
 	  }
