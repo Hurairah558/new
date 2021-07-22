@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import Headerr from '../Fixed Components/Header';
-import { Header, Modal , Button } from 'semantic-ui-react';
+import Header from '../Header/Header';
+import { Modal , Button } from 'semantic-ui-react';
 
 function ResetPassword() {
 
@@ -44,7 +44,7 @@ function ResetPassword() {
 
     return (
         <React.Fragment>
-            <Headerr/>
+            <Header/>
             <div className="d-flex justify-content-center mt-4" >
 				<div className="d-flex justify-content-center">
 					<div id="Login_Form" className="align-bottom">

@@ -4,13 +4,24 @@ import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
 import { Table , Button, Modal} from 'semantic-ui-react';
-const MeritList_Controller2 = () => {
+const MeritListData = () => {
     
     axios.defaults.withCredentials = true;
 
     const login = JSON.parse(localStorage.getItem("HOD"))
     const [data,setdata] = useState([])
     const [Year, setYear] = useState([])
+
+    const [filter, setfilter] = useState({
+        Department: login.Department,
+        Years:"",
+        Status:""
+    })
+
+    const Status = [
+		{ value: 'WhiteList', label: 'WhiteList', Name : "Status" },
+		{ value: 'BlackList', label: 'BlackList', Name : "Status" },
+	]
 
     const [formData, setFormData] = useState({
 		MeritList: '',
@@ -31,14 +42,14 @@ const MeritList_Controller2 = () => {
     useEffect(()=>{
         axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",filter).then((res)=>{
                     setdata(res.data.data)
                 })
         })
         axios.get("http://localhost:3001/api/hod/admissions/years").then((res)=>{
             setYear(res.data.data)
         }).catch((err)=>{console.log(err)})
-    },[])
+    },[filter])
 
     var Years = [
 		
@@ -54,7 +65,7 @@ const MeritList_Controller2 = () => {
       const update_data = () => {
         axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
             setCurrentData(res.data.data[0])
-                axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: new Date().getFullYear()}).then((res)=>{
+                axios.post("http://localhost:3001/hod/meritlist2",filter).then((res)=>{
                     setdata(res.data.data)
                 })
     
@@ -63,7 +74,6 @@ const MeritList_Controller2 = () => {
 
 
     const [validate,setvalidate] = useState("")
-
 
     const Apply_MeritList =()=>{
         axios.post("http://localhost:3001/hod/meritlistcontroller2",{formData}).then((res)=>{
@@ -85,9 +95,16 @@ const MeritList_Controller2 = () => {
     }
 
     const changeselectYear = (e) => {
-        axios.post("http://localhost:3001/hod/meritlist2",{Department:login.Department,Year: e.value}).then((res)=>{
-            setdata(res.data.data)
-        })
+        // axios.post("http://localhost:3001/hod/meritlist",{Department:login.Department,Year: e.value}).then((res)=>{
+        //     setdata(res.data.data)
+        // })
+
+        setfilter({
+            ...filter,
+            Department : login.Department,
+            [e.Name] : e.value
+          })
+
 	  }
 
     const changeselect = (e) => {
@@ -95,6 +112,13 @@ const MeritList_Controller2 = () => {
             ...formData,
             [e.Name]: e.value
         })
+    }
+
+    const toggles=(e)=>{
+        let Status = e.target.textContent
+        axios.put(`http://localhost:3001/api/students/status/${e.target.id}`,{Statuss:Status}).then((res=>{
+            update_data()
+        }))
     }
 
 
@@ -115,7 +139,6 @@ const MeritList_Controller2 = () => {
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <h1>{message}</h1>
                     <div className="row d-flex justify-content-end">
                         <div className="col" id="Merit_List_Data">
                             <h2 className="Admission_Form_Category">Manage Merit List</h2>
@@ -146,13 +169,20 @@ const MeritList_Controller2 = () => {
                                     <p className="Merit_List">Department &nbsp;&nbsp;: &nbsp;&nbsp;{CurrentData.Department}</p>
                                 </div>
                                 <div className="col">
-                                    <p className="Merit_List">Shift &nbsp;&nbsp;: &nbsp;&nbsp;Evening</p>
+                                    <p className="Merit_List">Shift &nbsp;&nbsp;: &nbsp;&nbsp;Morning</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <hr/>
-                    <Select className="Admission_Form_Select" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
+                    <div className="row">
+                        <div className="col-md-3">
+                            <Select className="Admission_Form_Select" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
+                        </div>
+                        <div className="col-md-3">
+                            <Select className="Admission_Form_Select" onChange={changeselectYear} name="Status" placeholder="BlackList / WhiteList" options={Status} required />
+                        </div>
+                    </div>
                     {CurrentData.NOS_End-1>0?
                         <div class="row">
                             <div className="col-md-12">
@@ -168,11 +198,12 @@ const MeritList_Controller2 = () => {
                                             <Table.HeaderCell>Merit</Table.HeaderCell>
                                             <Table.HeaderCell>Year</Table.HeaderCell>
                                             <Table.HeaderCell>Shift</Table.HeaderCell>
+                                            <Table.HeaderCell>Status</Table.HeaderCell>
                                         </Table.Row>
                                     </Table.Header>
-                                    <Table.Body>               
+                                    <Table.Body>
                                         {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End-1).map((student,index)=>{
-                                            return (     
+                                            return (
                                                 <Table.Row key={index}>
                                                     <Table.Cell><b>{index+1}</b></Table.Cell>
                                                     <Table.Cell><b>{student.id}</b></Table.Cell>
@@ -183,6 +214,11 @@ const MeritList_Controller2 = () => {
                                                     <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
                                                     <Table.Cell>{student.Year}</Table.Cell>
                                                     <Table.Cell>{student.Shift}</Table.Cell>
+                                                    {
+                                                        <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Status==="WhiteList"?"button":"buttonPaid"}`} toggle active={student.Status==="BlackList"?false:true} id={student.id} onClick={toggles} >
+                                                        {student.Status==="WhiteList"?"BlackList":"WhiteList"}
+                                                        </button></Table.Cell>
+                                                    }
                                                 </Table.Row>
                                         )})}
                                     </Table.Body>
@@ -196,8 +232,7 @@ const MeritList_Controller2 = () => {
     )
 }
 
-export default MeritList_Controller2;
-
+export default MeritListData;
 
 
 function Modals(props) {

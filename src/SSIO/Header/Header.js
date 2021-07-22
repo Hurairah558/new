@@ -67,7 +67,10 @@ const Header = () => {
                             <Link to="/ssio/awardlists" className="nav-link text-white" href="#">Award Lists</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/password/reset" className="nav-link text-white" href="#">Change</Link>
+                            <Link to="/ssio/attendancelist" className="nav-link text-white" href="#">Attendance</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/ssio/password/reset" className="nav-link text-white" href="#">Change</Link>
                         </li>
                         { login!=null?
                         <button className="btn btn-primary ml-2" onClick={Logout}>Logout</button>

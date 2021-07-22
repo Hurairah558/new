@@ -3,60 +3,38 @@ import Select from 'react-select';
 import axios from 'axios';
 import Header from '../../Fixed Components/Header';
 import { Button, Modal } from 'semantic-ui-react';
+import { useLocation } from 'react-router-dom';
 
 function AddStudent() {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
 
-	const [data,setdata] = useState([])
-    const [message, setmessage] = useState("")
-    const [ar, setar] = useState([
-		{
-			Full_Name : "",
-			Father_Name : "",
-			Gender : "",
-			CNIC : "",
-			DOB : "",
-			Email : "",
-			Phone : "",
-			Address : "",
-			Department : login.Department,
-			Matric_Roll : "",
-			Matric_Total : "",
-			Matric_Obtained_Marks : "",
-			Matric_Board : "",
-			Inter_Roll : "",
-			Inter_Total : "",
-			Inter_Obtained_Marks : "",
-			Inter_Board : "",
-			Semester : "",
-			Fee_Status : "",
-			Shift : ""
-		}
-	])
+    const Location = useLocation()
 
-	const [formdata,setformdata] = useState({
-        Roll : "",
-		Full_Name : ar[0].Full_Name,
-		Father_Name : ar[0].Father_Name,
-		Gender : ar[0].Gender,
-		CNIC : ar[0].CNIC,
-		DOB : ar[0].DOB,
-		Email : ar[0].Email,
-		Phone : ar[0].Phone,
-		Address : ar[0].Address,
+    const [formdata,setformdata] = useState({
+        id:Location.state.id,
+        Roll : Location.state.Roll,
+		Full_Name : Location.state.Full_Name,
+		Father_Name : Location.state.Father_Name,
+		Gender : Location.state.Gender,
+		CNIC : Location.state.CNIC,
+		DOB : Location.state.DOB,
+		Email : Location.state.Email,
+		Phone : Location.state.Phone,
+		Address : Location.state.Address,
 		Department : login.Department,
-		Matric_Roll : ar[0].Matric_Roll,
-		Matric_Total_Marks : ar[0].Matric_Total_Marks,
-		Matric_Obtained_Marks : ar[0].Matric_Obtained_Marks,
-		Matric_Board : ar[0].Matric_Board,
-		Inter_Roll : ar[0].Inter_Roll,
-		Inter_Total_Marks : ar[0].Inter_Total_Marks,
-		Inter_Obtained_Marks : ar[0].Inter_Obtained_Marks,
-		Inter_Board : ar[0].Inter_Board,
-        Semester : ar[0].Semester,
-		Shift : '',
-        Fee_Status : ar[0].Fee_Status,
+		Matric_Roll : Location.state.Matric_Roll,
+		Matric_Total : Location.state.Matric_Total,
+		Matric_Obtained_Marks : Location.state.Matric_Obtained_Marks,
+		Matric_Board : Location.state.Matric_Board,
+		Matric_Year : Location.state.Matric_Year,
+		Inter_Roll : Location.state.Inter_Roll,
+		Inter_Total : Location.state.Inter_Total,
+		Inter_Obtained_Marks : Location.state.Inter_Obtained_Marks,
+		Inter_Board : Location.state.Inter_Board,
+		Inter_Year : Location.state.Inter_Year,
+        Semester : Location.state.Semester,
+        Shift : Location.state.Shift
 	  });
 
 	const Gender = [
@@ -64,32 +42,12 @@ function AddStudent() {
 		{ value: 'Female', label: 'Female', Name : "Gender" },
 	]
 
-	useEffect(()=>{
-        axios.get("http://localhost:3001/api/hod/admission_form").then((res)=>{
-            setdata(res.data.data)
+    // useEffect(()=>{
+    //     setformdata(Location.state)
+    // },[])
+    
 
-        }).catch((err)=>{
-            setmessage("Something Went Wrong! Please Try Again After Sometime")
-        })
-    },[])
-
-
-	const get =(e)=>{
-		axios.post("http://localhost:3001/api/hod/admissions",{Department:login.Department,Year: new Date().getFullYear(),Roll:e.value}).then((res)=>{
-			setformdata(res.data.data[0])
-			setar(res.data.data)
-        }).catch((err)=>{
-            setmessage("Something Went Wrong! Please Try Again After Sometime")
-        })
-	}
-
-	var id = [
-		
-	]
-
-    data.map((Stu)=>{
-        id.push( { value: Stu.id, label: Stu.id, Name : "id" })
-    })
+	axios.defaults.withCredentials = true
 
     const Semester = [
 		{ value: '1', label: '1', Name : "Semester" },
@@ -116,6 +74,8 @@ function AddStudent() {
 		{ value: 'UnPaid', label: 'UnPaid', Name : "Fee_Status" },
 	]
 
+
+
 	const [validate,setvalidate] = useState("")
   
 	  const change = (e) => {
@@ -134,7 +94,7 @@ function AddStudent() {
   
 	  const set = (e) => {
 		e.preventDefault()
-		  axios.post(`http://localhost:3001/api/hod/addstudent`,formdata)
+		  axios.put(`http://localhost:3001/api/hod/editstudent`,formdata)
 		  .then((res)=>{
 			  if (res.data.message){
 			  	setvalidate(res.data.message)
@@ -154,9 +114,6 @@ function AddStudent() {
 				<div className="container">
 					<form>
 						<div className="row">
-							<hr className="col-md-12" style={{background:"white"}} />
-							<Select className="Admission_Form_Select" onChange={get} name="id" placeholder="Get Record" options={id} required />
-							<hr className="col-md-12" style={{background:"white"}} />
 							<div className="col-md-3" id="div1">
 								<h2 className="Admission_Form_Category">Personal Info</h2>
 								<hr/>
@@ -167,7 +124,7 @@ function AddStudent() {
 								<p className="Admission_p">Father's Name</p>
 								<input className="Admission_Form_Input" value={formdata.Father_Name} onChange={change} type="text" name="Father_Name" placeholder="Father's Name" required=""/>
 								<p className="Admission_p">Gender</p>
-								<Select className="Admission_Form_Select" onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required />
+								<Select className="Admission_Form_Select" defaultInputValue={Location.state.Gender} onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required />
 								<p className="Admission_p">CNIC</p>
 								<input className="Admission_Form_Input" value={formdata.CNIC} onChange={change} type="text" name="CNIC" placeholder="CNIC" required=""/>
 								<p className="Admission_p">Date Of Birth</p>
@@ -191,7 +148,7 @@ function AddStudent() {
 									<p className="Admission_p">Matric Roll</p>
 									<input type="text" name="Matric_Roll" value={formdata.Matric_Roll} onChange={change} className="Admission_Form_Input" placeholder="Your Matric Roll #"  required/>
 									<p className="Admission_p">Total_Marks</p>
-									<input type="text" name="Matric_Total_Marks" value={formdata.Matric_Total_Marks} onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric"  required/>
+									<input type="text" name="Matric_Total" value={formdata.Matric_Total} onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric"  required/>
 									<p className="Admission_p">Obtained_Marks</p>
 									<input type="text" name="Matric_Obtained_Marks" value={formdata.Matric_Obtained_Marks} onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Matric" required />
 									<p className="Admission_p">Matric Year</p>
@@ -205,7 +162,7 @@ function AddStudent() {
 									<p className="Admission_p">Inter Roll</p>
 									<input type="text" name="Inter_Roll" value={formdata.Inter_Roll} onChange={change} className="Admission_Form_Input" placeholder="Your Inter Roll #"  required/>
 									<p className="Admission_p">Total_Marks</p>
-									<input type="text" name="Inter_Total_Marks" value={formdata.Inter_Total_Marks} onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
+									<input type="text" name="Inter_Total" value={formdata.Inter_Total} onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter"  required/>
 									<p className="Admission_p">Obtained_Marks</p>
 									<input type="text" name="Inter_Obtained_Marks" value={formdata.Inter_Obtained_Marks} onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required />
 									<p className="Admission_p">Inter Year</p>
@@ -218,20 +175,16 @@ function AddStudent() {
                         <div className="row">
                             <div className="col-md-4">
                                 <p className="Admission_p">Semester</p>
-                                <Select name="Semester" onChange={changeselect} className="Admission_Form_Select" placeholder="Semester" options={Semester} required />
+                                <Select name="Semester" defaultInputValue={Location.state.Semester} onChange={changeselect} className="Admission_Form_Select" placeholder="Semester" options={Semester} required />
                             </div>
                             <div className="col-md-4">
                                 <p className="Admission_p">Shift</p>
-                                <Select name="Shift" onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
-                            </div>
-                            <div className="col-md-4">
-                                <p className="Admission_p">Fee Status</p>
-                                <Select name="Fee_Status" onChange={changeselect} className="Admission_Form_Select" placeholder="Fee Status" options={Fee_Status} required />
+                                <Select name="Shift" defaultInputValue={Location.state.Shift} onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
                             </div>
                         </div>
-						<hr style={{background:"white"}} />
+                        <hr style={{background:"white"}} />
                         <div className="row">
-                            <div className="col-md-12">
+                            <div className="col-md-6">
                                 <button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button>
                             </div>
                         </div>
@@ -253,7 +206,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Add Student</Button>}
+		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Update Student</Button>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

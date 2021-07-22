@@ -16,6 +16,8 @@ import Datesheet2 from './HOD/Datesheet/Datesheet2';
 import HOD_AwardLists from './HOD/AwardLists/AwardLists';
 import HOD_AwardlistDetails from './HOD/AwardLists/Details';
 import AddCourses from './HOD/AddCourses/AddCourses';
+import AssignCourses from './HOD/AssignCourses/AssignCourses';
+import AssignCourse from './HOD/Students/AssignCourse';
 import DatesheetStudent from './Student/Datesheet/Datesheet';
 import DatesheetStudent2 from './Student/Datesheet/Datesheet2';
 import Time_Table from './Student/Time Table/Time_Table';
@@ -31,13 +33,25 @@ import Free_Instructors from './SSIO/Free_Instructors/Free_Instructors';
 import Announcement from './SSIO/Announcement/Announcement';
 import Announcements from './Student/Announcements/Announcements';
 import AddStudent from './HOD/AddStudent/AddStudent';
+import EditStudent from './HOD/Students/Edit_Student';
 import HOD_Admissions from './HOD/Admissions/Admissions';
 import Awardlist from './Instructor/Award list/Award list';
+import AwardlistHOD from './HOD/Award list/Award list';
 import InstructorHome from './Instructor/Home/Home';
 import AO_Fee_Management from './AO/Fee Management/Fee Management';
 import AO_Fee_Management2 from './AO/Fee Management/Fee Management2';
-import ChangePassword from './ResetPassword/ResetPassword';
+import AO_Fee_Record from './AO/Fee_Record/Fee_Record';
+import ChangePasswordAO from './AO/ResetPassword/ResetPassword';
+import ChangePasswordHOD from './HOD/ResetPassword/ResetPassword';
+import ChangePasswordRO from './RO/ResetPassword/ResetPassword';
+import ChangePasswordSSIO from './SSIO/ResetPassword/ResetPassword';
 import ForgetPassword from './ForgetPassword/ForgetPassword';
+import Attendance_Instructor from './Instructor/AttendanceUpload/AttendanceUpload';
+import Attendance_HOD from './HOD/AttendanceUpload/AttendanceUpload';
+import Attendance_List_HOD from './HOD/AttendanceList/AttendanceList';
+import Attendance_Details_HOD from './HOD/AttendanceList/Details';
+import Attendance_List_SSIO from './SSIO/AttendanceList/AttendanceList';
+import Attendance_Details_SSIO from './SSIO/AttendanceList/Details';
 function App() {
   return (
     <React.Fragment>
@@ -58,6 +72,8 @@ function App() {
           <Route exact path="/hod/awardlists" component={HOD_AwardLists}/>
           <Route exact path="/hod/awardlistdetails" component={HOD_AwardlistDetails}/>
           <Route exact path="/hod/addcourses" component={AddCourses}/>
+          <Route exact path="/hod/assigncourses" component={AssignCourses}/>
+          <Route exact path="/hod/assigncourse" component={AssignCourse}/>
           <Route exact path="/student/datesheet" component={DatesheetStudent}/>
           <Route exact path="/student/datesheet2" component={DatesheetStudent2}/>
           <Route exact path="/student/timetable" component={Time_Table}/>
@@ -73,13 +89,25 @@ function App() {
           <Route exact path="/ssio/announcement" component={Announcement}/>
           <Route exact path="/student/announcements" component={Announcements}/>
           <Route exact path="/hod/addstudent" component={AddStudent}/>
+          <Route exact path="/hod/editstudent" component={EditStudent}/>
           <Route exact path="/hod/admissions" component={HOD_Admissions}/>
           <Route exact path="/instructor/awardlist" component={Awardlist}/>
+          <Route exact path="/hod/awardlist" component={AwardlistHOD}/>
           <Route exact path="/instructor/home" component={InstructorHome}/>
           <Route exact path="/ao/feemanagement" component={AO_Fee_Management}/>
           <Route exact path="/ao/feemanagement2" component={AO_Fee_Management2}/>
-          <Route exact path="/password/reset" component={ChangePassword}/>
+          <Route exact path="/ao/feerecord" component={AO_Fee_Record}/>
+          <Route exact path="/ao/password/reset" component={ChangePasswordAO}/>
+          <Route exact path="/hod/password/reset" component={ChangePasswordHOD}/>
+          <Route exact path="/ro/password/reset" component={ChangePasswordRO}/>
+          <Route exact path="/ssio/password/reset" component={ChangePasswordSSIO}/>
           <Route exact path="/forget/password" component={ForgetPassword}/>
+          <Route exact path="/instructor/attendance" component={Attendance_Instructor}/>
+          <Route exact path="/hod/attendance" component={Attendance_HOD}/>
+          <Route exact path="/hod/attendancelist" component={Attendance_List_HOD}/>
+          <Route exact path="/hod/attendancedetails" component={Attendance_Details_HOD}/>
+          <Route exact path="/ssio/attendancelist" component={Attendance_List_SSIO}/>
+          <Route exact path="/ssio/attendancedetails" component={Attendance_Details_SSIO}/>
       </Switch>
     </React.Fragment>
   );

@@ -108,10 +108,10 @@ function Admission_Controller() {
                     {!open?<h1>Please Set Merit List Formula Before Opening Admissions !</h1>:<div></div>}
                     <hr className="col-md-12"/>
                     <h1 style={{marginBottom:-15,marginTop:100}}>Merit List Formula</h1>
-							<div className="col-md-12">
-								<h1 style={{marginTop:0}} className="text-white">Merit List Formula</h1>
-							</div>
-							<div className="row">
+						<div className="col-md-12">
+							<h1 style={{marginTop:0}} className="text-white">Merit List Formula</h1>
+						</div>
+						<div className="row">
 							<div className="col-md-3">
 								<b>Matric Percentage</b>
 								<input className="Admission_Form_Input" onChange={change} type="text" name="Matric_Percentage" value={formdata.Matric_Percentage} placeholder="Matric Percentage" required=""/>

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Redirect , Link } from "react-router-dom";
 import Headers from '../../Fixed Components/Header';
 import Select from "react-select";
 import { Header, Modal, Table } from 'semantic-ui-react';
@@ -24,6 +24,8 @@ const Students = () => {
         Department: login.Department,
         Semester:"",
         Shift:"",
+        Degree_Status:"",
+        Gender:"",
         Names : "",
         Roll:""
     })
@@ -53,6 +55,16 @@ const Students = () => {
     const Status = [
 		{ value: 'Active', label: 'Active', Name : "Status" },
 		{ value: 'Inactive', label: 'Inactive', Name : "Status" },
+	]
+
+    const Gender = [
+		{ value: 'Male', label: 'Male', Name : "Gender" },
+		{ value: 'Female', label: 'Female', Name : "Gender" },
+	]
+
+    const Degree_Status = [
+		{ value: 'Completed', label: 'Completed', Name : "Degree_Status" },
+		{ value: 'Continue', label: 'Continue', Name : "Degree_Status" },
 	]
 
     const Fee_Status = [
@@ -96,6 +108,15 @@ const Students = () => {
         setmtoggle(e.value)
         let Status = e.target.textContent === "Inactive" ? "Active" : "Inactive"
         axios.put(`http://localhost:3001/api/hod/students/status/${e.target.id}`,{Statuss:Status}).then((res=>{
+            setmtoggle("")
+        }))
+    }
+
+    const Degree_toggles=(e)=>{
+        setmtoggle(e.value)
+        let Status = e.target.textContent === "Move to Completed" ? "Completed" : "Continue"
+        axios.put(`http://localhost:3001/api/hod/students/degreestatus/${e.target.id}`,{Statuss:Status}).then((res=>{
+            setmtoggle("")
         }))
     }
 
@@ -139,8 +160,11 @@ const Students = () => {
             ...filter,
             Status:"",
             Fee_Status:"",
+            Department: login.Department,
             Semester:"",
             Shift:"",
+            Degree_Status:"",
+            Gender:"",
             Names : "",
             Roll:e.value
         })
@@ -151,8 +175,11 @@ const Students = () => {
             ...filter,
             Status:"",
             Fee_Status:"",
+            Department: login.Department,
             Semester:"",
             Shift:"",
+            Degree_Status:"",
+            Gender:"",
             Names : e.value,
             Roll : ""
         })
@@ -204,6 +231,12 @@ const Students = () => {
                             <div className="col-md-3">
                                 <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
                             </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Degree_Status}  name="Degree_Status" placeholder="Completed / Continue" required />
+                            </div>
+                            <div className="col-md-3">
+                                <Select className="Admission_Form_Select" onChange={changeselect} options={Gender}  name="Gender" placeholder="Male / Female" required />
+                            </div>
                         </div>
                     <hr/>
                     <div className="row">
@@ -229,9 +262,12 @@ const Students = () => {
                                         <Table.HeaderCell>Father's Name</Table.HeaderCell>
                                         <Table.HeaderCell>Semester</Table.HeaderCell>
                                         <Table.HeaderCell>Shift</Table.HeaderCell>
+                                        <Table.HeaderCell>M</Table.HeaderCell>
                                         <Table.HeaderCell>Fee Status</Table.HeaderCell>
                                         <Table.HeaderCell>Status</Table.HeaderCell>
+                                        <Table.HeaderCell>Add Course</Table.HeaderCell>
                                         <Table.HeaderCell>Full Details</Table.HeaderCell>
+                                        <Table.HeaderCell>Degree Status</Table.HeaderCell>
                                         {/* <Table.HeaderCell>Delete</Table.HeaderCell> */}
                                     </Table.Row>
                                 </Table.Header>
@@ -260,6 +296,7 @@ const Students = () => {
                                         <Table.Cell>{student.Father_Name}</Table.Cell>
                                         <Table.Cell>{student.Semester}</Table.Cell>
                                         <Table.Cell>{student.Shift}</Table.Cell>
+                                        <Table.Cell>{student.Matric_Total}</Table.Cell>
                                         {
                                             student.Fee_Status==="Unpaid"?<Table.Cell style={{color:"red"}} >{student.Fee_Status}</Table.Cell>:
                                             <Table.Cell style={{color:"green"}} >{student.Fee_Status}</Table.Cell>
@@ -269,8 +306,14 @@ const Students = () => {
                                             {student.Status==="Inactive"?"Inactive":"Active"}
                                             </button></Table.Cell>
                                         }
-                                        <Table.Cell><Modals student={student} /></Table.Cell>
+                                        <Table.Cell><Link to={{pathname:"/hod/assigncourse",state:student}}><button className="btn button" toggle="true" active={"true"} ><i class="fa fa-book" aria-hidden="true"></i></button></Link></Table.Cell>
+                                        <Table.Cell><Link to={{pathname:"/hod/editstudent",state:student}}><button className="btn button" toggle="true" active={"true"} ><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></Link></Table.Cell>
                                         {/* <Table.Cell><button onClick={() => Delete(student.id)} className="btn btn-danger">Delete</button></Table.Cell> */}
+                                        {
+                                            <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Degree_Status==="Continue"?"button":"buttonPaid"}`} toggle active={student.Degree_Status==="Continue"?false:true} id={student.id} onClick={Degree_toggles} >
+                                            {student.Degree_Status==="Continue"?"Move to Completed":"Completed"}
+                                            </button></Table.Cell>
+                                        }
                                     </Table.Row>
                                     )})}
                                 </Table.Body>
@@ -284,9 +327,6 @@ const Students = () => {
 }
 
 export default Students;
-
-
-
 
 
 

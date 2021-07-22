@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import { useEffect } from 'react';
 import Select from "react-select";
 import { Button, Modal } from 'semantic-ui-react';
-import Header from '../Header/Header';
+import Header from '../../Fixed Components/Header';
 const Awardlist = () => {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
@@ -12,7 +12,7 @@ const Awardlist = () => {
 
     const [validate,setvalidate] = useState("")
 
-    const [awarddata, setawarddata] = useState({})
+    const [attendanceddata, setawarddata] = useState({})
 
 
     useEffect(()=>{
@@ -52,8 +52,7 @@ const Awardlist = () => {
             res.data.data.map((student,index)=>{
                 d[`Roll${index}`] = student.Roll
                 d[`Name${index}`] = student.Full_Name
-                d[`Mids${index}`] = ""
-                d[`Sessional${index}`] = ""
+                d[`Attendance${index}`] = ""
             })
             setawarddata(d)
 
@@ -126,7 +125,7 @@ const Awardlist = () => {
 
     const changeselect = (e) => {
         setawarddata({
-            ...awarddata,
+            ...attendanceddata,
             [e.Name] : e.value
           })
     }
@@ -134,7 +133,7 @@ const Awardlist = () => {
     
     
     const change = (e) => {
-        setawarddata({...awarddata,
+        setawarddata({...attendanceddata,
                 [e.target.name] : e.target.value
             })
 	}
@@ -142,7 +141,7 @@ const Awardlist = () => {
     const Upload = (e) => {
 
 		e.preventDefault()
-		axios.post("http://localhost:3001/api/instructor/awardlist",awarddata).then((res)=>{
+		axios.post("http://localhost:3001/api/instructor/attendance",attendanceddata).then((res)=>{
             if (res.data.message){
                 setvalidate(res.data.message)
             }
@@ -189,14 +188,11 @@ const Awardlist = () => {
                         <div className="col-md-3">
                             <input className="Login_input" value={student.Roll} onChange={change} type="text" name={`Roll`+index} placeholder="Roll Number" required=""/>
                         </div>
-                        <div className="col-md-3">
+                        <div className="col-md-5">
                             <input className="Login_input" value={student.Full_Name} onChange={change} type="text" name={`Name`+index} placeholder="Name" required=""/>
                         </div>
-                        <div className="col-md-2">
-                            <input className="Login_input" onChange={change} type="text" name={`Mids`+index} placeholder="Mids" required=""/>
-                        </div>
                         <div className="col-md-3">
-                            <input className="Login_input" onChange={change} type="text" name={`Sessional`+index} placeholder="Sessional" required=""/>
+                            <input className="Login_input" onChange={change} type="text" name={`Attendance`+index} placeholder="Attendance %" required=""/>
                         </div>
                     </div>
                     )

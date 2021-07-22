@@ -63,6 +63,9 @@ const Header = () => {
                             <Link to="/hod/awardlists" className="nav-link text-white" href="#">AwardLists</Link>
                         </li>
                         <li className="nav-item">
+                            <Link to="/hod/attendancelist" className="nav-link text-white" href="#">Attendance Lists</Link>
+                        </li>
+                        <li className="nav-item">
                             <Link to="/hod/addstudent" className="nav-link text-white" href="#">Add Student</Link>
                         </li>
                         <li className="nav-item">
@@ -75,7 +78,16 @@ const Header = () => {
                             <Link to="/hod/addcourses" className="nav-link text-white" href="#">Add Courses</Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/password/reset" className="nav-link text-white" href="#">Change</Link>
+                            <Link to="/hod/password/reset" className="nav-link text-white" href="#">Change</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/hod/assigncourses" className="nav-link text-white" href="#">Assign Courses</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/hod/awardlist" className="nav-link text-white" href="#">Award List</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link to="/hod/attendance" className="nav-link text-white" href="#">Attendance Upload</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
