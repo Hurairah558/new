@@ -52,6 +52,10 @@ const Header = () => {
 
                     <div className="ml-4 collapse navbar-collapse mb-3" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
+                        { login!=null?
+                            <li className="nav-item">
+                                <Link to="/student/profile" className="nav-link text-white" href="#">Profile</Link>
+                            </li>:<div></div>}
                             <li className="nav-item">
                                 <Link to="/admissionform" className="nav-link text-white" href="#">Admission Form</Link>
                             </li>
@@ -83,7 +87,12 @@ const Header = () => {
                                 </div>
                             </li>
                             { login!=null?
-                                <button className="btn btn-primary" onClick={Logout}>Logout</button>
+                                <>
+                                    <li className="nav-item">
+                                        <Link to="/student/reset/password" className="nav-link text-white" href="#">Change</Link>
+                                    </li>
+                                    <button className="btn btn-primary" onClick={Logout}>Logout</button>
+                                </>
                                 :
                                 <li className="nav-item">
                                     <Link to="/login" className="nav-link text-white" href="#">Login</Link>

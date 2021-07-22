@@ -80,7 +80,6 @@ function Login () {
 								<input className="Login_input" onChange={change} type="text" name="Username" placeholder="User name" value={formData.Username} required=""/>
 								<input className="Login_input" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required=""/>
 								<button className="Login_Button" onClick={Login} >Login</button>
-								<Link to="/student/forget/password"> <p className="Login_p" >Forget Password ?</p></Link>
 							</form>
 						</div>
 					</div>
