@@ -124,6 +124,15 @@ const Awardlist = () => {
         Course_Code.push( { value: coursess.Course_Code, label: coursess.Course_Code, Name : "Course_Code" })
     })
 
+
+    var Course_Title = [
+		
+	]
+
+    courses.map((coursess)=>{
+        Course_Title.push( { value: coursess.Course_Title, label: coursess.Course_Title, Name : "Course_Title" })
+    })
+
     const changeselect = (e) => {
         setawarddata({
             ...awarddata,
@@ -166,7 +175,8 @@ const Awardlist = () => {
                     <hr style={{background:"white"}} />
                     <div className="row mb-4">
                         <div className="col-md-3">
-                            <input className="Login_input" onChange={change} type="text" name="Course_Title" placeholder="Course Title" required=""/>
+                            <p className="Admission_p">Course Title</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                         </div>
                         <div className="col-md-3">
                             <p className="Admission_p">Shift</p>
@@ -181,6 +191,7 @@ const Awardlist = () => {
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
                         </div>
                     </div>
+                    <hr style={{background:"white"}} />
                     {data.map((student, index) => ( 
                     <div className="row" key={index}>
                         <div className="col-md-1">

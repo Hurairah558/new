@@ -161,10 +161,6 @@ function Modals(props) {
 				<h2 style={{marginLeft:"100px"}}>{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
 			</Modal.Description>
 		</Modal.Content>
-		<Modal.Actions>
-			<Button onClick={() => setOpen(false)}>Cancel</Button>
-			<Button onClick={() => setOpen(false)} positive>Ok</Button>
-		</Modal.Actions>
 	</Modal>
 	)
   }

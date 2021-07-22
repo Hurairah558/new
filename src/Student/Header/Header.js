@@ -19,48 +19,29 @@ const Header = () => {
         .catch((err)=>{
         console.log(err)
         })
-    },[]);
+    },[login]);
 
-    if(login!=null){
+    const [logout, setlogout] = useState("")
 
+    const Logout = () => {
+        localStorage.removeItem("HOD")
+        setlogin(localStorage.getItem("HOD"))
+        axios.post("http://localhost:3001/logout").then((res)=>{
 
+            setlogout("Something")
 
-        if (JSON.stringify(login).includes("AO")){
-            return(
-                <Redirect to="/ao/feemanagement" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("Teacher")){
-            return(
-                <Redirect to="/instructor/home" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("RO")){
-            return(
-                <Redirect to="/ro/students" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("SSIO")){
-            return(
-                <Redirect to="/ssio/freeinstructors" />
-               )
-        }
-    
-    
-        else if (JSON.stringify(login).includes("HOD")){
-            return(
-             <Redirect to="/hod/students" />
-            )
-          }
+            })
+        .catch((err)=>{
+          console.log(err)
+        })
+      }
 
-    }
-
-    else{
         return (
             <React.Fragment>
+                {logout!=""?
+                    <Redirect to="/login" />:
+                    <div></div>
+                }
                 <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                     <h2>
                         <Link to="/"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
@@ -101,12 +82,18 @@ const Header = () => {
                                 <Link to="/student/meritlist2" className="nav-link text-dark">Evening</Link>
                                 </div>
                             </li>
+                            { login!=null?
+                                <button className="btn btn-primary" onClick={Logout}>Logout</button>
+                                :
+                                <li className="nav-item">
+                                    <Link to="/login" className="nav-link text-white" href="#">Login</Link>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </nav>
             </React.Fragment>
         )
-    }
 }
 
 export default Header;

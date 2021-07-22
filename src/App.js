@@ -52,12 +52,16 @@ import Attendance_List_HOD from './HOD/AttendanceList/AttendanceList';
 import Attendance_Details_HOD from './HOD/AttendanceList/Details';
 import Attendance_List_SSIO from './SSIO/AttendanceList/AttendanceList';
 import Attendance_Details_SSIO from './SSIO/AttendanceList/Details';
+import Login_Student from './Student/Login/Login';
+import Profile from './Student/Profile/Profile';
 function App() {
   return (
     <React.Fragment>
       <Switch>
           <Route exact path="/" component={Home}/>
-          <Route exact path="/login" component={Login}/>
+          <Route exact path="/admin" component={Login}/>
+          <Route exact path="/login" component={Login_Student}/>
+          <Route exact path="/student/profile" component={Profile}/>
           <Route exact path="/admissionform" component={Admission_Form}/>
           <Route exact path="/student/admissions" component={Student_Addmissions}/>
           <Route exact path="/hod/students" component={Students}/>

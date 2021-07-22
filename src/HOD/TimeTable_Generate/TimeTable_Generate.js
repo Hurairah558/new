@@ -42,6 +42,7 @@ const TimeTable_Generate = () => {
     const [FormData, setFormData] = useState({
 		Department: login.Department,
 		Instructor: '',
+		Instructor_Designation: '',
         Instructor_Department : '',
         Semester: '',
 		Course_Code: '',
@@ -67,6 +68,14 @@ const TimeTable_Generate = () => {
 		{ value: 'Islamiyat', label: 'Islamiyat', Name : "Instructor_Department" },
 		{ value: 'Urdu', label: 'Urdu', Name : "Instructor_Department" },
 		{ value: 'Zoology', label: 'Zoology', Name : "Instructor_Department" },
+	]
+
+    const Instructor_Designation = [
+		{ value: 'Professor', label: 'Professor', Name : "Instructor_Designation" },
+		{ value: 'Associate professor', label: 'Associate professor', Name : "Instructor_Designation" },
+		{ value: 'Assistant professor', label: 'Assistant professor', Name : "Instructor_Designation" },
+		{ value: 'Lecturer', label: 'Lecturer', Name : "Instructor_Designation" },
+		{ value: 'CTI', label: 'CTI', Name : "Instructor_Designation" }
 	]
 
     const Time_Slot = [
@@ -113,7 +122,7 @@ const TimeTable_Generate = () => {
 	]
 
     Instructors.map((Instructor)=>{
-        Instructorss.push( { value: Instructor.Instructor, label: Instructor.Instructor, Name : "Instructor" })
+        Instructorss.push( { value: Instructor.Name, label: Instructor.Name, Name : "Instructor" })
     })
 
 
@@ -158,7 +167,7 @@ const TimeTable_Generate = () => {
             [e.Name] : e.value
           })
 
-        axios.post("http://localhost:3001/hod/instructors",{Department:e.value}).then((res)=>{
+        axios.post("http://localhost:3001/api/ssio/instructors",{Department:e.value}).then((res)=>{
             setisDisabled(false)
             setInstructors(res.data.data)
     })
@@ -173,6 +182,9 @@ const TimeTable_Generate = () => {
         const [validate,setvalidate] = useState("")
 
         const send = (e) => {
+
+            console.log(FormData)
+
             e.preventDefault()
               axios.post(`http://localhost:3001/api/hod/timetablegenerate`,FormData)
               .then((res)=>{
@@ -194,14 +206,14 @@ const TimeTable_Generate = () => {
                 <div class="container">
                     <div className="row" id="Merit_List_Data">
                         <div className="col-md-6">
-                            <h2 className="Admission_Form_Category">Time Table Generate</h2>
-                            <hr/>
                             <p className="Admission_p">Fall / Spring</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                             <p className="Admission_p">Instructor Department</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
                             <p className="Admission_p">Select Instructor</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
+                            <p className="Admission_p">Instructor Designation</p>
+                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Designation}  name="Instructor_Designation" placeholder="Instructor's Designation" required />
                             <p className="Admission_p">Select Semester</p>
                             <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Select Semester" required />
                             <p className="Admission_p">Course Code</p>
@@ -232,6 +244,7 @@ const TimeTable_Generate = () => {
                                             <Table.Row>
                                                 <Table.HeaderCell>Sr#</Table.HeaderCell>
                                                 <Table.HeaderCell>Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell>Instructor Designation</Table.HeaderCell>
                                                 <Table.HeaderCell>Instructor's Department</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Title</Table.HeaderCell>
                                                 <Table.HeaderCell>Course Code</Table.HeaderCell>
@@ -249,6 +262,7 @@ const TimeTable_Generate = () => {
                                                 <Table.Row key={index}>
                                                     <Table.Cell>{index+1}</Table.Cell>
                                                     <Table.Cell>{timetable.Instructor}</Table.Cell>
+                                                    <Table.Cell>{timetable.Instructor_Designation}</Table.Cell>
                                                     <Table.Cell>{timetable.Instructor_Department}</Table.Cell>
                                                     <Table.Cell>{timetable.Course_Title}</Table.Cell>
                                                     <Table.Cell>{timetable.Course_Code}</Table.Cell>

@@ -6,7 +6,7 @@ const Header = () => {
 
     axios.defaults.withCredentials = true;
 
-    const [login,setlogin] = useState(localStorage.getItem("HOD"))
+    const [login,setlogin] = useState(JSON.parse(localStorage.getItem("HOD")))
 
     useEffect(() => {
         axios.get("http://localhost:3001/loginstatus").then((res)=>{
@@ -31,6 +31,48 @@ const Header = () => {
         })
       }
 
+      if(login!=null){
+
+        if (JSON.stringify(login).includes("AO")){
+            return(
+                <Redirect to="/ao/feemanagement" />
+               )
+        }
+    
+        else if (JSON.stringify(login).includes("Teacher")){
+            return(
+                <Redirect to="/instructor/home" />
+               )
+        }
+    
+        else if (JSON.stringify(login).includes("RO")){
+            return(
+                <Redirect to="/ro/students" />
+               )
+        }
+    
+        else if (JSON.stringify(login).includes("SSIO")){
+            return(
+                <Redirect to="/ssio/freeinstructors" />
+               )
+        }
+
+        else if (JSON.stringify(login).includes("Student")){
+            return(
+                <Redirect to="/student/profile" />
+               )
+        }
+    
+    
+        else if (JSON.stringify(login).includes("HOD")){
+            return(
+             <Redirect to="/hod/students" />
+            )
+          }
+
+    }
+
+    else{
 
     return (
         <React.Fragment>
@@ -82,6 +124,7 @@ const Header = () => {
             </nav>
         </React.Fragment>
     )
+}
 }
 
 export default Header;

@@ -1,78 +1,30 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState  ,useEffect} from 'react';
 import Select from "react-select";
 import Header from "../Header/Header";
+import { Table } from 'semantic-ui-react';
 
 const Free_Instructors = () => {
 
-    const [busy,setbusy] = useState("");
+    const [busy,setbusy] = useState([]);
     const [Time, setTime] = useState("")
     const [all, setall] = useState([])
+    const [Instructors, setInstructors] = useState([])
 
-    var list = ["Sir Ehtesham",
-    "Sir Touseef",
-    "Sir Ahsan Ilyas",
-    "Sir Tehsin",
-    "Aadil",
-    "Aafiya",
-    "Aahil",
-    "Aalam",
-    "Aalee",
-    "Aalim",
-    "Aamil",
-    "Aamir",
-    "Aamirah",
-    "Aaqib",
-    "Aaqil",
-    "Aarif",
-    "Aariz",
-    "Aashif",
-    "Aashir",
-    "Aasif",
-    "Aasim",
-    "Aatif",
-    "Aazim",
-    "Abaan",
-    "Aban",
-    "Abbas",
-    "Abbud",
-    "Abbudin",
-    "Abd Al-Ala",
-    "Abdul Aalee",
-    "Abdul Adl",
-    "Abdul Afuw",
-    "Abdul Ahad",
-    "Abdul Aleem",
-    "Abdul Ali",
-    "Abdul Alim",
-    "Abdul Aliyy",
-    "Abdul Awwal",
-    "Abdul Azeez",
-    "Abdul Azim",
-    "Abdul Aziz",
-    "Abdul Baari",
-    "Abdul Baasit",
-    "Abdul Badee",
-    "Abdul Badi",
-    "Abdul Baith",
-    "Abdul Baqi",
-    "Abdul Bari",
-    "Abdul Barr",
-    "Abdul Baseer",
-    "Abdul Basir",
-    "Abdul Basit",
-    "Abdul Batin",
-    "Abdul Fattah",
-    "Abdul Ghafaar",
-    "Abdul Ghaffar",
-    "Abdul Ghafoor",
-    "Abdul Ghafur",
-    "Abdul Ghani",
-    "Abdul Hadi"];
-
-    var l = [];
+    // useEffect(()=>{
+    //     axios.post("http://localhost:3001/api/ssio/instructors").then((res)=>{
+    //         setInstructors(res.data.data)
+    //     })
+    // },[])
 
 
+    var Instructorss = [
+		
+	]
+
+    Instructors.map((Instructor)=>{
+        Instructorss.push(`${String(Instructor.Name)}:${String(Instructor.Department)}:${String(Instructor.Role)}`)
+    })
 
     const Time_Slot = [
 		{ value: '8:30 AM to 9:20 AM', label: '8:30 AM to 9:20 AM', Name : "Time_Slot" },
@@ -86,35 +38,60 @@ const Free_Instructors = () => {
 		{ value: '4:00 PM to 5:00 PM', label: '4:00 PM to 5:00 PM', Name : "Time_Slot" },
 	]
 
+    let busys=""
+
     const changeselect = (e) => {
         setTime(e.value)
         axios.post("http://localhost:3001/api/ssio/busyinstructors",{Time_Slot:e.value}).then((res)=>{
-            setbusy(JSON.stringify(res.data.data))
-            axios.post("http://localhost:3001/api/ssio/instructors",{Time_Slot:e.value}).then((res)=>{
-                setall(res.data.data)
-    })
+            setbusy(res.data.data)
+    
+            axios.post("http://localhost:3001/api/ssio/instructors").then((res)=>{
+            setInstructors(res.data.data)
+        })
+
     })
 }
 
+    busy.map((Instructor)=>{
+        busys = busys + `${String(Instructor.Instructor)}:${String(Instructor.Instructor_Department)}:${String(Instructor.Instructor_Designation)}`
+    })
     return (
         <React.Fragment>
             <Header/>
-            <section>
-            <p className="Admission_p">Select Time Slot</p>
-            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-            <h1>Free Teachers from : {Time}</h1>
-            {all.map((record,index)=>{
-                if(!busy.includes(record.Instructor))
-                    return (     
-                        <div className="card m-4" key={index}>
-                            <div className="card-body">
-                            <h5 className="card-title"><b>Instructor</b> : {record.Instructor}</h5>
-                            </div>
-                        </div>)
-                    
-                        })}
-            
-            </section>
+            <div className="Student">
+                <div className="container">
+                    <p className="Admission_p">Select Time Slot</p>
+                    <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                    <hr/>
+                    {Instructorss.length>0?
+                    <>
+                    <h1>Free Teachers from : {Time}</h1>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <Table celled selectable color="grey">
+                                <Table.Header>
+                                    <Table.Row>
+                                        <Table.HeaderCell>Sr#</Table.HeaderCell>
+                                        <Table.HeaderCell>Instructor</Table.HeaderCell>
+                                        <Table.HeaderCell>Instructor_Designation</Table.HeaderCell>
+                                    </Table.Row>
+                                </Table.Header>
+                                <Table.Body>
+                                {Instructorss.map((Instructorsss,index)=>{
+                                    if(!busys.includes(Instructorsss))
+                                        return (
+                                            <Table.Row key={index}>
+                                                <Table.Cell><b>{index+1}</b></Table.Cell>
+                                                <Table.Cell><b>{String(Instructorsss).split(":")[0]}</b></Table.Cell>
+                                                <Table.Cell><b>{String(Instructorsss).split(":")[2]}</b></Table.Cell>
+                                            </Table.Row>)
+                                    })}
+                                </Table.Body>
+                            </Table>
+                        </div>
+                    </div></>:<div></div>}
+                </div>
+            </div>
         </React.Fragment>
     )
 }
