@@ -4,7 +4,7 @@ import * as FileSaver from 'file-saver';
 
 import * as XLSX from 'xlsx';
 
-
+import { MDBBtn } from "mdbreact";
 
 export const Export = ({csvData, fileName}) => {
 
@@ -34,7 +34,8 @@ export const Export = ({csvData, fileName}) => {
 
     return (
 
-        <button className="btn btn-primary float-right mt-4"  onClick={(e) => exportToCSV(csvData,fileName)}><b>Export to Excel</b></button>
+        // <button className="btn btn-primary float-right mt-4"  onClick={(e) => exportToCSV(csvData,fileName)}><b>Export to Excel</b></button>
+        <MDBBtn gradient="blue" className="btn btn-primary float-right mt-4"  onClick={(e) => exportToCSV(csvData,fileName)}><b>Export to Excel</b></MDBBtn>
 
     )
 

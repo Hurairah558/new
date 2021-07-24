@@ -4,6 +4,16 @@ import {Link} from 'react-router-dom';
 import Header from '../../Fixed Components/Header';
 import Select from 'react-select';
 import { Table } from 'semantic-ui-react';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 
 function AwardLists() {
 
@@ -11,25 +21,17 @@ function AwardLists() {
 
     const [data, setdata] = useState([])
 
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
     useEffect(()=>{
         axios.post("http://localhost:3001/api/hod/awardlists",{Department:login.Department}).then((res)=>{
 			setdata(res.data.data)
 		})
-			.catch((err)=>{console.log(err)})
+        .catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+        })
     },[])
-
-
-    const update=()=>{
-        axios.post("http://localhost:3001/api/hod/awardlists",{Department:login.Department}).then((res)=>{
-                setdata(res.data.data)
-        })
-    }
-
-    const Delete =(id)=>{
-        axios.delete(`http://localhost:3001/api/ssio/awardlist/${id}`).then((res)=>{
-            update()
-        })
-    }
 
 
     const Fall_Spring = [
@@ -52,7 +54,18 @@ function AwardLists() {
     const changeselects = (e) => {
         axios.post("http://localhost:3001/api/hod/awardlists",{Fall_Spring:e.value,Department:login.Department}).then((res)=>{
             setdata(res.data.data)
+    }).catch((err)=>{
+        setmessage("Something Went Wrong! Please Try Again After Sometime")
     })
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
     }
 
     return (
@@ -60,50 +73,74 @@ function AwardLists() {
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <p className="Admission_p">Fall / Spring</p>
-                    <Select className="Admission_Form_Select" onChange={changeselects} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                    <hr/>
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Fall / Spring</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                <hr/>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <Select className="Admission_Form_Select w-100" onChange={changeselects} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                        </div>
+                                    </div>
+                                    
+                                <hr/>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                     {data.length>0?
-                        <>
-                            <h1>Currently Displaying Award Lists</h1>
-                            <div class="row">
-                                <div className="col-md-12">
-                                    <Table style={{textAlign:"center"}} celled selectable>
+                    <MDBCard style={{opacity:op,marginTop:30}} cascade narrow>
+                    <MDBRow>
+                        <MDBCol md='12'>
+                        <MDBView
+                            cascade
+                            className='gradient-card-header light-blue lighten-1'
+                        >
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>Award Lists</h4>
+                        </MDBView>
+                            <MDBCardBody>
+                            <Table style={{textAlign:"center"}} celled selectable>
                                         <Table.Header>
                                             <Table.Row>
-                                                <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell>Shift</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
-                                                <Table.HeaderCell>Fall / Spring</Table.HeaderCell>
-                                                <Table.HeaderCell>View</Table.HeaderCell>
-                                                <Table.HeaderCell>Delete</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Sr#</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Course Title</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Course Code</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Shift</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Semester</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">Fall / Spring</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary">View</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>         
                                             {data.map((Course,index)=>{
                                                 return (
                                                     <Table.Row key={index}>
-                                                        <Table.Cell>{index+1}</Table.Cell>
-                                                        <Table.Cell>{Course.Instructor}</Table.Cell>
-                                                        <Table.Cell>{Course.Course_Title}</Table.Cell>
-                                                        <Table.Cell>{Course.Course_Code}</Table.Cell>
-                                                        <Table.Cell>{Course.Shift}</Table.Cell>
-                                                        <Table.Cell>{Course.Semester}</Table.Cell>
-                                                        <Table.Cell>{Course.Fall_Spring}</Table.Cell>
-                                                        <Table.Cell><Link to={{pathname:"/hod/awardlistdetails",state:{Course}}} ><button className="btn btn-primary">View</button></Link></Table.Cell>
-                                                        <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(Course.id)} >Delete</button></Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Instructor}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Course_Title}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Course_Code}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Shift}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Semester}</Table.Cell>
+                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Fall_Spring}</Table.Cell>
+                                                        <Table.Cell ><Link to={{pathname:"/hod/awardlistdetails",state:{Course}}} ><MDBBtn gradient="blue"><b>View</b></MDBBtn></Link></Table.Cell>
                                                     </Table.Row>
                                             )})
                                             }
                                         </Table.Body>
                                     </Table>
-                                </div>
-                            </div>
-                        </>
-                    :<div></div>}
+                            </MDBCardBody>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCard>
+                    :<h1 className="d-flex justify-content-center" style={{marginTop:150}} >Nothing to Show...</h1>}
                 </div>
             </div>
         </React.Fragment>

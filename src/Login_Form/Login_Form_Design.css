@@ -32,6 +32,15 @@
 	transition: .2s ease-in;
 }
 
+#filter{
+	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	margin-left: 50px;
+	margin-right: 50px;
+	border-radius: 25px;
+	padding: 20px;
+}
+
+
 .button{
 	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 	color: #fff;
@@ -40,8 +49,8 @@
 	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 .buttonPaid{
-	background-color: #00A300;
-	color: #fff;
+	background-color: red;
+	color: #000;
 }
 .buttonPaid:hover{
 	background-color: #00D100;
@@ -50,6 +59,19 @@
 
 .Student{
 	margin-top: 100px;
+}
+
+
+.panel{
+	transition: .2s ease-in;
+}
+
+.panel:hover{
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+td{
+	font-weight: 400;
 }
 
 .Login_Button{

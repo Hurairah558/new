@@ -23,6 +23,7 @@ function AssignCourses() {
     const [AssignedCourses, setAssignedCourses] = useState(Location.state.Courses)
 
     useEffect(()=>{
+        window.scrollTo(0, 0)
         axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
             setcourses(res.data.data)
         })

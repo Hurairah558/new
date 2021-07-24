@@ -55,6 +55,7 @@ import Attendance_Details_SSIO from './SSIO/AttendanceList/Details';
 import Login_Student from './Student/Login/Login';
 import Profile from './Student/Profile/Profile';
 import ResetPassword_Student from './Student/ResetPassword/ResetPassword';
+import Dashboard_HOD from './HOD/Dashboard/Dashboard';
 function App() {
   return (
     <React.Fragment>
@@ -67,6 +68,7 @@ function App() {
           <Route exact path="/admissionform" component={Admission_Form}/>
           <Route exact path="/student/admissions" component={Student_Addmissions}/>
           <Route exact path="/hod/students" component={Students}/>
+          <Route exact path="/hod/dashboard" component={Dashboard_HOD}/>
           <Route exact path="/student/meritlist" component={Merit_List}/>
           <Route exact path="/student/meritlist2" component={Merit_List2}/>
           <Route exact path="/hod/meritlistcontroller" component={MeritList_Controller}/>

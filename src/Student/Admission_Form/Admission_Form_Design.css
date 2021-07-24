@@ -76,6 +76,7 @@ button:hover{
 	margin: 20px auto;
 	width: 200px;
 	margin-left: -0px;
+	font-weight: bold;
 }
 
 .Admission_Form_Category{
@@ -86,6 +87,7 @@ button:hover{
 	margin: 20px auto;
 	width: 300px;
 	margin-left: 7px;
+	font-weight: bold;
 }
 .Admission_Select_p{
 	color: #fff;

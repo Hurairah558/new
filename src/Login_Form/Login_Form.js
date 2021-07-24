@@ -63,7 +63,7 @@ function Login () {
 
 	else if (String(login).includes("HOD")){
 		return(
-		 <Redirect to="/hod/students" />
+		 <Redirect to="hod/dashboard" />
 		)
 	  }
 
@@ -75,7 +75,6 @@ function Login () {
 			<div className="d-flex justify-content-center mt-4" >
 				<div className="d-flex justify-content-center">
 					<div id="Login_Form" className="align-bottom">
-						<input type="checkbox" id="chk" aria-hidden="true"/>
 						<div className="signup">
 							<form>
 								<label name="chk" className="Login_Label" aria-hidden="true">Login</label>

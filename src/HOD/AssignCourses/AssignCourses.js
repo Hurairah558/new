@@ -20,7 +20,7 @@ function AssignCourses() {
     const [AssignedCourses, setAssignedCourses] = useState("")
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
             setcourses(res.data.data)
         })
     },[])

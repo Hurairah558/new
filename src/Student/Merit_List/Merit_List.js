@@ -3,6 +3,14 @@ import React,{useState} from 'react'
 import Select from 'react-select';
 import Header from "../Header/Header";
 import { Table } from 'semantic-ui-react';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView
+  
+  } from 'mdbreact';
 const Merit_List = () => {
 
     const [data,setdata] = useState([])
@@ -16,7 +24,7 @@ const Merit_List = () => {
     })
 
     const [Departments,setDepartments] = useState("")
-
+    const [message, setmessage] = useState("")
     const [Loading,setLoading] = useState(false)
 
     const Department = [
@@ -42,50 +50,79 @@ const Merit_List = () => {
 
             axios.post("http://localhost:3001/hod/meritlistcurrent",{Department:e.value}).then((res)=>{
                 setmerit(res.data.data[0])
+                setLoading(false)
                 axios.post("http://localhost:3001/hod/meritlist",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
                     setdata(res.data.data)
                     setLoading(false)
-                })
-        })
+                }).catch((err)=>{
+                    setmessage("Something Went Wrong! Please Try Again After Sometime")
+                    setLoading(false)
+            })
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setLoading(false)
+    })
 
     }
 
-    if(Loading){
-        return(
+    if(message!=""){
+        return (
             <React.Fragment>
                 <Header/>
-                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
             </React.Fragment>
         )
-    }
-    else{
+      }
+
         return (
             <React.Fragment>
                 <Header/>
                 <div className="Student">
                     <div class="container">
-                        <Select className="w-25" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                        
+                    <MDBCard cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Merit List</h4>
+                            </MDBView>
+                            <MDBCardBody>
+                                        <hr/>
+                                            <Select className="w-10" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required />
+                                        <hr/>
+                                        </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>    
+                    
                         <hr/>
                         {data.length>0?
+                        !Loading?
+                        merit.Display==1?
+                            <MDBCard style={{marginTop:30}} cascade narrow>
+                            <MDBRow>
+                              <MDBCol md='12'>
+                                <MDBView
+                                  cascade
+                                  className='gradient-card-header light-blue lighten-1'
+                                >
+                                  <h4 className='h4-responsive mb-0 font-weight-bold'>{merit.Department} &nbsp;&nbsp;&nbsp;{data[0].Shift} &nbsp;&nbsp;&nbsp; {merit.MeritList} &nbsp;&nbsp;&nbsp; {new Date().getFullYear()}</h4>
+                                </MDBView>
+                                <MDBCardBody>
                                 <div class="row mt-4">
                                     <div className="col-md-12">
-                                    {merit.Display==1?
-                                        <React.Fragment>
-                                            <div className="row ml-4">
-                                                <div className="col-md-4"><h1>{Departments} </h1></div>
-                                                <div className="col-md-3"><h1>Morning</h1></div>
-                                                <div className="col-md-3"><h1>{merit.MeritList}</h1></div>
-                                                <div className="col-md-2"><h1>{new Date().getFullYear()}</h1></div>
-                                            </div>
-                                            <Table celled selectable color="grey">
+                                            <Table>
                                                 <Table.Header>
                                                     <Table.Row>
-                                                        <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                        <Table.HeaderCell>ID</Table.HeaderCell>
-                                                        <Table.HeaderCell>Name</Table.HeaderCell>
-                                                        <Table.HeaderCell>Father's Name'</Table.HeaderCell>
-                                                        <Table.HeaderCell>CNIC</Table.HeaderCell>
-                                                        <Table.HeaderCell>Merit</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>ID</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Name</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Father's Name'</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>CNIC</Table.HeaderCell>
+                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Merit</Table.HeaderCell>
                                                     </Table.Row>
                                                 </Table.Header>
                                                 <Table.Body>
@@ -93,29 +130,31 @@ const Merit_List = () => {
                                                     data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
                                                         return (     
                                                             <Table.Row key={index}>
-                                                                <Table.Cell><b>{index+1}</b></Table.Cell>
-                                                                <Table.Cell><b>{student.id}</b></Table.Cell>
-                                                                <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
-                                                                <Table.Cell>{student.Father_Name}</Table.Cell>
-                                                                <Table.Cell>{student.CNIC}</Table.Cell>
-                                                                <Table.Cell>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{index+1}</b></Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{student.id}</b></Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{student.Full_Name}</b></Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}>{student.Father_Name}</Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}>{student.CNIC}</Table.Cell>
+                                                                <Table.Cell style={{fontWeight:'bold'}}>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
                                                             </Table.Row>
                                                     )})
                                                     }
                                             
                                                 </Table.Body>
                                             </Table>
-                                        </React.Fragment>
-                                    :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>
-                                    }
                                     </div>
                                 </div>
-                        :<div></div>}
+                                </MDBCardBody>
+                          </MDBCol>
+                        </MDBRow>
+                      </MDBCard>
+                        :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>
+                        :<h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+                        :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>}
                     </div>
                 </div>
             </React.Fragment>
         )
     }
-}
 
 export default Merit_List;

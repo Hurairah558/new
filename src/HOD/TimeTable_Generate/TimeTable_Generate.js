@@ -3,38 +3,56 @@ import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 
 const TimeTable_Generate = () => {
-
-    const [isDisabled, setisDisabled] = useState(true)
 
     const [Instructors, setInstructors] = useState([])
 
     const login = JSON.parse(localStorage.getItem("HOD"))
     const [data,setdata] = useState([])
     const [courses,setcourses] = useState([])
+    const [message, setmessage] = useState("")
+    const [op, setop] = useState(1)
 
 
     useEffect(()=>{
         axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
 
-                axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+                axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
                     setcourses(res.data.data)
+                }).catch((err)=>{
+                    setmessage("Something Went Wrong! Please Try Again After Sometime")
                 })
 
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
     },[])
 
     const update=()=>{
         axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
     }
 
     const Delete =(id)=>{
         axios.delete(`http://localhost:3001/api/hod/timetable/${id}`).then((res)=>{
             update()
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
     }
 
@@ -168,22 +186,23 @@ const TimeTable_Generate = () => {
           })
 
         axios.post("http://localhost:3001/api/ssio/instructors",{Department:e.value}).then((res)=>{
-            setisDisabled(false)
             setInstructors(res.data.data)
+    }).catch((err)=>{
+        setmessage("Something Went Wrong! Please Try Again After Sometime")
     })
 }
 
         const changeselects = (e) => {
             axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department,Fall_Spring:e.value}).then((res)=>{
                 setdata(res.data.data)
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
         }
 
         const [validate,setvalidate] = useState("")
 
         const send = (e) => {
-
-            console.log(FormData)
 
             e.preventDefault()
               axios.post(`http://localhost:3001/api/hod/timetablegenerate`,FormData)
@@ -196,90 +215,148 @@ const TimeTable_Generate = () => {
                 }
                 update()
                 })
-              .catch((err)=>{console.log("No",err)})
+                .catch((err)=>{
+                    setmessage("Something Went Wrong! Please Try Again After Sometime")
+                })
           }
+
+        if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
     return (
         <React.Fragment>
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <div className="row" id="Merit_List_Data">
-                        <div className="col-md-6">
-                            <p className="Admission_p">Fall / Spring</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                            <p className="Admission_p">Instructor Department</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
-                            <p className="Admission_p">Select Instructor</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
-                            <p className="Admission_p">Instructor Designation</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Designation}  name="Instructor_Designation" placeholder="Instructor's Designation" required />
-                            <p className="Admission_p">Select Semester</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Select Semester" required />
-                            <p className="Admission_p">Course Code</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                        </div>
-                        <div className="col-md-6 mt-4">
-                            <p className="Admission_p" style={{marginTop:40}}>Course Title</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
-                            <p className="Admission_p">Time Slot</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-                            <p className="Admission_p">Shift</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
-                            <p className="Admission_p">Room No.</p>
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
-                            <button style={{marginLeft:-0,marginTop:40,width:205}} className="Login_Button" onClick={send} ><Modals validate={validate} /></button>
-                        </div>
-                    </div>
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Generate Time Table</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Designation}  name="Instructor_Designation" placeholder="Instructor's Designation" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Select Semester" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
+                                        </div>
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                     <hr/>
-                    <Select className="w-25" onChange={changeselects} name="Department" placeholder="Select Semester" options={Fall_Spring} required />
+                    <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                                <MDBView
+                                    cascade
+                                    className='gradient-card-header light-blue lighten-1'
+                                >
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Fall / Spring</h4>
+                                </MDBView>
+                                <MDBCardBody>
+                                    <hr/>
+                                        <Select className="w-100" onChange={changeselects} name="Fall_Spring" placeholder="Fall / Spring" options={Fall_Spring} required />
+                                    <hr/>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                     <hr/>
                     {data.length>0?
-                        <>
-                            <h1>Currently Displaying Time Table</h1>
-                            <div class="row">
-                                <div className="col-md-12">
-                                    <Table celled selectable>
+                    <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
+                    <MDBRow>
+                      <MDBCol md='12'>
+                        <MDBView
+                          cascade
+                          className='gradient-card-header light-blue lighten-1'
+                        >
+                          <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department} &nbsp;&nbsp;&nbsp;{data[0].Shift} &nbsp;&nbsp;&nbsp; Time Table &nbsp;&nbsp;&nbsp; {data[0].Fall_Spring}</h4>
+                        </MDBView>
+                        <MDBCardBody>
+                        <div class="row">
+                            <div className="col-md-12">
+                            <Table celled selectable>
                                         <Table.Header>
                                             <Table.Row>
-                                                <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
-                                                <Table.HeaderCell>Instructor Designation</Table.HeaderCell>
-                                                <Table.HeaderCell>Instructor's Department</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
-                                                <Table.HeaderCell>Time</Table.HeaderCell>
-                                                <Table.HeaderCell>Shift</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
-                                                <Table.HeaderCell>Room #</Table.HeaderCell>
-                                                <Table.HeaderCell>Delete</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Instructor</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Instructor_Designation</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Instructor's_Department</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Course_Title</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Course_Code</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Semester</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Time</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Room#</Table.HeaderCell>
+                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Delete</Table.HeaderCell>
                                             </Table.Row>
                                         </Table.Header>
                                         <Table.Body>
                                             {data.map((timetable,index)=>{
                                             return (
                                                 <Table.Row key={index}>
-                                                    <Table.Cell>{index+1}</Table.Cell>
-                                                    <Table.Cell>{timetable.Instructor}</Table.Cell>
-                                                    <Table.Cell>{timetable.Instructor_Designation}</Table.Cell>
-                                                    <Table.Cell>{timetable.Instructor_Department}</Table.Cell>
-                                                    <Table.Cell>{timetable.Course_Title}</Table.Cell>
-                                                    <Table.Cell>{timetable.Course_Code}</Table.Cell>
-                                                    <Table.Cell>{timetable.Semester}</Table.Cell>
-                                                    <Table.Cell>{timetable.Time_Slot}</Table.Cell>
-                                                    <Table.Cell>{timetable.Shift}</Table.Cell>
-                                                    <Table.Cell>{timetable.Fall_Spring}</Table.Cell>
-                                                    <Table.Cell>{timetable.Room_no}</Table.Cell>
-                                                    <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(timetable.id)} >Delete</button></Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Instructor}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Instructor_Designation}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Instructor_Department}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Course_Title}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Course_Code}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Semester}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Time_Slot}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>{timetable.Room_no}</Table.Cell>
+                                                    <Table.Cell style={{fontWeight:'bold'}}>
+                                                        <MDBBtn onClick={()=>Delete(timetable.id)} gradient="peach"><b>Delete</b></MDBBtn>    
+                                                    </Table.Cell>
                                                 </Table.Row>
                                             )})
                                             }
                                         </Table.Body>
                                     </Table>
-                                </div>
                             </div>
-                        </>
+                        </div>
+                        </MDBCardBody>
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCard>
                     :<div></div>}
                 </div>
             </div>
@@ -298,7 +375,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Generate Time Table</Button>}
+		trigger={<MDBBtn gradient="blue" ><b>Generate Time Table</b></MDBBtn>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

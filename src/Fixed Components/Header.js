@@ -45,7 +45,7 @@ const Header = () => {
             }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
+                <Link to="/hod/dashboard"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>
@@ -56,39 +56,39 @@ const Header = () => {
                         <li className="nav-item">
                             <Link to="/hod/students" className="nav-link text-white" href="#">Students</Link>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">Time Table Generate</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/awardlists" className="nav-link text-white" href="#">AwardLists</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/attendancelist" className="nav-link text-white" href="#">Attendance Lists</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/addstudent" className="nav-link text-white" href="#">Add Student</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/admissions" className="nav-link text-white" href="#">Admissions</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/addinstructor" className="nav-link text-white" href="#">Add Instructor</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/addcourses" className="nav-link text-white" href="#">Add Courses</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/password/reset" className="nav-link text-white" href="#">Change</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/assigncourses" className="nav-link text-white" href="#">Assign Courses</Link>
-                        </li>
-                        <li className="nav-item">
+                        </li> */}
+                        {/* <li className="nav-item">
                             <Link to="/hod/awardlist" className="nav-link text-white" href="#">Award List</Link>
                         </li>
                         <li className="nav-item">
                             <Link to="/hod/attendance" className="nav-link text-white" href="#">Attendance Upload</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item dropdown">
                             <a className="nav-link text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Datesheet
@@ -105,6 +105,24 @@ const Header = () => {
                             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                             <Link to="/hod/meritlistcontroller" className="nav-link text-dark"> Morning </Link>
                             <Link to="/hod/meritlistcontroller2" className="nav-link text-dark"> Evening </Link>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                More
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <Link   to="/hod/timetablegenerate" class="dropdown-item" href="#">Time Table Generate</Link>
+                                <Link   to="/hod/awardlists" class="dropdown-item" href="#">AwardLists</Link>
+                                <Link   to="/hod/attendancelist" class="dropdown-item" href="#">Attendance Lists</Link>
+                                <Link   to="/hod/addstudent" class="dropdown-item" href="#">Add Student</Link>
+                                <Link   to="/hod/admissions" class="dropdown-item" href="#">Admissions</Link>
+                                <Link   to="/hod/addinstructor" class="dropdown-item" href="#">Add Instructor</Link>
+                                <Link   to="/hod/addcourses" class="dropdown-item" href="#">Add Courses</Link>
+                                <Link   to="/hod/password/reset" class="dropdown-item" href="#">Change Password</Link>
+                                <Link   to="/hod/assigncourses" class="dropdown-item" href="#">Assign Courses</Link>
+                                <Link   to="/hod/awardlist" class="dropdown-item" href="#">Upload Award List</Link>
+                                <Link   to="/hod/attendance" class="dropdown-item" href="#">Upload Attendance</Link>
                             </div>
                         </li>
                         { login!=null?
