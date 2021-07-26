@@ -91,40 +91,40 @@ const Time_Table = () => {
                         <MDBCardBody>
                             <div class="row">
                                 <div className="col-md-12">
-                                    <Table celled selectable>
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Instructor</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Instructor's Department</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Semester</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Time</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Shift</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Session</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Room #</Table.HeaderCell>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>
+                                <table className="table table-hover table-bordered">
+                                      <thead>
+                                        <tr>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's Department</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Time</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Room #</th>
+                                        </tr>
+                                      </thead>
+                                        <tbody>
                                             {data.map((timetable,index)=>{
                                                 return (
-                                                    <Table.Row key={index}>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Instructor}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Instructor_Department}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Course_Title}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Course_Code}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Semester}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Time_Slot}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Shift}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Fall_Spring}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{timetable.Room_no}</Table.Cell>
-                                                    </Table.Row>
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Instructor}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Instructor_Department}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Course_Title}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Course_Code}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Time_Slot}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Fall_Spring}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{timetable.Room_no}</td>
+                                                    </tr>
                                             )})
                                             }
-                                        </Table.Body>
-                                    </Table>
+                                         </tbody>
+                                      </table>
                                 </div>
                             </div>
                             </MDBCardBody>

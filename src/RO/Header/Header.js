@@ -40,7 +40,7 @@ const Header = () => {
       }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                <Link to="/"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
+                <Link to="/ro/dashboard"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>
@@ -57,9 +57,9 @@ const Header = () => {
                             <Link to="/ro/students2" className="nav-link text-dark">Evening</Link>
                             </div>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link to="/ro/voucher" className="nav-link text-white" href="#">Voucher</Link>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <Link to="/ro/admission_controller" className="nav-link text-white" href="#">Admission Controller</Link>
                         </li>

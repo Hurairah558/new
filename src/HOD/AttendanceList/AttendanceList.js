@@ -106,36 +106,36 @@ function AwardLists() {
                             <h4 className='h4-responsive mb-0 font-weight-bold'>Attendance Lists</h4>
                         </MDBView>
                             <MDBCardBody>
-                            <Table style={{textAlign:"center"}} celled selectable>
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.HeaderCell className="text-primary">Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Instructor</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Shift</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Semester</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Fall / Spring</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">View</Table.HeaderCell>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>         
+                            <table className="table table-hover table-bordered">    
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>         
                                             {data.map((Course,index)=>{
                                                 return (
-                                                    <Table.Row key={index}>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Instructor}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Course_Title}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Course_Code}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Shift}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Semester}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Course.Fall_Spring}</Table.Cell>
-                                                        <Table.Cell ><Link to={{pathname:"/hod/attendancedetails",state:{Course}}} ><MDBBtn gradient="blue"><b>View</b></MDBBtn></Link></Table.Cell>
-                                                    </Table.Row>
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Instructor}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Title}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Code}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Fall_Spring}</td>
+                                                        <td ><Link to={{pathname:"/hod/attendancedetails",state:{Course}}} ><MDBBtn gradient="blue"><b>View</b></MDBBtn></Link></td>
+                                                    </tr>
                                             )})
                                             }
-                                        </Table.Body>
-                                    </Table>
+                                        </tbody>
+                                    </table>
                             </MDBCardBody>
                         </MDBCol>
                     </MDBRow>

@@ -2,8 +2,22 @@ import axios from 'axios';
 import React, { useState ,useEffect} from 'react';
 import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
-
+import {Export} from '../../Export';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 function Announcement() {
+
+
+    const [message, setmessage] = useState("")
+    const [op, setop] = useState(1)
 
     const [formData, setFormData] = useState({
 		Subject: '',
@@ -35,7 +49,9 @@ function Announcement() {
                     Timing : new Date()
                 })
                 })
-              .catch((err)=>{console.log("No",err)})
+                .catch((err)=>{
+                    setmessage("Something Went Wrong! Please Try Again After Sometime")
+            })
     }
 
     const [data,setdata] = useState([])
@@ -44,19 +60,34 @@ function Announcement() {
     useEffect(()=>{
         axios.get("http://localhost:3001/api/student/announcements").then((res)=>{
             setdata(res.data.data)
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+    })
     },[])
 
     const update=()=>{
         axios.get("http://localhost:3001/api/student/announcements").then((res)=>{
             setdata(res.data.data)
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+    })
     }
 
     const Delete =(id)=>{
         axios.delete(`http://localhost:3001/api/ssio/announcements/${id}`).then((res)=>{
             update()
-        })
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+    })
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
     }
 
     return (
@@ -64,45 +95,68 @@ function Announcement() {
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <div id="Merit_List_Data">
-                        <h2 className="Admission_Form_Category">Announcement</h2>
-                        <hr/>
-                        <p className="Admission_p">Subject</p>
-                        <input className="Admission_Form_Input" onChange={change} value={formData.Subject} type="text" name="Subject" placeholder="Subject" required=""/>
-                        <p className="Admission_p">Announcement</p>
-                        <hr/>
-                        <textarea class="form-control" onChange={change} value={formData.Announcement} id="exampleFormControlTextarea1" name="Announcement" placeholder="Announcement" rows="3"></textarea>
-                        <button className="Login_Button" onClick={send} ><Modals validate={validate} /></button>
-                    </div>
-                    <div className="Student" >
-                        <div class="row">
-                            <div className="col-md-12">
-                                <Table celled selectable>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                            <Table.HeaderCell>Subject</Table.HeaderCell>
-                                            <Table.HeaderCell>Announcement</Table.HeaderCell>
-                                            <Table.HeaderCell>Time</Table.HeaderCell>
-                                            <Table.HeaderCell>Delete</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        { data.reverse().map((announcement,index)=>{
-                                            return (
-                                                <Table.Row key={index}>
-                                                    <Table.Cell>{index+1}</Table.Cell>
-                                                    <Table.Cell><b>{announcement.Subject}</b></Table.Cell>
-                                                    <Table.Cell>{announcement.Announcement}</Table.Cell>
-                                                    <Table.Cell>{String(announcement.Timing).slice(0,10)}</Table.Cell>
-                                                    <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(announcement.id)} >Delete</button></Table.Cell>
-                                                </Table.Row>
-                                        )})}
-                                    </Table.Body>
-                                </Table>
-                            </div>
-                        </div>
-                    </div>
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Make Announcements</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} value={formData.Subject} type="text" name="Subject" placeholder="Subject" required=""/>
+                                        </div>
+                                        <div className="col-md-9">
+                                            <textarea class="form-control" onChange={change} value={formData.Announcement} id="exampleFormControlTextarea1" name="Announcement" placeholder="Announcement" rows="3"></textarea>
+                                        </div>
+                                        <div className="col-md-12">
+                                            <button className="float-right" style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
+                                        </div>
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                                <MDBView
+                                    cascade
+                                    className='gradient-card-header light-blue lighten-1'
+                                >
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Previous Announcements</h4>
+                                </MDBView>
+                                <MDBCardBody>
+                                    <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Subject</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Announcement</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Time</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            { data.reverse().map((announcement,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{announcement.Subject}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{announcement.Announcement}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{String(announcement.Timing).slice(0,10)}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><MDBBtn gradient="peach" onClick={()=>Delete(announcement.id)} >Delete</MDBBtn></td>
+                                                    </tr>
+                                            )})}
+                                        </tbody>
+                                    </table>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                 </div>
             </div>
         </React.Fragment>
@@ -120,7 +174,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Submit</Button>}
+		trigger={<MDBBtn gradient="blue" >Submit</MDBBtn>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

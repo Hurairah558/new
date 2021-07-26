@@ -92,36 +92,36 @@ const Department = [
                             <MDBCardBody>
                             <div class="row">
                                 <div className="col-md-12">
-                                    <Table celled selectable>
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell>Instructor</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
-                                                <Table.HeaderCell>Time</Table.HeaderCell>
-                                                <Table.HeaderCell>Shift</Table.HeaderCell>
-                                                <Table.HeaderCell>Semester</Table.HeaderCell>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>
+                                  <table className="table table-hover table-bordered">
+                                      <thead>
+                                        <tr>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Time</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                        </tr>
+                                      </thead>
+                                        <tbody>
                                             {data.map((datesheet,index)=>{
                                             return (
-                                                <Table.Row key={index}>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Course_Title}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Course_Code}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Instructor}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Semester}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Time_Slot}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Shift}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{datesheet.Fall_Spring}</Table.Cell>
-                                                </Table.Row>
+                                              <tr key={index}>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Title}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Code}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Instructor}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Semester}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Time_Slot}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Shift}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Fall_Spring}</td>
+                                              </tr>
                                             )})
                                             }
-                                        </Table.Body>
-                                    </Table>
+                                        </tbody>
+                                      </table>
                                 </div>
                             </div>
                             </MDBCardBody>

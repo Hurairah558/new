@@ -18,8 +18,33 @@
 	cursor: pointer;
 	transition: .5s ease-in-out;
 }
+.Login_Labels{
+	color: #fff;
+	font-size: 2.3em;
+	justify-content: center;
+	display: flex;
+	margin: 40px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: .5s ease-in-out;
+}
 .Login_input{
 	width: 65%;
+	height: 20px;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+	margin: 20px auto;
+	padding: 20px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+}
+
+
+.Login_inputs{
+	width: 87%;
 	height: 20px;
 	background: #e0dede;
 	justify-content: center;

@@ -31,17 +31,20 @@ textarea{
 	height: 100px;;
 }
 
+
+
+
 .Admission_Form_Input{
 	width: 200px;
 	height: 20px;
-	background: #e0dede;
+	background: #ffffff;
 	justify-content: center;
 	display: flex;
+	font-weight: bold;
 	margin: 20px auto;
 	margin-left: -0px;
 	padding: 20px;
-	border: none;
-	outline: none;
+	outline:#000;
 	border-radius: 5px;
 	transition: .2s ease-in;
 }
@@ -78,6 +81,14 @@ button:hover{
 	margin-left: -0px;
 	font-weight: bold;
 }
+
+.Admission_Form_Select_Instrcutor{
+	font-weight: bold;
+	width: 300px;
+	margin: auto;
+	display: block;
+}
+
 
 .Admission_Form_Category{
 	color: #fff;

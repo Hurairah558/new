@@ -40,7 +40,7 @@ const Header = () => {
       }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                <Link to="/"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
+                <Link to="/ao/dashboard"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>

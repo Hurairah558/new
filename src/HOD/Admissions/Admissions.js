@@ -114,31 +114,31 @@ const Students = () => {
                                     <h4 className='h4-responsive mb-0 font-weight-bold'>Admissions {data[0].Year}</h4>
                                 </MDBView>
                                 <MDBCardBody>
-                                <Table celled selectable>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Name</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Father's Name</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Email</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Address</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Full Details</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
+                                <table className="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Address</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Full Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         {data.filter((student)=>student.Department==login.Department).map((student,index)=>{
                                             return (
-                                                <Table.Row key={index}>
-                                                    <Table.Cell style={{fontWeight:'bold'}}><b>{index+1}</b></Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}><b>{student.Full_Name}</b></Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{student.Father_Name}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{student.Email}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}>{student.Address}</Table.Cell>
-                                                    <Table.Cell style={{fontWeight:'bold'}}><Modals student={student} /></Table.Cell>
-                                                </Table.Row>
+                                                <tr key={index}>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student} /></td>
+                                                </tr>
                                         )})}
-                                    </Table.Body>
-                                </Table>
+                                    </tbody>
+                                </table>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>

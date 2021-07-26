@@ -5,6 +5,16 @@ import Headers from '../Header/Header';
 import {Table } from 'semantic-ui-react';
 import Select from "react-select";
 import {Export} from '../../Export';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 
 const Students = () => {
 
@@ -15,6 +25,7 @@ const Students = () => {
     const [loading, setloading] = useState(true)
     const [message, setmessage] = useState("")
     const [toggle, setmtoggle] = useState("")
+    const [op, setop] = useState(1)
 
     const login = JSON.parse(localStorage.getItem("HOD"))
 
@@ -131,11 +142,14 @@ const Students = () => {
         })
     }
 
-    const toggles=(e)=>{
-        setmtoggle(e.value)
-        let Fee_Status = e.target.textContent === "Unpaid" ? "Paid" : "Unpaid"
-        axios.put(`http://localhost:3001/api/hod/students/${e.target.id}`,{fee:Fee_Status}).then((res=>{
-        }))
+    const toggles=(t,id)=>{
+        setmtoggle(t)
+        let Fee_Status = t === "Unpaid" ? "Paid" : "Unpaid"
+        axios.put(`http://localhost:3001/api/hod/students/${id}`,{fee:Fee_Status}).then((res=>{
+        })).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
     }
 
     if (login==null){
@@ -147,7 +161,7 @@ const Students = () => {
         return (
             <React.Fragment>
                 <Headers/>
-                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} ><MDBSpinner big crazy /></h1>
             </React.Fragment>
         )
     }
@@ -166,71 +180,96 @@ const Students = () => {
             <Headers/>
             <div className="Student">
                 <div className="container">
-                    <h1>Total Students in GMC (Morning Shift) {data.length}</h1>
-                    <hr/>
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
-                            </div>
-                            <div className="col-md-3">
-                                <Select className="Admission_Form_Select" onChange={changeselect} options={Department}  name="Department" placeholder="Department" required />
-                            </div>
-                            <div className="col-md-3">
-                                <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
-                            </div>
-                        </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="col-md-3">
-                            <Select defaultInputValue="" className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
-                        </div>
-                        <div className="col-md-6">
-                            <Export csvData={data} fileName={"Students"} />
-                        </div>
-                    </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Table celled selectable color="grey">
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                        <Table.HeaderCell>Roll</Table.HeaderCell>
-                                        <Table.HeaderCell>Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Father's Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Department</Table.HeaderCell>
-                                        <Table.HeaderCell>Address</Table.HeaderCell>
-                                        <Table.HeaderCell>Email</Table.HeaderCell>
-                                        <Table.HeaderCell>Semester</Table.HeaderCell>
-                                        <Table.HeaderCell>Shift</Table.HeaderCell>
-                                        <Table.HeaderCell>Fee Status</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    { data.map((student,index)=>{
-                                        return (
-                                            <Table.Row key={index}>
-                                                <Table.Cell><b>{index+1}</b></Table.Cell>
-                                                <Table.Cell><b>{student.Roll}</b></Table.Cell>
-                                                <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
-                                                <Table.Cell>{student.Father_Name}</Table.Cell>
-                                                <Table.Cell>{student.Department}</Table.Cell>
-                                                <Table.Cell>{student.Address}</Table.Cell>
-                                                <Table.Cell>{student.Email}</Table.Cell>
-                                                <Table.Cell>{student.Semester}</Table.Cell>
-                                                <Table.Cell>{student.Shift}</Table.Cell>
-                                                <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} onClick={toggles} >
-                                                    {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
-                                                </button></Table.Cell>
-                                            </Table.Row>
-                                    )})}
-                                </Table.Body>
-                            </Table>
-                        </div>
-                    </div>
+                    <MDBCard cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Filter Students</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <hr/>
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Department}  name="Department" placeholder="Department" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <Select defaultInputValue="" className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
+                                        </div>
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
+                                        </div>
+                                        <div className="col-md-6">
+                                            <Export csvData={data} fileName={"Students"} />
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    <MDBCard cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Students {data.length}</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Roll</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Address</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            { data.map((student,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Roll}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>
+                                                                {student.Fee_Status==="Paid"?
+                                                                <MDBBtn gradient="blue" onClick={()=>toggles(student.Fee_Status,student.id)}><b>{student.Status==="Unpaid"?"Unpaid":"Paid"}</b></MDBBtn>:
+                                                                <MDBBtn outline color="primary"  onClick={()=>toggles(student.Fee_Status,student.id)}><b>{student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}</b></MDBBtn>}
+                                                        </td>
+                                                    </tr>
+                                            )})}
+                                        </tbody>
+                                    </table>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                 </div>
             </div>
         </React.Fragment>

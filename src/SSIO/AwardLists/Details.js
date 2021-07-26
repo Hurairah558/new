@@ -4,60 +4,104 @@ import { useLocation } from 'react-router-dom';
 import Header from '../Header/Header';
 import { Table } from 'semantic-ui-react';
 
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
+
 function Details() {
 
 
     const location = useLocation()
 
-    const [data, setdata] = useState([])
+    const [data, setdata] = useState([{
+        Department:"",
+        Course_Title:"",
+        Course_Code:"",
+        Instructor:"",
+        Fall_Spring:""
+    }])
+
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
 
     useEffect(()=>{
 
         axios.post("http://localhost:3001/api/ssio/details",location.state.Course).then((res)=>{
 			setdata(res.data.data)
 		})
-			.catch((err)=>{console.log(err)})
+        .catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+        })
 
     },[])
+
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
     return (
         <React.Fragment>
             <Header/>
             <div className="Student">
                 <div class="container">
-                    <h1>Currently Displaying Award List</h1>
-                        <div class="row">
-                            <div className="col-md-12">
-                                <Table celled selectable>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                            <Table.HeaderCell>Roll</Table.HeaderCell>
-                                            <Table.HeaderCell>Name</Table.HeaderCell>
-                                            <Table.HeaderCell>Mids</Table.HeaderCell>
-                                            <Table.HeaderCell>Sessional</Table.HeaderCell>
-                                            <Table.HeaderCell>Shift</Table.HeaderCell>
-                                            <Table.HeaderCell>Semester</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        {data.map((Student,index)=>{
-                                            return(
-                                                <Table.Row key={index}>
-                                                    <Table.Cell>{index+1}</Table.Cell>
-                                                    <Table.Cell>{Student.Roll}</Table.Cell>
-                                                    <Table.Cell>{Student.Name}</Table.Cell>
-                                                    <Table.Cell>{Student.Mids}</Table.Cell>
-                                                    <Table.Cell>{Student.Sessional}</Table.Cell>
-                                                    <Table.Cell>{Student.Shift}</Table.Cell>
-                                                    <Table.Cell>{Student.Fall_Spring}</Table.Cell>
-                                                </Table.Row>
-                                        )
-                                        })}
-                                    </Table.Body>
-                            </Table>
-                        </div>
-                    </div>
+                    <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department}&nbsp;&nbsp;&nbsp;{data[0].Course_Title}&nbsp;&nbsp;&nbsp;{data[0].Course_Code}&nbsp;&nbsp;&nbsp;Award List&nbsp;&nbsp;&nbsp;{data[0].Instructor}&nbsp;&nbsp;&nbsp;{data[0].Fall_Spring}</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Roll</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Mids</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sessional</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data.map((Student,index)=>{
+                                                return(
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Roll}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Mids}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Sessional}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Fall_Spring}</td>
+                                                    </tr>
+                                            )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                 </div>
             </div>
         </React.Fragment>

@@ -114,34 +114,34 @@ const Merit_List = () => {
                                 <MDBCardBody>
                                 <div class="row mt-4">
                                     <div className="col-md-12">
-                                            <Table>
-                                                <Table.Header>
-                                                    <Table.Row>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>ID</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Name</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Father's Name'</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>CNIC</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Merit</Table.HeaderCell>
-                                                    </Table.Row>
-                                                </Table.Header>
-                                                <Table.Body>
-                                                    {
-                                                    data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
-                                                        return (     
-                                                            <Table.Row key={index}>
-                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{index+1}</b></Table.Cell>
-                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{student.id}</b></Table.Cell>
-                                                                <Table.Cell style={{fontWeight:'bold'}}><b>{student.Full_Name}</b></Table.Cell>
-                                                                <Table.Cell style={{fontWeight:'bold'}}>{student.Father_Name}</Table.Cell>
-                                                                <Table.Cell style={{fontWeight:'bold'}}>{student.CNIC}</Table.Cell>
-                                                                <Table.Cell style={{fontWeight:'bold'}}>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
-                                                            </Table.Row>
-                                                    )})
-                                                    }
+                                    <table className="table table-hover table-bordered">
+                                      <thead>
+                                        <tr>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ID</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>CNIC</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Merit</th>
+                                        </tr>
+                                      </thead>
+                                        <tbody>
+                                            {
+                                            data.slice(merit.NOS_Start-1,merit.NOS_End).map((student,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.id}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Full_Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.CNIC}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{parseFloat(student.merit).toFixed(2)} %</td>
+                                                    </tr>
+                                            )})
+                                            }
                                             
-                                                </Table.Body>
-                                            </Table>
+                                            </tbody>
+                                      </table>
                                     </div>
                                 </div>
                                 </MDBCardBody>

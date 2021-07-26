@@ -1,9 +1,18 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Modal , Table} from 'semantic-ui-react';
 import Select from "react-select";
 import Header from'../../Fixed Components/Header';
-
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 function AssignCourses() {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
@@ -17,12 +26,19 @@ function AssignCourses() {
 
     const [courses,setcourses] = useState([])
 
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
+
     const [AssignedCourses, setAssignedCourses] = useState("")
 
     useEffect(()=>{
+        window.scrollTo(0, 0)
         axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
             setcourses(res.data.data)
-        })
+        }).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+		})
     },[])
 
     const changeselect = (e) => {
@@ -33,7 +49,9 @@ function AssignCourses() {
 	  }
 
     const Add = () => {
-        setAssignedCourses(AssignedCourses + String(formdata.Course_Code) + String(" ") + String(formdata.Course_Title) + String(","))
+        if(formdata.Course_Code!="" && formdata.Course_Title!=""){
+            setAssignedCourses(AssignedCourses + String(formdata.Course_Code) + String(":") + String(formdata.Course_Title) + String(","))
+        }
     }
 
     const Reset = () => {
@@ -75,7 +93,10 @@ function AssignCourses() {
       const [validate,setvalidate] = useState("")
 
       const set=(e) => {
-  
+            if(AssignedCourses===""){
+                setvalidate("No Course Selected")
+            }
+            else{
           e.preventDefault()
             axios.put("http://localhost:3001/api/hod/assigncourses",{
             Department: login.Department,
@@ -94,48 +115,102 @@ function AssignCourses() {
                   Inter_Percentage : ""
                 })
               })
-            .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
+              .catch((err)=>{
+                setmessage("Something Went Wrong! Please Try Again After Sometime")
+            })
+        }
       }
+
+      if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
     return (
         <React.Fragment>
             <Header/>
             <div className="Student">
                 <div className="container">
-                    <div className="col-md-12">
-                        <h1 style={{marginTop:0}} className="text-white">Assign Courses</h1>
-                    </div>
-                    <div className="row">
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                        </div>
-                    
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
-                        </div>
-                    
-                        <div className="col-md-3">
-                            <button className="Admission_Form_button" onClick={Add} style={{width:"100px"}} > Add </button>
-                        </div>
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                                <MDBView
+                                    cascade
+                                    className='gradient-card-header light-blue lighten-1'
+                                >
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Assign Courses</h4>
+                                </MDBView>
+                                <MDBCardBody>
+                                    <div className="row ml-4">
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                                        </div>
+                                    
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
+                                        </div>
+                                    
+                                        <div className="col-md-3">
+                                            <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Add}> Add </MDBBtn>
+                                        </div>
 
-                        <div className="col-md-3">
-                            <button className="Admission_Form_button" onClick={Reset} style={{width:"100px"}} > Reset </button>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div className="row">
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
-                        </div>
-                    
-                        <div className="col-md-3">
-                            <button className="Admission_Form_button" onClick={set} style={{width:"100px"}} > <Modals validate={validate} /> </button>
-                        </div>
-                    </div>
-                    <hr/>
-                    {AssignedCourses.split(",").map((coursess)=>{
-                        return(<h1>{coursess}</h1> )
-                    })}
+                                        <div className="col-md-3">
+                                        <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Reset}> Reset </MDBBtn>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <div className="row ml-4">
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                                        </div>
+                                    
+                                        <div className="col-md-3">
+                                            <button onClick={set} style={{border:'none',background:"transparent",marginTop:15}}> <Modals validate={validate} /> </button>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    {AssignedCourses!=""?
+                                        <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
+                                            <MDBRow>
+                                                <MDBCol md='12'>
+                                                    <MDBView
+                                                        cascade
+                                                        className='gradient-card-header light-blue lighten-1'
+                                                    >
+                                                        <h4 className='h4-responsive mb-0 font-weight-bold'>Courses Added</h4>
+                                                    </MDBView>
+                                                    <MDBCardBody>
+                                                        <table className="table table-hover table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                {AssignedCourses.split(",").map((coursess)=>{
+                                                                    return(          
+                                                                    <tr>
+                                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{coursess.split(":")[0]}</td>
+                                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{coursess.split(":")[1]}</td>
+                                                                    </tr>
+                                                                    )
+                                                                })}
+                                                            </tbody>
+                                                        </table>
+                                                    </MDBCardBody>
+                                                </MDBCol>
+                                            </MDBRow>
+                                        </MDBCard>
+                                    :<></>}
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
                 </div>
             </div>
         </React.Fragment>
@@ -153,7 +228,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Assign</Button>}
+		trigger={<MDBBtn gradient="blue"><b>Assign</b></MDBBtn>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

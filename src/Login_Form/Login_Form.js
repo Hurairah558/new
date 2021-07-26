@@ -32,7 +32,7 @@ function Login () {
 
 	if (String(login).includes("AO")){
 		return(
-			<Redirect to="/ao/feemanagement" />
+			<Redirect to="/ao/dashboard" />
 		   )
 	}
 
@@ -44,13 +44,13 @@ function Login () {
 
 	else if (String(login).includes("RO")){
 		return(
-			<Redirect to="/ro/students" />
+			<Redirect to="/ro/dashboard" />
 		   )
 	}
 
 	else if (String(login).includes("SSIO")){
 		return(
-			<Redirect to="/ssio/freeinstructors" />
+			<Redirect to="/ssio/dashboard" />
 		   )
 	}
 

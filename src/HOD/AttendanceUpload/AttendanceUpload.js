@@ -167,7 +167,7 @@ const Awardlist = () => {
             <div className="Admission_Form">
 			    <div className="signup">
 				    <div className="container">
-                    <label className="Admission_Label">Upload Award List</label>
+                    <label className="Admission_Label">Upload Attendance List</label>
                     <hr style={{background:"white"}} />
                     <p className="Admission_p">Select Course Code</p>
                     <Select className="Admission_Form_Select" onChange={Course_Change} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />

@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react';
-import Header from '../../Fixed Components/Header';
-import {Link ,Redirect} from 'react-router-dom';
+import Header from '../Header/Header';
+import {Link } from 'react-router-dom';
 import {
-    MDBContainer,
     MDBRow,
     MDBCol,
     MDBCard,
@@ -22,7 +21,7 @@ const DV6 = () => {
     const [message, setmessage] = useState("")
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/students/dashboard",{Department:login.Department}).then((res)=>{
+        axios.get("http://localhost:3001/api/all/dashboard").then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{
@@ -64,7 +63,7 @@ const DV6 = () => {
                 cascade
                 className='gradient-card-header light-blue lighten-1'
               >
-                <h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department}</h4>
+                <h4 className='h4-responsive mb-0 font-weight-bold'>SSIO Dashboard</h4>
               </MDBView>
               <MDBCardBody>
         <div className="row">
@@ -90,7 +89,6 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-
           <div className="col-md-3">
             <MDBCard style={{paddingTop:30,paddingBottom:35}}>
               <MDBRow className='mt-3'>
@@ -107,7 +105,7 @@ const DV6 = () => {
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Morning").length}</h5>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Status==="Active").filter((student)=>student.Shift==="Morning").length}</h5>
                   <b className='font-small'>Morning Shift</b>
                 </MDBCol>
               </MDBRow>
@@ -130,7 +128,7 @@ const DV6 = () => {
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Evening").length}</h5>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Status==="Active").filter((student)=>student.Shift==="Evening").length}</h5>
                   <b className='font-small'>Evening Shift</b>
                 </MDBCol>
               </MDBRow>
@@ -177,28 +175,6 @@ const DV6 = () => {
                 <MDBCol md='7' col='7' className='text-right pr-5'>
                   <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Gender=="Female").length}</h5>
                   <b className='font-small'>Female Students</b>
-                </MDBCol>
-              </MDBRow>
-            </MDBCard>
-          </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
-              <MDBRow className='mt-3'>
-                <MDBCol md='5' col='5' className='text-left pl-4'>
-                  <MDBBtn
-                    tag='a'
-                    floating
-                    size='lg'
-                    color='danger'
-                    className='ml-4'
-                    style={{ padding: 0 }}
-                  >
-                    <MDBIcon icon='hiking' size='2x' />
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Status=="Active").filter((student)=>student.Degree_Status=="Continue").length}</h5>
-                  <b className='font-small'>Active Students</b>
                 </MDBCol>
               </MDBRow>
             </MDBCard>
@@ -289,7 +265,7 @@ const DV6 = () => {
 
               <div className="row">
               <div className="col-md-4">
-                <Link to="/hod/students" className="nav-link" href="#">
+                <Link to="/ssio/students" className="nav-link" href="#">
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>
                             <MDBCol md='5' col='5' className='text-left pl-4'>
@@ -301,11 +277,11 @@ const DV6 = () => {
                                     className='ml-4'
                                     style={{ padding: 0 }}
                                 >
-                                    <MDBIcon icon='eye' size='2x' />
+                                    <MDBIcon icon='user' size='2x' />
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Students</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Students Morning</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -316,7 +292,7 @@ const DV6 = () => {
 
             <div className="col-md-4">
 
-                    <Link to="/hod/timetablegenerate" className="nav-link text-white" href="#">
+                    <Link to="/ssio/students2" className="nav-link text-white" href="#">
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>
                             <MDBCol md='5' col='5' className='text-left pl-4'>
@@ -328,11 +304,11 @@ const DV6 = () => {
                                     className='ml-4'
                                     style={{ padding: 0 }}
                                 >
-                                    <MDBIcon icon='clock' size='2x' />
+                                    <MDBIcon icon='user' size='2x' />
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Time Table Generate</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Students Evening</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -342,7 +318,35 @@ const DV6 = () => {
             <div className="col-md-4">
               
                 
-                    <Link to="/hod/awardlists" className="nav-link text-white" href="#">
+                    <Link to="/ssio/freeinstructors" className="nav-link text-white" href="#">
+                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
+                        <MDBRow className='mt-3'>
+                            <MDBCol md='5' col='5' className='text-left pl-4'>
+                                <MDBBtn
+                                    tag='a'
+                                    floating
+                                    size='lg'
+                                    color='secondary'
+                                    className='ml-4'
+                                    style={{ padding: 0 }}
+                                >
+                                    <MDBIcon icon='file-alt' size='2x' />
+                                </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md='7' col='7'>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Free Instructors</h5>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                        </Link>
+                
+              
+            </div>
+            <div className="col-md-4">
+              
+                
+                    <Link to="/ssio/announcement" className="nav-link text-white" href="#">
+                    
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>
                             <MDBCol md='5' col='5' className='text-left pl-4'>
@@ -354,39 +358,11 @@ const DV6 = () => {
                                     className='ml-4'
                                     style={{ padding: 0 }}
                                 >
-                                    <MDBIcon icon='file-alt' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Award Lists</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/attendancelist" className="nav-link text-white" href="#">
-                    
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='warning'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
                                     <MDBIcon icon='concierge-bell' size='2x' />
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Attendance Lists</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Announcements</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -398,7 +374,7 @@ const DV6 = () => {
             <div className="col-md-4">
               
                 
-                    <Link to="/hod/addstudent" className="nav-link text-white" href="#">
+                    <Link to="/ssio/awardlists" className="nav-link text-white" href="#">
                         
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>
@@ -411,11 +387,11 @@ const DV6 = () => {
                                     className='ml-4'
                                     style={{ padding: 0 }}
                                 >
-                                    <MDBIcon icon='user-plus' size='2x' />
+                                    <MDBIcon icon='file-archive' size='2x' />
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Add Student</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Award Lists</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -427,7 +403,7 @@ const DV6 = () => {
             <div className="col-md-4">
               
                 
-                    <Link to="/hod/admissions" className="nav-link text-white" href="#">
+                    <Link to="/ssio/attendancelist" className="nav-link text-white" href="#">
 
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>
@@ -444,7 +420,7 @@ const DV6 = () => {
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Admissions</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Attendance Lists</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -453,273 +429,11 @@ const DV6 = () => {
                 
               
             </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/addinstructor" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='secondary'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='user-cog' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Add Instructor</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/addcourses" className="nav-link text-white" href="#">
-
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='primary'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='book-open' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Add Courses</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-
-                    </Link>
-                
-              
-            </div>
-            
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/assigncourses" className="nav-link text-white" href="#">
-
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='warning'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='edit' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Assign Courses</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-
-                    </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/awardlist" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='danger'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='baby-carriage' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Upload Award List</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/attendance" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='secondary'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='file-upload' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Upload Attendance</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                        
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/datesheet" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='primary'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='file-export' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Datesheet Morning</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                        
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/datesheet2" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='primary'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='file-export' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Datesheet Evening</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                        
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/meritlistcontroller" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='success'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='file-archive' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>MeritList Morning</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                            
-                        </Link>
-                
-              
-            </div>
-            <div className="col-md-4">
-              
-                
-                    <Link to="/hod/meritlistcontroller2" className="nav-link text-white" href="#">
-                        
-                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
-                        <MDBRow className='mt-3'>
-                            <MDBCol md='5' col='5' className='text-left pl-4'>
-                                <MDBBtn
-                                    tag='a'
-                                    floating
-                                    size='lg'
-                                    color='success'
-                                    className='ml-4'
-                                    style={{ padding: 0 }}
-                                >
-                                    <MDBIcon icon='file-archive' size='2x' />
-                                </MDBBtn>
-                            </MDBCol>
-                            <MDBCol md='7' col='7'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>MeritList Evening</h5>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
-                        
-                        </Link>
-                
-              
-            </div>
 
             <div className="col-md-4">
               
                 
-                    <Link to="/hod/password/reset" className="nav-link text-white" href="#">
+                    <Link to="/ssio/password/reset" className="nav-link text-white" href="#">
                         
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
                         <MDBRow className='mt-3'>

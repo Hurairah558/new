@@ -4,29 +4,47 @@ import {Link} from 'react-router-dom';
 import Header from '../Header/Header';
 import Select from 'react-select';
 import { Table } from 'semantic-ui-react';
-
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn 
+  
+  } from 'mdbreact';
 function AwardLists() {
 
 
     const [data, setdata] = useState([])
 
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
+
     useEffect(()=>{
         axios.post("http://localhost:3001/api/ssio/awardlists").then((res)=>{
 			setdata(res.data.data)
 		})
-			.catch((err)=>{console.log(err)})
+        .catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+        })
     },[])
 
 
     const update=()=>{
         axios.post("http://localhost:3001/api/ssio/awardlists").then((res)=>{
                 setdata(res.data.data)
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
     }
 
     const Delete =(id)=>{
         axios.delete(`http://localhost:3001/api/ssio/awardlist/${id}`).then((res)=>{
             update()
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
     }
 
@@ -51,13 +69,101 @@ function AwardLists() {
     const changeselects = (e) => {
         axios.post("http://localhost:3001/api/ssio/awardlists",{Fall_Spring:e.value}).then((res)=>{
             setdata(res.data.data)
+    }).catch((err)=>{
+        setmessage("Something Went Wrong! Please Try Again After Sometime")
     })
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
     }
 
     return (
         <React.Fragment>
             <Header/>
             <div className="Student">
+                <div class="container">
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Fall / Spring</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                <hr/>
+                                    <div className="row">
+                                        <div className="col-md-12">
+                                            <Select className="Admission_Form_Select w-100" onChange={changeselects} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                        </div>
+                                    </div>
+                                    
+                                <hr/>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    {data.length>0?
+                    <MDBCard style={{opacity:op,marginTop:30}} cascade narrow>
+                    <MDBRow>
+                        <MDBCol md='12'>
+                        <MDBView
+                            cascade
+                            className='gradient-card-header light-blue lighten-1'
+                        >
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>Award Lists</h4>
+                        </MDBView>
+                            <MDBCardBody>
+                            <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>View</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>         
+                                            {data.map((Course,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Instructor}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Title}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Code}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Fall_Spring}</td>
+                                                        <td ><Link to={{pathname:"/ssio/awardlistdetails",state:{Course}}} ><MDBBtn gradient="blue"><b>View</b></MDBBtn></Link></td>
+                                                        <td ><MDBBtn onClick={()=>Delete(Course.id)} gradient="peach"><b>Delete</b></MDBBtn></td>
+                                                    </tr>
+                                            )})
+                                            }
+                                        </tbody>
+                                    </table>
+                            </MDBCardBody>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCard>
+                    :<h1 className="d-flex justify-content-center" style={{marginTop:150}} >Nothing to Show...</h1>}
+                </div>
+            </div>
+
+
+            {/* <div className="Student">
                 <div class="container">
                     <p className="Admission_p">Fall / Spring</p>
                     <Select className="Admission_Form_Select" onChange={changeselects} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
@@ -106,7 +212,7 @@ function AwardLists() {
                         </>
                     :<div></div>}
                 </div>
-            </div>
+            </div> */}
         </React.Fragment>
     )
 }

@@ -31,49 +31,6 @@ const Header = () => {
         })
       }
 
-      if(login!=null){
-
-        if (JSON.stringify(login).includes("AO")){
-            return(
-                <Redirect to="/ao/feemanagement" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("Teacher")){
-            return(
-                <Redirect to="/instructor/home" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("RO")){
-            return(
-                <Redirect to="/ro/students" />
-               )
-        }
-    
-        else if (JSON.stringify(login).includes("SSIO")){
-            return(
-                <Redirect to="/ssio/freeinstructors" />
-               )
-        }
-
-        else if (JSON.stringify(login).includes("Student")){
-            return(
-                <Redirect to="/student/profile" />
-               )
-        }
-    
-    
-        else if (JSON.stringify(login).includes("HOD")){
-            return(
-             <Redirect to="/hod/students" />
-            )
-          }
-
-    }
-
-    else{
-
     return (
         <React.Fragment>
             {login==null?
@@ -82,7 +39,7 @@ const Header = () => {
       }
             <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
-                <Link to="/"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
+                <Link to="/ssio/dashboard"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="text-white navbar-toggler-icon"></span>
@@ -124,7 +81,6 @@ const Header = () => {
             </nav>
         </React.Fragment>
     )
-}
 }
 
 export default Header;

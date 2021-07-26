@@ -2,7 +2,16 @@ import axios from 'axios';
 import React,{ useState,useEffect} from 'react';
 import Header from '../../Fixed Components/Header';
 import { Button, Modal , Table } from 'semantic-ui-react';
-
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 function AddCourses() {
 
     const change = (e) => {
@@ -16,6 +25,10 @@ function AddCourses() {
 
     const [data,setdata] = useState([])
 
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
+
     const [formdata,setformdata] = useState({
         Department : login.Department,
         Course_Title : "",
@@ -24,21 +37,28 @@ function AddCourses() {
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+        window.scrollTo(0, 0)
+        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
-        })
+        }).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+		})
     },[])
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/hod/courses",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
                 setdata(res.data.data)
-        })
+        }).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+		})
     }
 
     const Delete =(id)=>{
         axios.delete(`http://localhost:3001/api/hod/courses/${id}`).then((res)=>{
             update()
-        })
+        }).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+		})
     }
 
 
@@ -57,8 +77,19 @@ function AddCourses() {
             }
             update()
         })
-        .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
+        .catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+		})
         update()
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
     }
 
     return (
@@ -66,53 +97,74 @@ function AddCourses() {
             <Header/>
             <div className="Student">
                 <div className="container">
-                    <div className="row">
-                    <div className="col-md-3">
-                        <b>Course Title</b>
-                        <input className="Admission_Form_Input" onChange={change} type="text" name="Course_Title" value={formdata.Course_Title} placeholder="Course Title" required=""/>
-                    </div>
-                
-                    <div className="col-md-3">
-                    <b>Course Code</b>
-                        <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} type="text" name="Course_Code" value={formdata.Course_Code} placeholder="Course Code" required=""/>
-                    </div>
-                
-                    <div className="col-md-3">
-                        <button className="Admission_Form_button" onClick={set} style={{width:"100px",marginTop:40}} > <Modals validate={validate} /> </button>
-                    </div>
-                </div>
-
+                <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                                <MDBView
+                                    cascade
+                                    className='gradient-card-header light-blue lighten-1'
+                                >
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Add Courses</h4>
+                                </MDBView>
+                                <MDBCardBody>
+                                    <div className="row">
+                                        <div className="col-md-3 ml-4">
+                                            <input className="Admission_Form_Input" onChange={change} type="text" name="Course_Title" value={formdata.Course_Title} placeholder="Course Title" required=""/>
+                                        </div>
+                                    
+                                        <div className="col-md-3">
+                                            <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} type="text" name="Course_Code" value={formdata.Course_Code} placeholder="Course Code" required=""/>
+                                        </div>
+                                    
+                                        <div className="col-md-3">
+                                            <button className="Admission_Form_button" onClick={set} style={{width:"100px"}} > <Modals validate={validate} /> </button>
+                                        </div>
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    
                 <hr/>
                     {data.length>0?
-                        <>
-                            <h1>Currently Displaying Courses</h1>
-                            <div class="row">
-                                <div className="col-md-12">
-                                    <Table celled selectable>
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Title</Table.HeaderCell>
-                                                <Table.HeaderCell>Course Code</Table.HeaderCell>
-                                                <Table.HeaderCell>Delete</Table.HeaderCell>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>
-                                            {data.map((course,index)=>{
-                                            return (
-                                                <Table.Row key={index}>
-                                                    <Table.Cell>{index+1}</Table.Cell>
-                                                    <Table.Cell>{course.Course_Title}</Table.Cell>
-                                                    <Table.Cell>{course.Course_Code}</Table.Cell>
-                                                    <Table.Cell><button className="btn btn-danger" onClick={()=>Delete(course.id)} >Delete</button></Table.Cell>
-                                                </Table.Row>
-                                            )})
-                                            }
-                                        </Table.Body>
-                                    </Table>
-                                </div>
-                            </div>
-                        </>
+                        <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
+                            <MDBRow>
+                                <MDBCol md='12'>
+                                    <MDBView
+                                        cascade
+                                        className='gradient-card-header light-blue lighten-1'
+                                    >
+                                        <h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} Courses</h4>
+                                    </MDBView>
+                                    <MDBCardBody>
+                                        <table className="table table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tobdy>
+                                                {data.map((course,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{course.Course_Title}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{course.Course_Code}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>
+                                                        	<MDBBtn style={{fontWeight:'bold',textAlign: 'center'}} onClick={()=>Delete(course.id)} gradient="peach"><b>Delete</b></MDBBtn>    
+                                                    	</td>
+                                                    </tr>
+                                                )})
+                                                }
+                                            </tobdy>
+                                        </table>
+                                    </MDBCardBody>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCard>
                     :<div></div>}
 
                 </div>

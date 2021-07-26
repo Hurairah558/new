@@ -68,34 +68,36 @@ function Details() {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department}&nbsp;&nbsp;&nbsp;{data[0].Course_Title}&nbsp;&nbsp;&nbsp;{data[0].Course_Code}&nbsp;&nbsp;&nbsp;Award List&nbsp;&nbsp;&nbsp;{data[0].Instructor}&nbsp;&nbsp;&nbsp;{data[0].Fall_Spring}</h4>
                             </MDBView>
                                 <MDBCardBody>
-                                    <Table celled selectable>
-                                        <Table.Header>
-                                            <Table.Row>
-                                                <Table.HeaderCell className="text-primary">Sr#</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Roll</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Name</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Mids</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Sessional</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Shift</Table.HeaderCell>
-                                                <Table.HeaderCell className="text-primary">Fall / Spring</Table.HeaderCell>
-                                            </Table.Row>
-                                        </Table.Header>
-                                        <Table.Body>
+                                    <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Roll</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Mids</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sessional</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
                                             {data.map((Student,index)=>{
                                                 return(
-                                                    <Table.Row key={index}>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{index+1}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Roll}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Name}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Mids}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Sessional}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Shift}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{Student.Fall_Spring}</Table.Cell>
-                                                    </Table.Row>
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Roll}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Mids}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Sessional}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Fall_Spring}</td>
+                                                    </tr>
                                             )
                                             })}
-                                        </Table.Body>
-                                    </Table>
+                                        </tbody>
+                                    </table>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>

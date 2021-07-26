@@ -24,10 +24,10 @@ const Students = () => {
 
     const [data,setdata] = useState([])
     const [loading, setloading] = useState(true)
-    const [message, setmessage] = useState("")
     const [seach,setseach] = useState([])
     const [toggle, setmtoggle] = useState("")
     const [op, setop] = useState(1)
+    const [message, setmessage] = useState("")
 
     const [filter, setfilter] = useState({
         Status:"",
@@ -90,6 +90,7 @@ const Students = () => {
                 setseach(res.data.data)
             }).catch((err)=>{
                 setmessage("Something Went Wrong! Please Try Again After Sometime")
+                setloading(false)
         })
 
         }).catch((err)=>{
@@ -219,75 +220,87 @@ const Students = () => {
             <Headers/>
             <div className="Student">
                 <div className="container">
-                <hr style={{fontWeight:'bold'}}/>
-                    <div style={{opacity:op}} className="row">
-                        <div className="col-md-6">
-                            <h1><b>Filter Students</b></h1>
-                        </div>
-                        <div className="col-md-6">
-                            <button style={{background:'transparent',border:'none'}} className="float-right">
-                                
-                                
-                                <Modal
-                                    onClose={() => setOpen(false)}
-                                    onOpen={() => setOpen(true)}
-                                    open={open}
-                                        style={{height:"37%",margin:"auto"}}
-                                        trigger={<MDBBtn gradient="blue"><b>Semester Upgrade</b></MDBBtn>}
+                <MDBCard style={{opacity:op}} cascade narrow>
+                            <MDBRow>
+                                <MDBCol md='12'>
+                                    <MDBView
+                                        cascade
+                                        className='gradient-card-header light-blue lighten-1'
                                     >
-                                    <Modal.Header><h1><b>Response</b></h1></Modal.Header>
-                                        <Modal.Description>
-                                            <h2 className="d-flex justify-content-center ml-4 mb-4 mt-4"><b>Are You Sure You Want to Upgrade the Semester of Paid and Active Students? <br/><br/> This Operation can't be Undone</b></h2>
-                                            <hr/>
-                                        </Modal.Description>
-                                    <div className="row float-right">
-                                        <div  style={{marginRight:40}} className="col-md-3">
-                                            <MDBBtn onClick={Upgrade} gradient="blue"><b>Yes</b></MDBBtn>
+                                        <h4 className='h4-responsive mb-0 font-weight-bold'>Filter Students</h4>
+                                    </MDBView>
+                                    <MDBCardBody>
+                                        <div style={{opacity:op}} className="row">
+                                        <hr className="col-md-12" style={{fontWeight:'bold'}}/>
+                                            <div className="col-md-3">
+                                                <Select  className="Admission_Form_Select" onChange={changeselect} options={Status}  name="Status" placeholder="Active / Inactive" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselect} options={Degree_Status}  name="Degree_Status" placeholder="Completed / Continue" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselect} options={Gender}  name="Gender" placeholder="Male / Female" required />
+                                            </div>
                                         </div>
-                                        <div className="col-md-3">
-                                            <MDBBtn onClick={() => setOpen(false)} gradient="peach"><b>No</b></MDBBtn>
+                                        <hr style={{fontWeight:'bold'}}/>
+                                        <div style={{opacity:op}} className="row">
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
+                                            </div>
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <Export csvData={data} fileName={"Students"} />
+                                            </div>
                                         </div>
-                                    </div>
-                                </Modal>
+                                        <div style={{opacity:op}} className="row">
+                                            <div className="col-md-12">
+                                                <hr style={{fontWeight:'bold'}}/>
+                                                <button style={{background:'transparent',border:'none'}} className="float-right">
+                                                    
+                                                    
+                                                    <Modal
+                                                        onClose={() => setOpen(false)}
+                                                        onOpen={() => setOpen(true)}
+                                                        open={open}
+                                                            style={{height:"37%",margin:"auto"}}
+                                                            trigger={<MDBBtn gradient="blue"><b>Semester Upgrade</b></MDBBtn>}
+                                                        >
+                                                        <Modal.Header><h1><b>Response</b></h1></Modal.Header>
+                                                            <Modal.Description>
+                                                                <h2 className="d-flex justify-content-center ml-4 mb-4 mt-4"><b>Are You Sure You Want to Upgrade the Semester of Paid and Active Students? <br/><br/> This Operation can't be Undone</b></h2>
+                                                                <hr/>
+                                                            </Modal.Description>
+                                                        <div className="row float-right">
+                                                            <div  style={{marginRight:40}} className="col-md-3">
+                                                                <MDBBtn onClick={Upgrade} gradient="blue"><b>Yes</b></MDBBtn>
+                                                            </div>
+                                                            <div className="col-md-3">
+                                                                <MDBBtn onClick={() => setOpen(false)} gradient="peach"><b>No</b></MDBBtn>
+                                                            </div>
+                                                        </div>
+                                                    </Modal>
 
 
-                            </button>
-                        </div>
-                    </div>
-                    <hr style={{fontWeight:'bold'}}/>
-                    <div style={{opacity:op}} className="row">
-                        <div className="col-md-3">
-                            <Select  className="Admission_Form_Select" onChange={changeselect} options={Status}  name="Status" placeholder="Active / Inactive" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fee_Status}  name="Fee_Status" placeholder="Paid / Unpaid" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Degree_Status}  name="Degree_Status" placeholder="Completed / Continue" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={changeselect} options={Gender}  name="Gender" placeholder="Male / Female" required />
-                        </div>
-                    </div>
-                    <hr style={{fontWeight:'bold'}}/>
-                    <div style={{opacity:op}} className="row">
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={seachbyname} options={Names}  name="Names" placeholder="Search By Name" required />
-                        </div>
-                        <div className="col-md-3">
-                            <Select className="Admission_Form_Select" onChange={seachbyroll} options={Roll}  name="Roll" placeholder="Search By Roll" required />
-                        </div>
-                        <div className="col-md-6">
-                            <Export csvData={data} fileName={"Students"} />
-                        </div>
-                    </div>
-                    <hr/>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr style={{fontWeight:'bold'}}/>
+                                    </MDBCardBody>
+                                </MDBCol>
+                            </MDBRow>
+                        </MDBCard>
+                    
                     {loading?
                         <div className="d-flex justify-content-center" ><MDBSpinner big crazy /></div>
                         :
@@ -307,54 +320,54 @@ const Students = () => {
                                 <MDBCardBody>
                                     <div className="row">
                                         <div className="col-md-12">
-                                            <Table celled selectable>
-                                                <Table.Header>
-                                                    <Table.Row>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Sr#</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Role_Number</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Name</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Semester</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Shift</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Fee_Status</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Status</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Add_Course</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Full Details</Table.HeaderCell>
-                                                        <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Degree Status</Table.HeaderCell>
-                                                    </Table.Row>
-                                                </Table.Header>
-                                                <Table.Body>
+                                            <table className="table table-hover table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Role_Number</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee_Status</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Add_Course</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Full Details</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
                                                     { data.filter((student)=>student.Department==login.Department).map((student,index)=>{
                                                         return (
-                                                    <Table.Row key={index}>
-                                                        <Table.Cell style={{fontWeight:'bold'}}><b>{index+1}</b></Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}><b>{student.Roll}</b></Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}><b>{student.Full_Name}</b></Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{student.Semester}</Table.Cell>
-                                                        <Table.Cell style={{fontWeight:'bold'}}>{student.Shift}</Table.Cell>
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Roll}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Shift}</td>
                                                         {
-                                                            student.Fee_Status==="Unpaid"?<Table.Cell style={{color:"red"}} ><b>{student.Fee_Status}</b></Table.Cell>:
-                                                            <Table.Cell style={{color:"green"}} ><b>{student.Fee_Status}</b></Table.Cell>
+                                                            student.Fee_Status==="Unpaid"?<td style={{color:"red"}} ><b>{student.Fee_Status}</b></td>:
+                                                            <td style={{color:"green"}} ><b>{student.Fee_Status}</b></td>
                                                         }
                                                         {
-                                                            <Table.Cell>
+                                                            <td>
                                                                 {student.Status==="Active"?
                                                                 <MDBBtn gradient="blue" onClick={()=>toggles(student.Status,student.id)}><b>{student.Status==="Inactive"?"Inactive":"Active"}</b></MDBBtn>:
                                                                 <MDBBtn outline color="primary"  onClick={()=>toggles(student.Status,student.id)}><b>{student.Status==="Inactive"?"Inactive":"Active"}</b></MDBBtn>}
-                                                            </Table.Cell>
+                                                            </td>
                                                         }
-                                                        <Table.Cell><Link to={{pathname:"/hod/assigncourse",state:student}}><MDBBtn gradient="blue"><i class="fa fa-book" aria-hidden="true"></i></MDBBtn></Link></Table.Cell>
-                                                        <Table.Cell><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></Table.Cell>
+                                                        <td><Link to={{pathname:"/hod/assigncourse",state:student}}><MDBBtn gradient="blue"><i class="fa fa-book" aria-hidden="true"></i></MDBBtn></Link></td>
+                                                        <td><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></td>
                                                         {
-                                                            <Table.Cell>
+                                                            <td>
                                                                 {student.Degree_Status==="Continue"?
                                                                 <MDBBtn gradient="blue" onClick={()=>Degree_toggles("Move to Completed",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Completed"}</b></MDBBtn>:
                                                                 <MDBBtn outline color="primary"  onClick={()=>Degree_toggles("Continue",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Completed"}</b></MDBBtn>}
-                                                            </Table.Cell>
+                                                            </td>
                                                         }
-                                                    </Table.Row>
+                                                    </tr>
                                                     )})}
-                                                </Table.Body>
-                                            </Table>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </MDBCardBody>

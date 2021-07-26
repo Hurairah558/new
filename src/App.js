@@ -56,11 +56,17 @@ import Login_Student from './Student/Login/Login';
 import Profile from './Student/Profile/Profile';
 import ResetPassword_Student from './Student/ResetPassword/ResetPassword';
 import Dashboard_HOD from './HOD/Dashboard/Dashboard';
+import Dashboard_SSIO from './SSIO/Dashboard/Dashboard';
+import Dashboard_RO from './RO/Dashboard/Dashboard';
+import Dashboard_AO from './AO/Dashboard/Dashboard';
 function App() {
   return (
     <React.Fragment>
       <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/ssio/dashboard" component={Dashboard_SSIO}/>
+          <Route exact path="/ro/dashboard" component={Dashboard_RO}/>
+          <Route exact path="/ao/dashboard" component={Dashboard_AO}/>
           <Route exact path="/admin" component={Login}/>
           <Route exact path="/login" component={Login_Student}/>
           <Route exact path="/student/profile" component={Profile}/>

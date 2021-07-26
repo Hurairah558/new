@@ -3,12 +3,23 @@ import React,{useState,useEffect} from 'react';
 import Select from "react-select";
 import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
+import { 
+    MDBRow,
+    MDBCol,
+    MDBCard,
+    MDBCardBody,
+    MDBView,
+    MDBBtn,
+    MDBSpinner 
+  
+  } from 'mdbreact';
 function Fee_Record() {
 
     const [Semester, setSemester] = useState("")
     const [data,setdata] = useState([])
     const [loading, setloading] = useState(false)
     const [message, setmessage] = useState("")
+    const [op, setop] = useState(1)
 
     const changeselect = (e) => {
         setSemester(e.value)
@@ -54,7 +65,10 @@ function Fee_Record() {
             else{
               setvalidate(res.data)
             }
-        }).catch((err)=>{console.log(err)})
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
+        })
     }
 
     // const toggles=(e)=>{
@@ -78,57 +92,106 @@ function Fee_Record() {
             <Header/>
             <div className="Student">
                 <div className="container">
-                    <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />              
-                    <button style={{padding:"10px 100px"}} className="btn btn-primary" onClick={Create} >
-                    <Modals validate={validate} />
-                    </button>
-                    <hr/>
-                        <div className="row">
-                            <div className="col-md-3">
-                                <Select className="Admission_Form_Select" onChange={changeselectsemester} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                            </div>
-                        </div>
-                    <hr/>
+                    <MDBCard style={{opacity:op}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Create Fee Record</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <div className="row">
+                                        <div className="col-md-3">
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                        </div>
+
+                                        <div className="col-md-3">
+                                            <button style={{border:'none',background:"transparent",marginTop:20}} onClick={Create} >
+                                                <Modals validate={validate} />
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    <MDBCard style={{opacity:op,marginTop:30}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>View All Records</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                    <hr/>
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <Select className="Admission_Form_Select" onChange={changeselectsemester} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                            </div>
+                                        </div>
+                                    <hr/>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                    
                     {!loading?
                     data.length>0?
-                    <div className="row">
-                        <div className="col-md-12">
-                            <Table celled selectable color="grey">
-                                <Table.Header>
-                                    <Table.Row>
-                                        <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                        <Table.HeaderCell>Roll</Table.HeaderCell>
-                                        <Table.HeaderCell>Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Father's Name</Table.HeaderCell>
-                                        <Table.HeaderCell>Department</Table.HeaderCell>
-                                        <Table.HeaderCell>Phone</Table.HeaderCell>
-                                        <Table.HeaderCell>Semester</Table.HeaderCell>
-                                        <Table.HeaderCell>Shift</Table.HeaderCell>
-                                        <Table.HeaderCell>Fee Status</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-                                <Table.Body>
-                                    { data.map((student,index)=>{
-                                        return (
-                                            <Table.Row key={index}>
-                                                <Table.Cell><b>{index+1}</b></Table.Cell>
-                                                <Table.Cell><b>{student.Roll}</b></Table.Cell>
-                                                <Table.Cell><b>{student.Full_Name}</b></Table.Cell>
-                                                <Table.Cell>{student.Father_Name}</Table.Cell>
-                                                <Table.Cell>{student.Department}</Table.Cell>
-                                                <Table.Cell>{student.Phone}</Table.Cell>
-                                                <Table.Cell>{student.Semester}</Table.Cell>
-                                                <Table.Cell>{student.Shift}</Table.Cell>
-                                                <Table.Cell><button style={{margin:"0 10px"}} className={`btn ${student.Fee_Status==="Unpaid"?"button":"buttonPaid"}`} toggle active={student.Fee_Status==="Unpaid"?false:true} id={student.id} >
-                                                    {student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}
-                                                </button></Table.Cell>
-                                            </Table.Row>
-                                    )})}
-                                </Table.Body>
-                            </Table>
-                        </div>
-                    </div>:<div></div>
-                    :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Loading...</h1>}
+                    <MDBCard style={{opacity:op,marginTop:30}} cascade narrow>
+                        <MDBRow>
+                            <MDBCol md='12'>
+                            <MDBView
+                                cascade
+                                className='gradient-card-header light-blue lighten-1'
+                            >
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Fee Record</h4>
+                            </MDBView>
+                                <MDBCardBody>
+                                <table className="table table-hover table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Roll</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Phone</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            { data.map((student,index)=>{
+                                                return (
+                                                    <tr key={index}>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Roll}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Phone}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Shift}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>
+                                                                {student.Fee_Status==="Paid"?
+                                                                <MDBBtn gradient="blue"><b>{student.Status==="Unpaid"?"Unpaid":"Paid"}</b></MDBBtn>:
+                                                                <MDBBtn outline color="primary"><b>{student.Fee_Status==="Unpaid"?"Unpaid":"Paid"}</b></MDBBtn>}
+                                                        </td>
+                                                    </tr>
+                                            )})}
+                                        </tbody>
+                                    </table>
+                                </MDBCardBody>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>:<div></div>
+                    :<h1 className="d-flex justify-content-center" style={{marginTop:250}} ><MDBSpinner big crazy /></h1>}
                 </div>
 		    </div>
         </React.Fragment>
@@ -146,7 +209,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Create Record</Button>}
+		trigger={<MDBBtn gradient="blue" ><b>Create Record</b></MDBBtn>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

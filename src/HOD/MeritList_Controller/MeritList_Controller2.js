@@ -229,26 +229,26 @@ const MeritListData = () => {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>Currently Displaying Merit List</h4>
                             </MDBView>
                                 <MDBCardBody>
-                                <Table>
-                                    <Table.Header>
-                                        <Table.Row>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Merit List</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Department</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Shift</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Students</Table.HeaderCell>
-                                            <Table.HeaderCell className="text-primary" style={{fontSize:15}}>Display</Table.HeaderCell>
-                                        </Table.Row>
-                                    </Table.Header>
-                                    <Table.Body>
-                                        <Table.Row>
-                                            <Table.Cell style={{fontWeight:'bold'}}><b>{CurrentData.MeritList}</b></Table.Cell>
-                                            <Table.Cell style={{fontWeight:'bold'}}><b>{CurrentData.Department}</b></Table.Cell>
-                                            <Table.Cell style={{fontWeight:'bold'}}><b>Evening</b></Table.Cell>
-                                            <Table.Cell style={{fontWeight:'bold'}}><b>{CurrentData.NOS_Start} to {CurrentData.NOS_End}</b></Table.Cell>
-                                            <Table.Cell style={{fontWeight:'bold'}}><b>{CurrentData.Display==1?"True":"False"}</b></Table.Cell>
-                                        </Table.Row>
-                                    </Table.Body>
-                                </Table>
+                                <table className="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Merit List</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Students</th>
+                                            <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Display</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.MeritList}</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Department}</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Morning</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.NOS_Start} to {CurrentData.NOS_End}</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Display==1?"True":"False"}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -263,11 +263,11 @@ const MeritListData = () => {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>Filter Merit List</h4>
                             </MDBView>
                                 <MDBCardBody>
-                                <div style={{marginLeft:300}} className="row">
-                                    <div className="col-md-3">
-                                        <Select className="Admission_Form_Select" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <Select className="Admission_Form_Select float-right" onChange={changeselectYear} name="Years" placeholder="Year Of Admission" options={Years} required />
                                     </div>
-                                    <div style={{marginLeft:50}} className="col-md-3">
+                                    <div className="col-md-3">
                                         <Select className="Admission_Form_Select" onChange={changeselectYear} name="Status" placeholder="BlackList / WhiteList" options={Status} required />
                                     </div>
                                 </div>
@@ -283,44 +283,44 @@ const MeritListData = () => {
                             cascade
                             className='gradient-card-header light-blue lighten-1'
                         >
-                            <h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} &nbsp;&nbsp;&nbsp;{data[0].Shift} &nbsp;&nbsp;&nbsp; Merit List &nbsp;&nbsp;&nbsp; {data[0].Year}</h4>
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} &nbsp;&nbsp;&nbsp;{data.length>0?data[0].Shift:""} &nbsp;&nbsp;&nbsp; Merit List &nbsp;&nbsp;&nbsp; {data.length>0?data[0].Year:""}</h4>
                         </MDBView>
                             <MDBCardBody>
                                 <div class="row">
                                     <div className="col-md-12">
-                                        <Table>
-                                            <Table.Header>
-                                                <Table.Row>
-                                                    <Table.HeaderCell>Sr#</Table.HeaderCell>
-                                                    <Table.HeaderCell>ID</Table.HeaderCell>
-                                                    <Table.HeaderCell>Name</Table.HeaderCell>
-                                                    <Table.HeaderCell>Father's Name'</Table.HeaderCell>
-                                                    <Table.HeaderCell>CNIC</Table.HeaderCell>
-                                                    <Table.HeaderCell>Merit</Table.HeaderCell>
-                                                    <Table.HeaderCell>Move to</Table.HeaderCell>
-                                                </Table.Row>
-                                            </Table.Header>
-                                            <Table.Body>
+                                        <table className="table table-hover table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ID</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>CNIC</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Merit</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Move to</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
                                                 {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End-1).map((student,index)=>{
                                                     return (
-                                                        <Table.Row key={index}>
-                                                            <Table.Cell style={{fontWeight:'bold'}}><b>{index+1}</b></Table.Cell>
-                                                            <Table.Cell style={{fontWeight:'bold'}}><b>{student.id}</b></Table.Cell>
-                                                            <Table.Cell style={{fontWeight:'bold'}}><b>{student.Full_Name}</b></Table.Cell>
-                                                            <Table.Cell style={{fontWeight:'bold'}}>{student.Father_Name}</Table.Cell>
-                                                            <Table.Cell style={{fontWeight:'bold'}}>{student.CNIC}</Table.Cell>
-                                                            <Table.Cell style={{fontWeight:'bold'}}>{parseFloat(student.merit).toFixed(2)} %</Table.Cell>
+                                                        <tr key={index}>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.id}</b></td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.CNIC}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{parseFloat(student.merit).toFixed(2)} %</td>
                                                             {
-                                                                <Table.Cell>
+                                                                <td style={{fontWeight:'bold',textAlign:'center'}}>
                                                                     {student.Status==="WhiteList"?
                                                                     <MDBBtn onClick={()=>toggles("BlackList",student.id)} gradient="peach"><b>{student.Status==="WhiteList"?"BlackList":"WhiteList"}</b></MDBBtn>:
                                                                     <MDBBtn onClick={()=>toggles("WhiteList",student.id)} gradient="peach"><b>{student.Status==="WhiteList"?"BlackList":"WhiteList"}</b></MDBBtn>}
-                                                                </Table.Cell>
+                                                                </td>
                                                             }
-                                                        </Table.Row>
+                                                        </tr>
                                                 )})}
-                                            </Table.Body>
-                                        </Table>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </MDBCardBody>
