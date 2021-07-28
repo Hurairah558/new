@@ -22,7 +22,7 @@ const DV6 = () => {
     const [message, setmessage] = useState("")
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/students/dashboard",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/students/dashboard",{Department:login!=null?login.Department:""}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{

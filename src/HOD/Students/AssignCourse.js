@@ -12,7 +12,7 @@ function AssignCourses() {
     const Location = useLocation()
 
     const [formdata,setformdata] = useState({
-        Department : login.Department,
+        Department : login!=null?login.Department:"",
         Course_Code : "",
         Course_Title : "",
         Semester:""
@@ -20,11 +20,11 @@ function AssignCourses() {
 
     const [courses,setcourses] = useState([])
 
-    const [AssignedCourses, setAssignedCourses] = useState(Location.state.Courses)
+    const [AssignedCourses, setAssignedCourses] = useState(JSON.stringify(login).includes("HOD")?Location.state.Courses:"")
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
             setcourses(res.data.data)
         })
     },[])
@@ -107,7 +107,7 @@ function AssignCourses() {
             <div className="Student">
                 <div className="container">
                     <div className="col-md-12">
-                        <h1 style={{marginTop:0}} className="text">Assign Courses to {Location.state.Full_Name}</h1>
+                        <h1 style={{marginTop:0}} className="text">Assign Courses to {JSON.stringify(login).includes("HOD")?Location.state.Full_Name:""}</h1>
                     </div>
                     <div className="row">
                         <div className="col-md-3">

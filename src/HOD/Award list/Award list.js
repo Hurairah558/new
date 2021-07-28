@@ -16,7 +16,7 @@ const Awardlist = () => {
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/all/courses",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/all/courses",{Department:login!=null?login.Department:""}).then((res)=>{
             setcourses(res.data.data)
         })
     },[])
@@ -46,8 +46,8 @@ const Awardlist = () => {
             d["Course_Code"] = e.value
             d["Fall_Spring"] = ""
             d["Shift"] = ""
-            d["Instructor"] = login.Name
-            d["Department"] = login.Department
+            d["Instructor"] = login!=null?login.Name:""
+            d["Department"] = login!=null?login.Department:""
             d["Semester"] = ""
             res.data.data.map((student,index)=>{
                 d[`Roll${index}`] = student.Roll

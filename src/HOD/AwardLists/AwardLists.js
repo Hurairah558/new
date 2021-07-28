@@ -24,7 +24,7 @@ function AwardLists() {
 
     const [op, setop] = useState(1)
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/awardlists",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/awardlists",{Department:login!=null?login.Department:""}).then((res)=>{
 			setdata(res.data.data)
 		})
         .catch((err)=>{
@@ -51,7 +51,7 @@ function AwardLists() {
 	]
 
     const changeselects = (e) => {
-        axios.post("http://localhost:3001/api/hod/awardlists",{Fall_Spring:e.value,Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/awardlists",{Fall_Spring:e.value,Department:login!=null?login.Department:""}).then((res)=>{
             setdata(res.data.data)
     }).catch((err)=>{
         setmessage("Something Went Wrong! Please Try Again After Sometime")

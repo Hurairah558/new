@@ -8,6 +8,13 @@
 	margin-top: 100px;
 }
 
+#HeadLink{
+	color: #000;
+}
+#HeadLink:hover{
+	color: rgb(255, 255, 255);
+}
+
 .Login_Label{
 	color: #fff;
 	font-size: 2.3em;
@@ -24,6 +31,7 @@
 	justify-content: center;
 	display: flex;
 	margin: 40px;
+	margin-bottom: 20px;
 	font-weight: bold;
 	cursor: pointer;
 	transition: .5s ease-in-out;
@@ -44,17 +52,20 @@
 
 
 .Login_inputs{
-	width: 87%;
+	width: 65%;
 	height: 20px;
 	background: #e0dede;
 	justify-content: center;
 	display: flex;
 	margin: 20px auto;
+	margin-top: -0px;
 	padding: 20px;
 	border: none;
 	outline: none;
 	border-radius: 5px;
 	transition: .2s ease-in;
+	font-weight: bold;
+	background-color: #fff;
 }
 
 #filter{

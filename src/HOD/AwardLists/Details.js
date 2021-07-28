@@ -17,6 +17,8 @@ import {
 
 function Details() {
 
+    const login = JSON.parse(localStorage.getItem("HOD"))
+
 
     const location = useLocation()
 
@@ -34,7 +36,7 @@ function Details() {
 
     useEffect(()=>{
 
-        axios.post("http://localhost:3001/api/ssio/details",location.state.Course).then((res)=>{
+        axios.post("http://localhost:3001/api/ssio/details",JSON.stringify(login).includes("HOD")?location.state.Course:"").then((res)=>{
 			setdata(res.data.data)
 		})
         .catch((err)=>{

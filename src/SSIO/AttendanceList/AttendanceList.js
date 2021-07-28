@@ -25,7 +25,7 @@ function AwardLists() {
     const [op, setop] = useState(1)
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/ssio/attendance",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/ssio/attendance").then((res)=>{
 			setdata(res.data.data)
 		})
         .catch((err)=>{
@@ -35,7 +35,7 @@ function AwardLists() {
 
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/ssio/attendance",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/ssio/attendance").then((res)=>{
                 setdata(res.data.data)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")

@@ -26,10 +26,10 @@ const TimeTable_Generate = () => {
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/timetable",{Department:login!=null?login.Department:""}).then((res)=>{
                 setdata(res.data.data)
 
-                axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+                axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
                     setcourses(res.data.data)
                 }).catch((err)=>{
                     setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -41,7 +41,7 @@ const TimeTable_Generate = () => {
     },[])
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/timetable",{Department:login!=null?login.Department:""}).then((res)=>{
                 setdata(res.data.data)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -58,7 +58,7 @@ const TimeTable_Generate = () => {
 
 
     const [FormData, setFormData] = useState({
-		Department: login.Department,
+		Department: login!=null?login.Department:"",
 		Instructor: '',
 		Instructor_Designation: '',
         Instructor_Department : '',
@@ -193,7 +193,7 @@ const TimeTable_Generate = () => {
 }
 
         const changeselects = (e) => {
-            axios.post("http://localhost:3001/api/hod/timetable",{Department:login.Department,Fall_Spring:e.value}).then((res)=>{
+            axios.post("http://localhost:3001/api/hod/timetable",{Department:login!=null?login.Department:"",Fall_Spring:e.value}).then((res)=>{
                 setdata(res.data.data)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")

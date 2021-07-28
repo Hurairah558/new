@@ -20,7 +20,7 @@ function AddStudent() {
 			Email : "",
 			Phone : "",
 			Address : "",
-			Department : login.Department,
+			Department : login!=null?login.Department:"",
 			Matric_Roll : "",
 			Matric_Total : "",
 			Matric_Obtained_Marks : "",
@@ -45,7 +45,7 @@ function AddStudent() {
 		Email : ar[0].Email,
 		Phone : ar[0].Phone,
 		Address : ar[0].Address,
-		Department : login.Department,
+		Department : login!=null?login.Department:"",
 		Matric_Roll : ar[0].Matric_Roll,
 		Matric_Total_Marks : ar[0].Matric_Total_Marks,
 		Matric_Obtained_Marks : ar[0].Matric_Obtained_Marks,
@@ -75,7 +75,7 @@ function AddStudent() {
 
 
 	const get =(e)=>{
-		axios.post("http://localhost:3001/api/hod/admissions",{Department:login.Department,Year: new Date().getFullYear(),Roll:e.value}).then((res)=>{
+		axios.post("http://localhost:3001/api/hod/admissions",{Department:login!=null?login.Department:"",Year: new Date().getFullYear(),Roll:e.value}).then((res)=>{
 			setformdata(res.data.data[0])
 			setar(res.data.data)
         }).catch((err)=>{

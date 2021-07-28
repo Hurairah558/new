@@ -30,7 +30,7 @@ function AddCourses() {
     const [op, setop] = useState(1)
 
     const [formdata,setformdata] = useState({
-        Department : login.Department,
+        Department : login!=null?login.Department:"",
         Course_Title : "",
         Course_Code : ""
     })
@@ -38,7 +38,7 @@ function AddCourses() {
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
                 setdata(res.data.data)
         }).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -46,7 +46,7 @@ function AddCourses() {
     },[])
 
     const update=()=>{
-        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
                 setdata(res.data.data)
         }).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")

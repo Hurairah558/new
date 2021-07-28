@@ -28,7 +28,7 @@ const MeritListData = () => {
     const [message,setmessage] = useState("")
 
     const [filter, setfilter] = useState({
-        Department: login.Department,
+        Department: login!=null?login.Department:"",
         Years:"",
         Status:""
     })
@@ -43,7 +43,7 @@ const MeritListData = () => {
 		Start: '',
 		End: '',
 		Display: '',
-		Department: login.Department
+		Department: login!=null?login.Department:""
 	  })
 
     const [CurrentData, setCurrentData] = useState({
@@ -51,11 +51,11 @@ const MeritListData = () => {
         NOS_Start : "",
         NOS_End : "",
         Display : "",
-        Department : login.Department
+        Department : login!=null?login.Department:""
     })
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login!=null?login.Department:""}).then((res)=>{
             setCurrentData(res.data.data[0])
                 axios.post("http://localhost:3001/hod/meritlist2",filter).then((res)=>{
                     setdata(res.data.data)
@@ -100,7 +100,7 @@ const MeritListData = () => {
 
 
       const update_data = () => {
-        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login!=null?login.Department:""}).then((res)=>{
             setCurrentData(res.data.data[0])
                 axios.post("http://localhost:3001/hod/meritlist2",filter).then((res)=>{
                     setdata(res.data.data)
@@ -138,7 +138,7 @@ const MeritListData = () => {
     const changeselectYear = (e) => {
         setfilter({
             ...filter,
-            Department : login.Department,
+            Department : login!=null?login.Department:"",
             [e.Name] : e.value
           })
 

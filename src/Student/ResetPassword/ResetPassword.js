@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import Header from '../Header/Header';
+import {Redirect} from 'react-router-dom';
 import { Modal , Button } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
 
@@ -8,10 +9,11 @@ function ResetPassword() {
 
     var login = JSON.parse(localStorage.getItem("HOD"))
 
+
     const [validate,setvalidate] = useState("")
 
     const [formData, setFormData] = useState({
-        id: login.id,
+        id: login!=null?login.id:"",
         OldUsername: '',
         OldPassword: '',
 		Password: ''
@@ -32,13 +34,17 @@ function ResetPassword() {
               setvalidate(res.data)
             }
             setFormData({...formData,
-                id: login.id,
+                id: login!=null?login.id:"",
                 OldUsername: '',
                 OldPassword: '',
                 Password: ''
             })
 		})
 			.catch((err)=>{console.log(err)})
+	}
+
+	if (login==null){
+		return <Redirect to="/"/>;
 	}
 
     return (

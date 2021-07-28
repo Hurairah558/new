@@ -32,7 +32,7 @@ const Students = () => {
     const [filter, setfilter] = useState({
         Status:"",
         Fee_Status:"",
-        Department: login.Department,
+        Department: login!=null?login.Department:"",
         Semester:"",
         Shift:"",
         Degree_Status:"",
@@ -137,7 +137,7 @@ const Students = () => {
         setOpen(false)
         setop(0.3)
         setloading(true)
-        axios.post("http://localhost:3001/api/hod/semesterupgrade",{Department:login.Department}).then((res)=>{  
+        axios.post("http://localhost:3001/api/hod/semesterupgrade",{Department:login!=null?login.Department:""}).then((res)=>{  
             setmtoggle("Upgrade")
             setloading(false)
             setop(1)
@@ -152,7 +152,7 @@ const Students = () => {
 		
 	]
 
-    seach.filter((student)=>student.Department==login.Department).map((Stu)=>{
+    seach.filter((student)=>student.Department==login!=null?login.Department:"").map((Stu)=>{
         Names.push( { value: Stu.Full_Name, label: Stu.Full_Name, Name : "Names" })
     })
 
@@ -160,7 +160,7 @@ const Students = () => {
 		
 	]
 
-    seach.filter((student)=>student.Department==login.Department).map((Stu)=>{
+    seach.filter((student)=>student.Department==login!=null?login.Department:"").map((Stu)=>{
         Roll.push( { value: Stu.Roll, label: Stu.Roll, Name : "Roll" })
     })
 
@@ -181,7 +181,7 @@ const Students = () => {
             ...filter,
             Status:"",
             Fee_Status:"",
-            Department: login.Department,
+            Department: login!=null?login.Department:"",
             Semester:"",
             Shift:"",
             Degree_Status:"",
@@ -196,7 +196,7 @@ const Students = () => {
             ...filter,
             Status:"",
             Fee_Status:"",
-            Department: login.Department,
+            Department: login!=null?login.Department:"",
             Semester:"",
             Shift:"",
             Degree_Status:"",

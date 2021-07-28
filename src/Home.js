@@ -1,7 +1,7 @@
 import Header from './Student/Header/Header';
 import {Link} from 'react-router-dom';
 
-import React from "react";
+import React,{useState,useEffect} from "react";
 import {
   MDBRow,
   MDBCol,
@@ -13,6 +13,9 @@ import {
 } from 'mdbreact';
 
 const ButtonPage = () => {
+
+    const [login,setlogin] = useState(JSON.parse(localStorage.getItem("HOD")))
+
   return (
     <React.Fragment>
       <Header/>
@@ -32,6 +35,7 @@ const ButtonPage = () => {
               <MDBCardBody>
 
               <div className="row">
+              { login==null?
               <div className="col-md-4">
                 <Link to="/login" className="nav-link" href="#">
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
@@ -55,7 +59,31 @@ const ButtonPage = () => {
                     </MDBCard>
                 </Link>
                 
-              </div>
+              </div>:
+                <div className="col-md-4">
+                <Link to="/student/profile" className="nav-link" href="#">
+                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
+                        <MDBRow className='mt-3'>
+                            <MDBCol md='5' col='5' className='text-left pl-4'>
+                                <MDBBtn
+                                    tag='a'
+                                    floating
+                                    size='lg'
+                                    color='primary'
+                                    className='ml-4'
+                                    style={{ padding: 0 }}
+                                >
+                                    <MDBIcon icon='user-circle' size='2x' />
+                                </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md='7' col='7'>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Profile</h5>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                </Link>
+                </div>
+              }
 
 
             <div className="col-md-4">
@@ -255,6 +283,36 @@ const ButtonPage = () => {
                 
               
             </div>
+            { login!=null?
+            <div className="col-md-4">
+              
+                
+            <Link to="/student/reset/password" className="nav-link text-white" href="#">
+
+            <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
+                <MDBRow className='mt-3'>
+                    <MDBCol md='5' col='5' className='text-left pl-4'>
+                        <MDBBtn
+                            tag='a'
+                            floating
+                            size='lg'
+                            color='danger'
+                            className='ml-4'
+                            style={{ padding: 0 }}
+                        >
+                            <MDBIcon icon='cogs' size='2x' />
+                        </MDBBtn>
+                    </MDBCol>
+                    <MDBCol md='7' col='7'>
+                        <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Change Password</h5>
+                    </MDBCol>
+                </MDBRow>
+            </MDBCard>
+
+            </Link>
+        
+      
+    </div>:<div></div>}
 
           </div>
 

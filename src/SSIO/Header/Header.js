@@ -1,12 +1,21 @@
 import React,{useState,useEffect} from 'react';
 import {Link,Redirect} from 'react-router-dom';
 import axios from 'axios';
-
+import {
+    MDBNavbar,MDBBtn, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse, MDBFormInline,
+    MDBDropdown, MDBDropdownToggle, MDBDropdownMenu, MDBDropdownItem
+    } from "mdbreact";
 const Header = () => {
 
     axios.defaults.withCredentials = true;
 
     const [login,setlogin] = useState(JSON.parse(localStorage.getItem("HOD")))
+
+    const [isOpen, setisOpen] = useState(false)
+      
+      const toggleCollapse = () => {
+        setisOpen(!isOpen);
+      }
 
     useEffect(() => {
         axios.get("http://localhost:3001/loginstatus").then((res)=>{
@@ -31,13 +40,92 @@ const Header = () => {
         })
       }
 
+
+    if (login!=null){
+        if (JSON.stringify(login).includes("AO")){
+            return(
+                <Redirect to="/ao/dashboard" />
+               )
+        }
+    
+        if (JSON.stringify(login).includes("Teacher")){
+            return(
+                <Redirect to="/instructor/home" />
+               )
+        }
+    
+        if (JSON.stringify(login).includes("RO")){
+            return(
+                <Redirect to="/ro/dashboard" />
+               )
+        }
+
+        if (JSON.stringify(login).includes("Student")){
+            return(
+                <Redirect to="/student/profile" />
+               )
+        }
+    
+    
+        if (JSON.stringify(login).includes("HOD")){
+            return(
+             <Redirect to="/hod/dashboard" />
+            )
+          }
+    }
+
     return (
         <React.Fragment>
             {login==null?
           <Redirect to="/login" />:
           <div></div>
       }
-            <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+            <MDBNavbar style={{marginBottom:-60}} className="sticky-top" color="blue" dark expand="md">
+                <MDBNavbarBrand>
+                    <MDBNavLink to="/ssio/dashboard"><strong className="white-text"><span className="lab la-accusoft text-white"></span> <span className="text-white">GMC Sialkot</span></strong></MDBNavLink>
+                </MDBNavbarBrand>
+                <MDBNavbarToggler onClick={toggleCollapse} />
+                <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
+                <MDBNavbarNav left>
+                    <MDBNavItem>
+                        <MDBDropdown>
+                            <MDBDropdownToggle nav caret>
+                                <span className="mr-2"><b>Students</b></span>
+                            </MDBDropdownToggle>
+                            <MDBDropdownMenu>
+                                <MDBDropdownItem><MDBNavLink id="HeadLink" to="/ssio/students"><b>Morning</b></MDBNavLink></MDBDropdownItem>
+                                <MDBDropdownItem><MDBNavLink id="HeadLink" to="/ssio/students2"><b>Evening</b></MDBNavLink></MDBDropdownItem>
+                            </MDBDropdownMenu>
+                        </MDBDropdown>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ssio/freeinstructors"><b>Free Instructors</b></MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ssio/announcement"><b>Announcement</b></MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ssio/awardlists"><b>Award Lists</b></MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ssio/attendancelist"><b>Attendance Lists</b></MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ssio/password/reset"><b>Change Password</b></MDBNavLink>
+                    </MDBNavItem>
+                </MDBNavbarNav>
+                <MDBNavbarNav right>
+                    <MDBNavItem>
+                    { login!=null?
+                        <MDBBtn gradient="peach"  onClick={Logout}><b>Logout</b></MDBBtn>
+                                :
+                                <div></div>
+                            }
+                    </MDBNavItem>
+                </MDBNavbarNav>
+                </MDBCollapse>
+            </MDBNavbar>
+            {/* <nav id="header" className="position-fixed sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
                 <h2>
                 <Link to="/ssio/dashboard"><span className="lab la-accusoft text-white mt-2"></span> <span className="text-white">GMC Sialkot</span></Link>
                 </h2>
@@ -78,7 +166,7 @@ const Header = () => {
                     }
                     </ul>
                 </div>
-            </nav>
+            </nav> */}
         </React.Fragment>
     )
 }

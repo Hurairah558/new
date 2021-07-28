@@ -32,16 +32,16 @@ function Datesheet() {
 
 
     useEffect(()=>{
-        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login!=null?login.Department:""}).then((res)=>{
                 
             setdata(res.data.data)
 
             setloading(false)
             
-            axios.post("http://localhost:3001/hod/instructors",{Department:login.Department}).then((res)=>{
+            axios.post("http://localhost:3001/hod/instructors",{Department:login!=null?login.Department:""}).then((res)=>{
                 setInstructors(res.data.data)
 
-                axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+                axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
                     setcourses(res.data.data)
                 }).catch((err)=>{
                     setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -62,7 +62,7 @@ function Datesheet() {
     const update=()=>{
         setop(0.3)
         setloading(true)
-        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login!=null?login.Department:""}).then((res)=>{
                 setdata(res.data.data)
                 setop(1)
         }).catch((err)=>{
@@ -88,7 +88,7 @@ function Datesheet() {
 
 
     const [FormData, setFormData] = useState({
-		Department: login.Department,
+		Department: login!=null?login.Department:"",
 		Course_Code: '',
 		Course_Title: '',
 		Instructor: '',
@@ -184,7 +184,7 @@ function Datesheet() {
         const changeselects = (e) => {
             setop(0.3)
             setloading(true)
-            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login.Department,Fall_Spring:e.value}).then((res)=>{
+            axios.post("http://localhost:3001/api/hod/datesheet2",{Department:login!=null?login.Department:"",Fall_Spring:e.value}).then((res)=>{
                     setdata(res.data.data)
                     setloading(false)
                     setop(1)

@@ -10,7 +10,7 @@ function ResetPassword() {
     const [validate,setvalidate] = useState("")
 
     const [formData, setFormData] = useState({
-        id: login.id,
+        id: login!=null?login.id:"",
         OldUsername: '',
         OldPassword: '',
 		Username: '',
@@ -32,7 +32,7 @@ function ResetPassword() {
               setvalidate(res.data)
             }
             setFormData({...formData,
-                id: login.id,
+                id: login!=null?login.id:"",
                 OldUsername: '',
                 OldPassword: '',
                 Username: '',

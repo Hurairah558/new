@@ -18,7 +18,7 @@ function AssignCourses() {
     const login = JSON.parse(localStorage.getItem("HOD"))
 
     const [formdata,setformdata] = useState({
-        Department : login.Department,
+        Department : login!=null?login.Department:"",
         Course_Code : "",
         Course_Title : "",
         Semester:""
@@ -34,7 +34,7 @@ function AssignCourses() {
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-        axios.post("http://localhost:3001/api/hod/course",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
             setcourses(res.data.data)
         }).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -99,7 +99,7 @@ function AssignCourses() {
             else{
           e.preventDefault()
             axios.put("http://localhost:3001/api/hod/assigncourses",{
-            Department: login.Department,
+            Department: login!=null?login.Department:"",
             Semester: formdata.Semester,
             Courses: AssignedCourses,
             })

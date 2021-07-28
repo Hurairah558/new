@@ -11,30 +11,31 @@ function AddStudent() {
 
     const Location = useLocation()
 
+
     const [formdata,setformdata] = useState({
-        id:Location.state.id,
-        Roll : Location.state.Roll,
-		Full_Name : Location.state.Full_Name,
-		Father_Name : Location.state.Father_Name,
-		Gender : Location.state.Gender,
-		CNIC : Location.state.CNIC,
-		DOB : Location.state.DOB,
-		Email : Location.state.Email,
-		Phone : Location.state.Phone,
-		Address : Location.state.Address,
-		Department : login.Department,
-		Matric_Roll : Location.state.Matric_Roll,
-		Matric_Total : Location.state.Matric_Total,
-		Matric_Obtained_Marks : Location.state.Matric_Obtained_Marks,
-		Matric_Board : Location.state.Matric_Board,
-		Matric_Year : Location.state.Matric_Year,
-		Inter_Roll : Location.state.Inter_Roll,
-		Inter_Total : Location.state.Inter_Total,
-		Inter_Obtained_Marks : Location.state.Inter_Obtained_Marks,
-		Inter_Board : Location.state.Inter_Board,
-		Inter_Year : Location.state.Inter_Year,
-        Semester : Location.state.Semester,
-        Shift : Location.state.Shift
+        id:Location.state!=undefined?Location.state.id:"",
+        Roll : Location.state!=undefined?Location.state.Roll:"",
+		Full_Name : Location.state!=undefined?Location.state.Full_Name:"",
+		Father_Name : Location.state!=undefined?Location.state.Father_Name:"",
+		Gender : Location.state!=undefined?Location.state.Gender:"",
+		CNIC : Location.state!=undefined?Location.state.CNIC:"",
+		DOB : Location.state!=undefined?Location.state.DOB:"",
+		Email : Location.state!=undefined?Location.state.Email:"",
+		Phone : Location.state!=undefined?Location.state.Phone:"",
+		Address : Location.state!=undefined?Location.state.Address:"",
+		Department : login!=null?login.Department:"",
+		Matric_Roll : Location.state!=undefined?Location.state.Matric_Roll:"",
+		Matric_Total : Location.state!=undefined?Location.state.Matric_Total:"",
+		Matric_Obtained_Marks : Location.state!=undefined?Location.state.Matric_Obtained_Marks:"",
+		Matric_Board : Location.state!=undefined?Location.state.Matric_Board:"",
+		Matric_Year : Location.state!=undefined?Location.state.Matric_Year:"",
+		Inter_Roll : Location.state!=undefined?Location.state.Inter_Roll:"",
+		Inter_Total : Location.state!=undefined?Location.state.Inter_Total:"",
+		Inter_Obtained_Marks : Location.state!=undefined?Location.state.Inter_Obtained_Marks:"",
+		Inter_Board : Location.state!=undefined?Location.state.Inter_Board:"",
+		Inter_Year : Location.state!=undefined?Location.state.Inter_Year:"",
+        Semester : Location.state!=undefined?Location.state.Semester:"",
+        Shift : Location.state!=undefined?Location.state.Shift:""
 	  });
 
 	const Gender = [
@@ -124,7 +125,7 @@ function AddStudent() {
 								<p className="Admission_p">Father's Name</p>
 								<input className="Admission_Form_Input" value={formdata.Father_Name} onChange={change} type="text" name="Father_Name" placeholder="Father's Name" required=""/>
 								<p className="Admission_p">Gender</p>
-								<Select className="Admission_Form_Select" defaultInputValue={Location.state.Gender} onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required />
+								<Select className="Admission_Form_Select" defaultInputValue={Location.state!=undefined?Location.state.Gender:""} onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required />
 								<p className="Admission_p">CNIC</p>
 								<input className="Admission_Form_Input" value={formdata.CNIC} onChange={change} type="text" name="CNIC" placeholder="CNIC" required=""/>
 								<p className="Admission_p">Date Of Birth</p>
@@ -175,11 +176,11 @@ function AddStudent() {
                         <div className="row">
                             <div className="col-md-4">
                                 <p className="Admission_p">Semester</p>
-                                <Select name="Semester" defaultInputValue={Location.state.Semester} onChange={changeselect} className="Admission_Form_Select" placeholder="Semester" options={Semester} required />
+                                <Select name="Semester" defaultInputValue={Location.state!=undefined?Location.state.Semester:""} onChange={changeselect} className="Admission_Form_Select" placeholder="Semester" options={Semester} required />
                             </div>
                             <div className="col-md-4">
                                 <p className="Admission_p">Shift</p>
-                                <Select name="Shift" defaultInputValue={Location.state.Shift} onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
+                                <Select name="Shift" defaultInputValue={Location.state!=undefined?Location.state.Shift:""} onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
                             </div>
                         </div>
                         <hr style={{background:"white"}} />

@@ -19,7 +19,7 @@ function Profile() {
 
     const [data, setdata] = useState({})
     useEffect(() => {
-        axios.post("http://localhost:3001/api/student/profile",{id:login.id}).then((res)=>{
+        axios.post("http://localhost:3001/api/student/profile",{id:login!=null?login.id:""}).then((res)=>{
                 setdata(res.data.data)
             })
         .catch((err)=>{
@@ -54,11 +54,11 @@ function Profile() {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Roll}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Full_Name}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Father_Name}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.DOB}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Gender}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Roll:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Full_Name:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Father_Name:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.DOB:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Gender:""}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -88,11 +88,11 @@ function Profile() {
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Email}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Address}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Department}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Semester}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{data.Shift}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Email:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Address:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Department:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Semester:""}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{login!=null?data.Shift:""}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -118,7 +118,7 @@ function Profile() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        {String(data.Courses).split(",").map((coursess,index)=>{
+                                        {String(login!=null?data.Courses:"").split(",").map((coursess,index)=>{
                                             return(
                                             <tr key={index}>
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{coursess.split(":")[0]}</td>

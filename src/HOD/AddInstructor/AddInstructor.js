@@ -30,12 +30,12 @@ function AddInstructor() {
 		Designation : "",
 		Username: '',
 		Password: '',
-		Department: login.Department
+		Department: login!=null?login.Department:""
 	  })
 
 
 	useEffect(()=>{
-		axios.post("http://localhost:3001/api/hod/instructors",{Department:login.Department}).then((res)=>{
+		axios.post("http://localhost:3001/api/hod/instructors",{Department:login!=null?login.Department:""}).then((res)=>{
 			setdata(res.data.data)
 		}).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -43,7 +43,7 @@ function AddInstructor() {
     },[])
 
 	const update=()=>{
-        axios.post("http://localhost:3001/api/hod/instructors",{Department:login.Department}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/instructors",{Department:login!=null?login.Department:""}).then((res)=>{
 			setdata(res.data.data)
 		}).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -103,71 +103,83 @@ function AddInstructor() {
 
     return (
         <React.Fragment>
-            <Header/>
-			<div className="Student">
-                <div class="container">
-					<div className="d-flex justify-content-center mt-4" >
-						<div className="d-flex justify-content-center">
-							<div id="Login_Form" className="align-bottom">
-								<div className="signup">
-									<form>
-										<label name="chk" className="Login_Labels" aria-hidden="true">Add Instructor</label>
+            <Header/>			
+			<div className="d-flex justify-content-center" >
+				<div className="d-flex justify-content-center">
+					<div id="Login_Form" className="align-bottom">
+						<div className="signup">
+							<form>
+								<label name="chk" className="Login_Labels" aria-hidden="true">Add Instructor</label>
+								<div className="row">
+									<div className="col-md-12">
 										<input className="Login_inputs" onChange={change} type="text" name="Name" placeholder="Name" value={formData.Full_Name} required=""/>
+									</div>
+									<div className="col-md-12">
 										<input className="Login_inputs" onChange={change} type="text" name="Email" placeholder="Email" value={formData.Email} required=""/>
-										<Select className="Admission_Form_Select_Instrcutor ml-4" onChange={changeselect} name="Designation" placeholder="Designation" options={Designation} required />
+									</div>
+									<div className="col-md-12 d-flex justify-content-center">
+										<Select className="Admission_Form_Select_Instrcutor" onChange={changeselect} name="Designation" placeholder="Designation" options={Designation} required />
+									</div>
+									<div className="col-md-12">
 										<input className="Login_inputs" onChange={change} type="text" name="Username" placeholder="Username" value={formData.Username} required=""/>
+									</div>
+									<div className="col-md-12">
 										<input className="Login_inputs" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required=""/>
-										<button className="Login_Button" onClick={Add} ><Modals validate={validate} /></button>
-									</form>
+									</div>
 								</div>
-							</div>
+								<button style={{marginTop:10}} className="Login_Button" onClick={Add} ><Modals validate={validate} /></button>
+							</form>
 						</div>
 					</div>
-					<hr/>
-					{data.length>0?
-						<MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
-							<MDBRow>
-								<MDBCol md='12'>
-									<MDBView
-										cascade
-										className='gradient-card-header light-blue lighten-1'
-									>
-										<h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} Instructors</h4>
-									</MDBView>
-									<MDBCardBody>
-										<table className="table table-hover table-bordered">
-											<thead>
-												<tr>
-													<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
-													<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
-													<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's Department</th>
-													<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's Designation</th>
-													<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
-												</tr>
-											</thead>
-											<tbody>
-												{data.map((Instructor,index)=>{
-												return (
-													<tr key={index}>
-														<td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
-														<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Name}</td>
-														<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Department}</td>
-														<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Role}</td>
-														<td style={{fontWeight:'bold',textAlign:'center'}}>
-                                                        	<MDBBtn onClick={()=>Delete(Instructor.id)} gradient="peach"><b>Delete</b></MDBBtn>    
-                                                    	</td>
-													</tr>
-												)})
-												}
-											</tbody>
-										</table>
-									</MDBCardBody>
-								</MDBCol>
-							</MDBRow>
-						</MDBCard>
-					:<div></div>}
 				</div>
 			</div>
+			<hr/>
+			{data.length>0?
+			<div className="Student">
+				<div class="container">
+					<MDBCard style={{opacity:op}} cascade narrow>
+						<MDBRow>
+							<MDBCol md='12'>
+								<MDBView
+									cascade
+									className='gradient-card-header light-blue lighten-1'
+								>
+									<h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} Instructors</h4>
+								</MDBView>
+								<MDBCardBody>
+									<table className="table table-hover table-bordered">
+										<thead>
+											<tr>
+												<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+												<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+												<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's Department</th>
+												<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's Designation</th>
+												<th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
+											</tr>
+										</thead>
+										<tbody>
+											{data.map((Instructor,index)=>{
+											return (
+												<tr key={index}>
+													<td style={{fontWeight:'bold',textAlign:'center'}}>{index+1}</td>
+													<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Name}</td>
+													<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Department}</td>
+													<td style={{fontWeight:'bold',textAlign:'center'}}>{Instructor.Role}</td>
+													<td style={{fontWeight:'bold',textAlign:'center'}}>
+														<MDBBtn onClick={()=>Delete(Instructor.id)} gradient="peach"><b>Delete</b></MDBBtn>    
+													</td>
+												</tr>
+											)})
+											}
+										</tbody>
+									</table>
+								</MDBCardBody>
+							</MDBCol>
+						</MDBRow>
+					</MDBCard>
+				</div>
+			</div>
+			:<div></div>}
         </React.Fragment>
     )
 }
