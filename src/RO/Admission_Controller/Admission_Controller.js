@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{ useState,useEffect} from 'react';
 import Header from '../Header/Header';
 import { Button, Modal } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -57,7 +58,7 @@ function Admission_Controller() {
     const update_data = () => {
         axios.get("http://localhost:3001/api/ro/admission_control").then((res)=>{
 			if (res.data.data[0].Open === "Open"){
-                setloadingmessage(`Admission ${res.data.data[0].Open}`)
+                setloadingmessage(`Admission ${res.data.data[0].Open}ed`)
 				setopen(true)
 			}
             if (res.data.data[0].Open === "Closed"){
@@ -159,7 +160,7 @@ function Admission_Controller() {
 									</MDBBtn>
 								}
 								<hr className="col-md-12"/>
-								{!open?<h2 className="d-flex justify-content-center">Please Confirm Merit List Formula Before Opening Admissions !</h2>:<div></div>}
+								{!open?<h2 className="d-flex justify-content-center text-danger"><b>Please Confirm Merit List Formula Before Opening Admissions !</b></h2>:<div></div>}
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -221,7 +222,8 @@ function Admission_Controller() {
                     </MDBCard>
                 </div>
 		    </div>
-            :<h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>}
+            :<div className="d-flex justify-content-center" style={{marginTop:350}} ><MDBSpinner big crazy /></div>}
+			<Footer/>
         </React.Fragment>
     )
 }

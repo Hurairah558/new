@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Headers from '../../Fixed Components/Header';
 import { Header, Modal , Table} from 'semantic-ui-react';
 import Select from 'react-select';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -111,7 +112,7 @@ const Students = () => {
                                     cascade
                                     className='gradient-card-header light-blue lighten-1'
                                 >
-                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Admissions {data[0].Year}</h4>
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Admissions {data.length>0?data[0].Year:""}</h4>
                                 </MDBView>
                                 <MDBCardBody>
                                 <table className="table table-hover table-bordered">
@@ -145,6 +146,7 @@ const Students = () => {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

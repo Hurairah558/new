@@ -4,6 +4,7 @@ import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
 import { Table , Button, Modal} from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -165,6 +166,13 @@ const MeritListData = () => {
         { value: "1st Merit List", label: "1st Merit List", Name : "MeritList" },
         { value: "2nd Merit List", label: "2nd Merit List", Name : "MeritList" },
         { value: "3rd Merit List", label: "3rd Merit List", Name : "MeritList" },
+        { value: "4th Merit List", label: "4th Merit List", Name : "MeritList" },
+        { value: "5th Merit List", label: "5th Merit List", Name : "MeritList" },
+        { value: "6th Merit List", label: "6th Merit List", Name : "MeritList" },
+        { value: "7th Merit List", label: "7th Merit List", Name : "MeritList" },
+        { value: "8th Merit List", label: "8th Merit List", Name : "MeritList" },
+        { value: "9th Merit List", label: "9th Merit List", Name : "MeritList" },
+        { value: "10th Merit List", label: "10th Merit List", Name : "MeritList" },
     ]
 
     const Display = [
@@ -243,7 +251,7 @@ const MeritListData = () => {
                                         <tr>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.MeritList}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Department}</b></td>
-                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Morning</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Evening</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.NOS_Start} to {CurrentData.NOS_End}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Display==1?"True":"False"}</b></td>
                                         </tr>
@@ -275,7 +283,7 @@ const MeritListData = () => {
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
-                    {CurrentData.NOS_End-1>0?
+                    {CurrentData.NOS_End>0?
                     <MDBCard style={{opacity:op,marginTop:30}} cascade narrow>
                     <MDBRow>
                         <MDBCol md='12'>
@@ -301,7 +309,7 @@ const MeritListData = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End-1).map((student,index)=>{
+                                                {data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End).map((student,index)=>{
                                                     return (
                                                         <tr key={index}>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
@@ -331,6 +339,7 @@ const MeritListData = () => {
                     :<div></div>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Select from "react-select";
 import Header from "../Header/Header";
 import { Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -26,7 +27,7 @@ const Free_Instructors = () => {
 		
 	]
 
-    Instructors.map((Instructor)=>{
+    Instructors.filter((i)=>i.Department!="All").map((Instructor)=>{
         Instructorss.push(`${String(Instructor.Name)}:${String(Instructor.Department)}:${String(Instructor.Role)}`)
     })
 
@@ -103,7 +104,7 @@ const Free_Instructors = () => {
                                 cascade
                                 className='gradient-card-header light-blue lighten-1'
                             >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>Free Instructorss From {Time}</h4>
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Free Instructors From {Time}</h4>
                             </MDBView>
                             <MDBCardBody>
                                 <table className="table table-hover table-bordered">
@@ -132,6 +133,7 @@ const Free_Instructors = () => {
                     </MDBCard>:<div></div>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

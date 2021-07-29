@@ -4,7 +4,7 @@ import Header from '../Header/Header';
 import {Redirect} from 'react-router-dom';
 import { Modal , Button } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
-
+import Footer from '../../Footer/Footer';
 function ResetPassword() {
 
     var login = JSON.parse(localStorage.getItem("HOD"))
@@ -56,7 +56,7 @@ function ResetPassword() {
 						<div className="signup">
 							<form>
 								<label name="chk" className="Login_Label" aria-hidden="true">Change</label>
-								<input className="Login_input" onChange={change} type="text" name="OldUsername" placeholder="Old Username" value={formData.OldUsername} required=""/>
+								<input className="Login_input" onChange={change} type="Email" name="OldUsername" placeholder="Old Username" value={formData.OldUsername} required=""/>
 								<input className="Login_input" onChange={change} type="Password" name="OldPassword" placeholder="Old Password" value={formData.OldPassword} required=""/>
 								<input className="Login_input" onChange={change} type="Password" name="Password" placeholder="New Password" value={formData.Password} required=""/>
 								<button className="Login_Button" onClick={Login} ><Modals validate={validate} /></button>
@@ -65,6 +65,7 @@ function ResetPassword() {
 					</div>
 				</div>
 			</div>
+			<Footer/>
         </React.Fragment>
     )
 }

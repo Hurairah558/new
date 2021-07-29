@@ -2,6 +2,7 @@ import Header from '../../Fixed Components/Header';
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
+import Footer from '../../Footer/Footer';
 import { Table, Modal  } from 'semantic-ui-react';
 import { 
     MDBRow,
@@ -37,9 +38,6 @@ function Datesheet() {
             setdata(res.data.data)
 
             setloading(false)
-            
-            axios.post("http://localhost:3001/hod/instructors",{Department:login!=null?login.Department:""}).then((res)=>{
-                setInstructors(res.data.data)
 
                 axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
                     setcourses(res.data.data)
@@ -47,11 +45,6 @@ function Datesheet() {
                     setmessage("Something Went Wrong! Please Try Again After Sometime")
                     setloading(false)
                 })
-
-            }).catch((err)=>{
-                setmessage("Something Went Wrong! Please Try Again After Sometime")
-                setloading(false)
-            })
 
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -92,19 +85,19 @@ function Datesheet() {
 		Course_Code: '',
 		Course_Title: '',
 		Instructor: '',
+        Instructor_Department: '',
 		Semester: '',
 		Time_Slot: '',
-		Shift: '',
         Fall_Spring:''
 	  })
 
 
-    var Instructorss = [
+      var Instructorss = [
 		
 	]
 
     Instructors.map((Instructor)=>{
-        Instructorss.push( { value: Instructor.Instructor, label: Instructor.Instructor, Name : "Instructor" })
+        Instructorss.push( { value: Instructor.Name, label: Instructor.Name, Name : "Instructor" })
     })
 
 
@@ -123,6 +116,23 @@ function Datesheet() {
     courses.map((coursess)=>{
         Course_Code.push( { value: coursess.Course_Code, label: coursess.Course_Code, Name : "Course_Code" })
     })
+
+    const Instructor_Department = [
+		{ value: 'BBA', label: 'BBA', Name : "Instructor_Department" },
+		{ value: 'Botany', label: 'Botany', Name : "Instructor_Department" },
+		{ value: 'Chemistry', label: 'Chemistry', Name : "Instructor_Department" },
+		{ value: 'Economics', label: 'Economics', Name : "Instructor_Department" },
+		{ value: 'English', label: 'English', Name : "Instructor_Department" },
+		{ value: 'Physics', label: 'Physics', Name : "Instructor_Department" },
+		{ value: 'Political Science', label: 'Political Science', Name : "Instructor_Department" },
+		{ value: 'Psychology', label: 'Psychology', Name : "Instructor_Department" },
+		{ value: 'Mathematics', label: 'Mathematics', Name : "Instructor_Department" },
+		{ value: 'Statistics', label: 'Statistics', Name : "Instructor_Department" },
+		{ value: 'Information Technology', label: 'Information Technology', Name : "Instructor_Department" },
+		{ value: 'Islamiyat', label: 'Islamiyat', Name : "Instructor_Department" },
+		{ value: 'Urdu', label: 'Urdu', Name : "Instructor_Department" },
+		{ value: 'Zoology', label: 'Zoology', Name : "Instructor_Department" },
+	]
 
     const Semester = [
 		{ value: '1', label: '1', Name : "Semester" },
@@ -179,6 +189,11 @@ function Datesheet() {
             ...FormData,
             [e.Name] : e.value
           })
+            axios.post("http://localhost:3001/api/ssio/instructors",{Department:e.value}).then((res)=>{
+                setInstructors(res.data.data)
+            }).catch((err)=>{
+                setmessage("Something Went Wrong! Please Try Again After Sometime")
+            })
 }
 
         const changeselects = (e) => {
@@ -235,45 +250,45 @@ function Datesheet() {
             <div className="Student">
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
-                        <MDBRow>
-                            <MDBCol md='12'>
-                            <MDBView
-                                cascade
-                                className='gradient-card-header light-blue lighten-1'
-                            >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>Generate Datesheet</h4>
-                            </MDBView>
-                                <MDBCardBody>
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Shift}  name="Shift" placeholder="Shift" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
-                                        </div>
+                    <MDBRow>
+                        <MDBCol md='12'>
+                        <MDBView
+                            cascade
+                            className='gradient-card-header light-blue lighten-1'
+                        >
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>Generate Datesheet</h4>
+                        </MDBView>
+                            <MDBCardBody>
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                                     </div>
-                                </MDBCardBody>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor's Department" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
+                                    </div>
+                                </div>
+                            </MDBCardBody>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCard>
                     
                     <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
                         <MDBRow>
@@ -315,6 +330,7 @@ function Datesheet() {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's_Department</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Time</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
@@ -328,6 +344,7 @@ function Datesheet() {
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Title}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Code}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Instructor}</td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Instructor_Department}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Semester}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Time_Slot}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>
@@ -348,6 +365,7 @@ function Datesheet() {
                     :<h1 className="d-flex justify-content-center" style={{marginTop:150}} >Nothing to Show...</h1>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

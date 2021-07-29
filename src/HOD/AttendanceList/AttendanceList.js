@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import Header from '../../Fixed Components/Header';
 import Select from 'react-select';
 import { Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -143,6 +144,7 @@ function AwardLists() {
                     :<h1 className="d-flex justify-content-center" style={{marginTop:150}} >Nothing to Show...</h1>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

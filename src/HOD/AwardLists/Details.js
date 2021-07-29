@@ -3,7 +3,7 @@ import React, { useState , useEffect} from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from '../../Fixed Components/Header';
 import { Table } from 'semantic-ui-react';
-
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -106,6 +106,7 @@ function Details() {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

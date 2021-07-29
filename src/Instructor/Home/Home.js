@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../Header/Header';
-
 class ComponentToPrint extends React.Component {
 
   render() {

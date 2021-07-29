@@ -3,6 +3,7 @@ import './Admission_Form_Design.css';
 import Select from 'react-select';
 import axios from 'axios';
 import Header from '../Header/Header';
+import Footer from '../../Footer/Footer';
 import { Button, Modal } from 'semantic-ui-react';
 
 function Admission_Form() {
@@ -192,6 +193,7 @@ function Admission_Form() {
 		</div>
 		:<h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
 		:<h1 className="d-flex justify-content-center" style={{marginTop:350}} >Loading...</h1>}
+		<Footer/>
     </React.Fragment>
   );
 }

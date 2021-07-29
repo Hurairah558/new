@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Headers from '../Header/Header';
 import {Table } from 'semantic-ui-react';
 import Select from "react-select";
+import Footer from '../../Footer/Footer';
 import {Export} from '../../Export';
 import { 
     MDBRow,
@@ -272,6 +273,7 @@ const Students = () => {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

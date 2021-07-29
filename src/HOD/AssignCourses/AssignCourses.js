@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react';
 import { Button, Modal , Table} from 'semantic-ui-react';
 import Select from "react-select";
 import Header from'../../Fixed Components/Header';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -159,7 +160,7 @@ function AssignCourses() {
                                         </div>
 
                                         <div className="col-md-3">
-                                        <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Reset}> Reset </MDBBtn>
+                                            <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Reset}> Reset </MDBBtn>
                                         </div>
                                     </div>
                                     <hr/>
@@ -213,6 +214,7 @@ function AssignCourses() {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

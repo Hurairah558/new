@@ -1,5 +1,6 @@
 import Header from './Student/Header/Header';
 import {Link} from 'react-router-dom';
+import Footer from './Footer/Footer';
 
 import React,{useState,useEffect} from "react";
 import {
@@ -324,6 +325,7 @@ const ButtonPage = () => {
       </div>
         </div>
       </div>
+      <Footer/>
       </React.Fragment>
   );
 }

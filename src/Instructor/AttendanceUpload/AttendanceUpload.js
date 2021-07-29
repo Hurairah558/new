@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Select from "react-select";
 import { Button, Modal } from 'semantic-ui-react';
 import Header from '../Header/Header';
+import Footer from '../../Footer/Footer';
 const Awardlist = () => {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
@@ -211,6 +212,7 @@ const Awardlist = () => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

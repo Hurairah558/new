@@ -3,6 +3,7 @@ import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -255,7 +256,7 @@ const TimeTable_Generate = () => {
                                             <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Select Instructor" required />
                                         </div>
                                         <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Designation}  name="Instructor_Designation" placeholder="Instructor's Designation" required />
+                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Designation}  name="Instructor_Designation" placeholder="Designation" required />
                                         </div>
                                         <div className="col-md-3">
                                             <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Select Semester" required />
@@ -360,6 +361,7 @@ const TimeTable_Generate = () => {
                     :<div></div>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

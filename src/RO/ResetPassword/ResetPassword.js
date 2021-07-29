@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 import Header from '../Header/Header';
 import { Modal , Button } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
-
+import Footer from '../../Footer/Footer';
 function ResetPassword() {
 
     var login = JSON.parse(localStorage.getItem("HOD"))
@@ -62,6 +62,7 @@ function ResetPassword() {
 					</div>
 				</div>
 			</div>
+			<Footer/>
         </React.Fragment>
     )
 }

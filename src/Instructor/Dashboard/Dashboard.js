@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import Header from '../Header/Header';
+import Footer from '../../Footer/Footer';
 import {Link } from 'react-router-dom';
 import {
     MDBRow,
@@ -158,6 +159,7 @@ const DV6 = () => {
       </div>
         </div>
       </div>
+      <Footer/>
       </React.Fragment>
   );
 };

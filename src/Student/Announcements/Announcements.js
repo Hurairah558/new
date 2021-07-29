@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Header from '../Header/Header';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -79,6 +80,7 @@ function Announcements() {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{useState,useEffect} from 'react';
 import Header from '../Header/Header';
 import { Modal , Button } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 
 function ResetPassword() {
 
@@ -61,6 +62,7 @@ function ResetPassword() {
 					</div>
 				</div>
 			</div>
+			<Footer/>
         </React.Fragment>
     )
 }

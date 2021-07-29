@@ -3,7 +3,7 @@ import Select from 'react-select';
 import axios from 'axios';
 import Header from '../../Fixed Components/Header';
 import { Button, Modal } from 'semantic-ui-react';
-
+import Footer from '../../Footer/Footer';
 function AddStudent() {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
@@ -22,11 +22,11 @@ function AddStudent() {
 			Address : "",
 			Department : login!=null?login.Department:"",
 			Matric_Roll : "",
-			Matric_Total : "",
+			Matric_Total_Marks : "",
 			Matric_Obtained_Marks : "",
 			Matric_Board : "",
 			Inter_Roll : "",
-			Inter_Total : "",
+			Inter_Total_Marks : "",
 			Inter_Obtained_Marks : "",
 			Inter_Board : "",
 			Semester : "",
@@ -71,7 +71,7 @@ function AddStudent() {
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
-    },[])
+    },[formdata.Semester])
 
 
 	const get =(e)=>{
@@ -239,6 +239,7 @@ function AddStudent() {
 				</div>
 			</div>
 		</div>
+		<Footer/>
     </React.Fragment>
   );
 }

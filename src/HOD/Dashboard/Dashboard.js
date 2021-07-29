@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Header from '../../Fixed Components/Header';
 import {Link ,Redirect} from 'react-router-dom';
+import Footer from '../../Footer/Footer';
 import {
     MDBContainer,
     MDBRow,
@@ -756,6 +757,7 @@ const DV6 = () => {
       </div>
         </div>
       </div>
+      <Footer/>
       </React.Fragment>
   );
 };

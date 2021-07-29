@@ -3,6 +3,7 @@ import React, { useState} from 'react';
 import Select from "react-select";
 import { Table } from 'semantic-ui-react';
 import Header from '../Header/Header';
+import Footer from '../../Footer/Footer';
 import { 
   MDBRow,
   MDBCol,
@@ -14,7 +15,11 @@ import {
 
 function Datesheet() {
 
-    const [data,setdata] = useState([])
+    const [data,setdata] = useState([{
+      Fall_Spring:"",
+      Department:"",
+      Shift:""
+    }])
     const [message, setmessage] = useState("")
     const [Loading,setLoading] = useState(false)
 
@@ -78,7 +83,7 @@ const Department = [
                     </MDBCol>
                   </MDBRow>
                 </MDBCard>
-                {data.length>0?
+                {data[0].Department!=""?
                 !Loading?
                       <MDBCard style={{marginTop:30}} cascade narrow>
                         <MDBRow>
@@ -87,7 +92,7 @@ const Department = [
                               cascade
                               className='gradient-card-header light-blue lighten-1'
                             >
-                              <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department} &nbsp;&nbsp;&nbsp;{data[0].Shift} &nbsp;&nbsp;&nbsp; Datesheet &nbsp;&nbsp;&nbsp; {new Date().getFullYear()}</h4>
+                              <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department} &nbsp;&nbsp;&nbsp;{data[0].Shift} &nbsp;&nbsp;&nbsp; Datesheet &nbsp;&nbsp;&nbsp; {data[0].Fall_Spring}</h4>
                             </MDBView>
                             <MDBCardBody>
                             <div class="row">
@@ -95,14 +100,13 @@ const Department = [
                                   <table className="table table-hover table-bordered">
                                       <thead>
                                         <tr>
-                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                          <th  clasthsName="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
                                           <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
                                           <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
                                           <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
+                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor's_Department</th>
                                           <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                           <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Time</th>
-                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
-                                          <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
                                         </tr>
                                       </thead>
                                         <tbody>
@@ -113,10 +117,9 @@ const Department = [
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Title}</td>
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Course_Code}</td>
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Instructor}</td>
+                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Instructor_Department}</td>
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Semester}</td>
                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Time_Slot}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Shift}</td>
-                                                <td style={{fontWeight:'bold',textAlign:'center'}}>{datesheet.Fall_Spring}</td>
                                               </tr>
                                             )})
                                             }
@@ -132,6 +135,7 @@ const Department = [
                     :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

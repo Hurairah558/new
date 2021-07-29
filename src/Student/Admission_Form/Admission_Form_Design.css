@@ -7,6 +7,8 @@
 	padding: 70px;
 	margin: 70px;
 }
+
+
 #chk{
 	display: none;
 }
@@ -43,7 +45,8 @@ textarea{
 	margin: 20px auto;
 	margin-left: -0px;
 	padding: 20px;
-	outline:#000;
+	/* outline:#000; */
+	border: 1px solid ;
 	border-radius: 5px;
 	transition: .2s ease-in;
 }
@@ -88,6 +91,9 @@ button:hover{
 	margin-top: -0px;
 }
 
+/* #h{
+	border: 1px solid black;
+} */
 
 .Admission_Form_Category{
 	color: #fff;

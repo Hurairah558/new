@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState ,useEffect} from 'react';
 import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
-import {Export} from '../../Export';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -159,6 +159,7 @@ function Announcement() {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

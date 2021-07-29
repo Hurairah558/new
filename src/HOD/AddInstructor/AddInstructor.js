@@ -4,6 +4,7 @@ import { useState , useEffect } from 'react';
 import Header from '../../Fixed Components/Header';
 import Select from 'react-select';
 import { Button, Modal , Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -180,6 +181,7 @@ function AddInstructor() {
 				</div>
 			</div>
 			:<div></div>}
+			<Footer/>
         </React.Fragment>
     )
 }

@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react';
 import Select from "react-select";
 import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -58,7 +59,7 @@ function Fee_Record() {
     const [validate,setvalidate] = useState("")
 
     const Create = (e) => {
-        axios.post("http://localhost:3001/api/ao/students/record",{Semester:Semester}).then((res)=>{
+        axios.post("http://localhost:3001/api/ao/students/record",{Fall_Spring:Semester}).then((res)=>{
             if (res.data.message){
                 setvalidate(res.data.message)
             }
@@ -102,7 +103,7 @@ function Fee_Record() {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>Create Fee Record</h4>
                             </MDBView>
                                 <MDBCardBody>
-                                    <div className="row">
+                                    <div className="row d-flex justify-content-center">
                                         <div className="col-md-3">
                                             <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                                         </div>
@@ -129,7 +130,7 @@ function Fee_Record() {
                             </MDBView>
                                 <MDBCardBody>
                                     <hr/>
-                                        <div className="row">
+                                        <div className="row d-flex justify-content-center">
                                             <div className="col-md-3">
                                                 <Select className="Admission_Form_Select" onChange={changeselectsemester} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                                             </div>
@@ -194,6 +195,7 @@ function Fee_Record() {
                     :<h1 className="d-flex justify-content-center" style={{marginTop:250}} ><MDBSpinner big crazy /></h1>}
                 </div>
 		    </div>
+            <Footer/>
         </React.Fragment>
     )
 }

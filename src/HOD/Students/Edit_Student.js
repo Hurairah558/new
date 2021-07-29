@@ -4,7 +4,7 @@ import axios from 'axios';
 import Header from '../../Fixed Components/Header';
 import { Button, Modal } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
-
+import Footer from '../../Footer/Footer';
 function AddStudent() {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
@@ -35,7 +35,8 @@ function AddStudent() {
 		Inter_Board : Location.state!=undefined?Location.state.Inter_Board:"",
 		Inter_Year : Location.state!=undefined?Location.state.Inter_Year:"",
         Semester : Location.state!=undefined?Location.state.Semester:"",
-        Shift : Location.state!=undefined?Location.state.Shift:""
+        Shift : Location.state!=undefined?Location.state.Shift:"",
+        Courses : Location.state!=undefined?Location.state.Courses:"",
 	  });
 
 	const Gender = [
@@ -182,6 +183,10 @@ function AddStudent() {
                                 <p className="Admission_p">Shift</p>
                                 <Select name="Shift" defaultInputValue={Location.state!=undefined?Location.state.Shift:""} onChange={changeselect} className="Admission_Form_Select" placeholder="Shift" options={Shift} required />
                             </div>
+							<div className="col-md-4">
+                                <p className="Admission_p">Registered Courses</p>
+                                <textarea class="form-control" style={{marginTop:20}} onChange={change} value={formdata.Courses} id="exampleFormControlTextarea1" name="Courses" placeholder="Registered Courses" rows="3"></textarea>
+                            </div>
                         </div>
                         <hr style={{background:"white"}} />
                         <div className="row">
@@ -193,6 +198,7 @@ function AddStudent() {
 				</div>
 			</div>
 		</div>
+		<Footer/>
     </React.Fragment>
   );
 }

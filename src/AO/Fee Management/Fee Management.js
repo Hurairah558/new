@@ -5,6 +5,7 @@ import Headers from '../Header/Header';
 import {Table } from 'semantic-ui-react';
 import Select from "react-select";
 import {Export} from '../../Export';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -272,6 +273,7 @@ const Students = () => {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }

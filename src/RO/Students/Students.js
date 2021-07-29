@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Headers from '../Header/Header';
 import Select from "react-select";
 import { Button, Header, Modal , Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import {Export} from '../../Export';
 import { 
     MDBRow,
@@ -228,7 +229,7 @@ const Students = () => {
                                 cascade
                                 className='gradient-card-header light-blue lighten-1'
                             >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>Students {data.length}</h4>
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Students : {data.length}</h4>
                             </MDBView>
                                 <MDBCardBody>
                                     <table className="table table-hover table-bordered">
@@ -265,7 +266,7 @@ const Students = () => {
                                                         }
                                                         {
                                                             student.Fee_Status==="Unpaid"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>:
-                                                            <td style={{color:"green"}} >{student.Fee_Status}</td>
+                                                            <td style={{color:"green",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>
                                                         }
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student} /></td>
                                                     </tr>
@@ -278,6 +279,7 @@ const Students = () => {
                     </MDBCard>
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }
@@ -299,17 +301,28 @@ function Modals(props) {
         onOpen={() => setOpen(true)}
         open={open}
         trigger={<MDBBtn gradient="blue" >View</MDBBtn>}
+        style={{margin:'auto',display:'block',height:"80%"}}
       >
-          <div style={{marginLeft:"100px"}} className="Student">
+          <div className="Student">
             <Modal.Description>
                 <Header>
                     <hr/>
-                        <div ><h1 className="mb-4"><b>Full Profile Information</b></h1></div>
+                        <div className="d-flex justify-content-center"><h1 className="mb-4 text-primary"><b>Full Profile Information</b></h1></div>
                     <hr/>
                 </Header>
-                <h2 className="mb-4">{props.student.Full_Name}</h2>
+                <h2 className="mb-4">
+                    <div className="row">
+                        <div className="col-md-6 d-flex justify-content-center">
+                            <b>{props.student.Full_Name}</b>
+                        </div>
+                        <div className="col-md-6 d-flex justify-content-center">
+                            <b>{props.student.Roll}</b>
+                        </div>
+                    </div>
+                </h2>
                 <hr/>
-                <div className="row">
+                
+                <div style={{marginLeft:"100px"}} className="row">
                     <div className="col-md-6 mt-4">
                         <p className="card-text"><b>Department</b> : {props.student.Department}</p>
                         <p className="card-text"><b>CNIC</b>: {props.student.CNIC}</p>

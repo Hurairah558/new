@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import Select from 'react-select';
 import Header from "../Header/Header";
 import { Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -51,7 +52,7 @@ const Merit_List = () => {
             axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:e.value}).then((res)=>{
                 setmerit(res.data.data[0])
                 setLoading(false)
-                axios.post("http://localhost:3001/hod/meritlist2",{Department:e.value, Year: new Date().getFullYear() }).then((res)=>{
+                axios.post("http://localhost:3001/student/meritlist",{Department:e.value, Shift:"Evening" }).then((res)=>{
                     setdata(res.data.data)
                     setLoading(false)
                 }).catch((err)=>{
@@ -153,6 +154,7 @@ const Merit_List = () => {
                         :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>}
                     </div>
                 </div>
+                <Footer/>
             </React.Fragment>
         )
     }

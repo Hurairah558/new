@@ -2,6 +2,7 @@ import axios from 'axios';
 import React,{ useState,useEffect} from 'react';
 import Header from '../../Fixed Components/Header';
 import { Button, Modal , Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
     MDBRow,
     MDBCol,
@@ -146,7 +147,7 @@ function AddCourses() {
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Delete</th>
                                                 </tr>
                                             </thead>
-                                            <tobdy>
+                                            <tbody>
                                                 {data.map((course,index)=>{
                                                 return (
                                                     <tr key={index}>
@@ -159,7 +160,7 @@ function AddCourses() {
                                                     </tr>
                                                 )})
                                                 }
-                                            </tobdy>
+                                            </tbody>
                                         </table>
                                     </MDBCardBody>
                                 </MDBCol>
@@ -169,6 +170,7 @@ function AddCourses() {
 
                 </div>
 		    </div>
+            <Footer/>
         </React.Fragment>
     )
 }

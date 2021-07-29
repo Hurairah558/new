@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import Select from 'react-select';
 import Header from "../Header/Header";
 import { Table } from 'semantic-ui-react';
+import Footer from '../../Footer/Footer';
 import { 
   MDBRow,
   MDBCol,
@@ -135,6 +136,7 @@ const Time_Table = () => {
                     :<h1 className="d-flex justify-content-center" style={{marginTop:250}} >Nothing to Show...</h1>}
                 </div>
             </div>
+            <Footer/>
         </React.Fragment>
     )
 }
