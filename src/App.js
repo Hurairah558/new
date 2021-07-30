@@ -11,6 +11,7 @@ import MeritList_Controller from './HOD/MeritList_Controller/MeritList_Controlle
 import MeritList_Controller2 from './HOD/MeritList_Controller/MeritList_Controller2';
 import AddInstructor from './HOD/AddInstructor/AddInstructor';
 import TimeTable_Generate from './HOD/TimeTable_Generate/TimeTable_Generate';
+import TimeTable_Edit from './HOD/TimeTable_Generate/Edit';
 import Datesheet from './HOD/Datesheet/Datesheet';
 import Datesheet2 from './HOD/Datesheet/Datesheet2';
 import HOD_AwardLists from './HOD/AwardLists/AwardLists';
@@ -77,6 +78,7 @@ function App() {
           <Route exact path="/hod/meritlistcontroller2" component={MeritList_Controller2}/>
           <Route exact path="/hod/addinstructor" component={AddInstructor}/>
           <Route exact path="/hod/timetablegenerate" component={TimeTable_Generate}/>
+          <Route exact path="/hod/edit/time" component={TimeTable_Edit}/>
           <Route exact path="/hod/datesheet" component={Datesheet}/>
           <Route exact path="/hod/datesheet2" component={Datesheet2}/>
           <Route exact path="/hod/awardlists" component={HOD_AwardLists}/>

@@ -129,6 +129,7 @@ function AwardLists() {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Instructor</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
@@ -145,6 +146,7 @@ function AwardLists() {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Instructor}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Title}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Course_Code}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Department}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Shift}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Semester}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Course.Fall_Spring}</td>

@@ -27,17 +27,22 @@ function Details() {
         Course_Title:"",
         Course_Code:"",
         Instructor:"",
-        Fall_Spring:""
+        Fall_Spring:"",
+        Semester:"",
+        Shift:""
     }])
 
     const [message, setmessage] = useState("")
 
     const [op, setop] = useState(1)
 
+    console.log(location.state)
+
     useEffect(()=>{
 
         axios.post("http://localhost:3001/api/ssio/details",JSON.stringify(login).includes("SSIO")?location.state.Course:"").then((res)=>{
 			setdata(res.data.data)
+            console.log("Data",res.data.data)
 		})
         .catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -67,9 +72,25 @@ function Details() {
                                 cascade
                                 className='gradient-card-header light-blue lighten-1'
                             >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>{data[0].Department}&nbsp;&nbsp;&nbsp;{data[0].Course_Title}&nbsp;&nbsp;&nbsp;{data[0].Course_Code}&nbsp;&nbsp;&nbsp;Award List&nbsp;&nbsp;&nbsp;{data[0].Instructor}&nbsp;&nbsp;&nbsp;{data[0].Fall_Spring}</h4>
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Award List</h4>
                             </MDBView>
                                 <MDBCardBody>
+                                    <table className="table table-hover table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Department</span> : {data[0].Department}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Course Title</span> : {data[0].Course_Title}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Course Code</span> : {data[0].Course_Code}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Instructor</span> : {data[0].Instructor}</td>
+                                            </tr>
+                                            <tr>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Fall / Spring</span> : {data[0].Fall_Spring}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Semester</span> : {data[0].Semester}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}><span className="text-primary">Shift</span> : {data[0].Shift}</td>
+                                                <td style={{fontWeight:'bold',fontSize:15,textAlign:'center',border:'1px solid'}}></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <table className="table table-hover table-bordered">
                                         <thead>
                                             <tr>
@@ -78,9 +99,6 @@ function Details() {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Mids</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sessional</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fall / Spring</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -92,9 +110,6 @@ function Details() {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Name}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Mids}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Sessional}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Shift}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Semester}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{Student.Fall_Spring}</td>
                                                     </tr>
                                             )
                                             })}

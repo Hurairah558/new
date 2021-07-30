@@ -303,11 +303,11 @@ const Students = () => {
                         </MDBCard>
                     
                     {loading?
-                        <div className="d-flex justify-content-center" ><MDBSpinner big crazy /></div>
+                        <div style={{position:"fixed",overflowX:"hidden",overflowY:"auto",left:'50%',bottom:"50%",zIndex:5}} className="d-flex justify-content-center" ><MDBSpinner big crazy /></div>
                         :
                         <div style={{display:'none'}}>
-                        <MDBSpinner big crazy />
-                    </div>
+                            <MDBSpinner big crazy />
+                        </div>
                     }
                     <MDBCard style={{marginTop:30,opacity:op}} cascade narrow>
                         <MDBRow>

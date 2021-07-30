@@ -53,7 +53,7 @@ const DV6 = () => {
   return (
       <React.Fragment>
       <Header/>
-      <div className="Student">
+      <div style={{marginBottom:-200}} className="Student">
       <div className="container">
     <div className="row">
     <div className="col-md-12">
@@ -68,8 +68,8 @@ const DV6 = () => {
               </MDBView>
               <MDBCardBody>
         <div className="row">
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' size='5' className='text-left pl-4'>
                   <MDBBtn
@@ -80,7 +80,7 @@ const DV6 = () => {
                     className='ml-4'
                     style={{ padding: 0 }}
                   >
-                    <MDBIcon icon='database' size='2x' />
+                    <MDBIcon icon='user' size='2x' />
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
@@ -90,8 +90,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -102,7 +102,7 @@ const DV6 = () => {
                     className='ml-4'
                     style={{ padding: 0 }}
                   >
-                    <MDBIcon icon='database' size='2x' />
+                    <MDBIcon icon='user' size='2x' />
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
@@ -112,9 +112,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -125,7 +124,7 @@ const DV6 = () => {
                     className='ml-4'
                     style={{ padding: 0 }}
                   >
-                    <MDBIcon icon='database' size='2x' />
+                    <MDBIcon icon='user' size='2x' />
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
@@ -135,9 +134,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -158,8 +156,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -180,8 +178,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -202,8 +200,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn

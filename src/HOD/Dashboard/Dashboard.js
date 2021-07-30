@@ -54,7 +54,7 @@ const DV6 = () => {
   return (
       <React.Fragment>
       <Header/>
-      <div className="Student">
+      <div style={{marginBottom:-200}} className="Student">
       <div className="container">
     <div className="row">
     <div className="col-md-12">
@@ -69,8 +69,8 @@ const DV6 = () => {
               </MDBView>
               <MDBCardBody>
         <div className="row">
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' size='5' className='text-left pl-4'>
                   <MDBBtn
@@ -81,7 +81,7 @@ const DV6 = () => {
                     className='ml-4'
                     style={{ padding: 0 }}
                   >
-                    <MDBIcon icon='database' size='2x' />
+                    <MDBIcon icon='user' size='2x' />
                   </MDBBtn>
                 </MDBCol>
                 <MDBCol md='7' col='7' className='text-right pr-5'>
@@ -91,99 +91,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
-              <MDBRow className='mt-3'>
-                <MDBCol md='5' col='5' className='text-left pl-4'>
-                  <MDBBtn
-                    tag='a'
-                    floating
-                    size='lg'
-                    color='warning'
-                    className='ml-4'
-                    style={{ padding: 0 }}
-                  >
-                    <MDBIcon icon='database' size='2x' />
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Morning").length}</h5>
-                  <b className='font-small'>Morning Shift</b>
-                </MDBCol>
-              </MDBRow>
-            </MDBCard>
-          </div>
-
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
-              <MDBRow className='mt-3'>
-                <MDBCol md='5' col='5' className='text-left pl-4'>
-                  <MDBBtn
-                    tag='a'
-                    floating
-                    size='lg'
-                    color='info'
-                    className='ml-4'
-                    style={{ padding: 0 }}
-                  >
-                    <MDBIcon icon='database' size='2x' />
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Evening").length}</h5>
-                  <b className='font-small'>Evening Shift</b>
-                </MDBCol>
-              </MDBRow>
-            </MDBCard>
-          </div>
-
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
-              <MDBRow className='mt-3'>
-                <MDBCol md='5' col='5' className='text-left pl-4'>
-                  <MDBBtn
-                    tag='a'
-                    floating
-                    size='lg'
-                    color='primary'
-                    className='ml-4'
-                    style={{ padding: 0 }}
-                  >
-                    <MDBIcon icon='male' size='2x' />
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Gender=="Male").length}</h5>
-                  <b className='font-small'>Male Students</b>
-                </MDBCol>
-              </MDBRow>
-            </MDBCard>
-          </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
-              <MDBRow className='mt-3'>
-                <MDBCol md='5' col='5' className='text-left pl-4'>
-                  <MDBBtn
-                    tag='a'
-                    floating
-                    size='lg'
-                    color='secondary'
-                    className='ml-4'
-                    style={{ padding: 0 }}
-                  >
-                    <MDBIcon icon='female' size='2x' />
-                  </MDBBtn>
-                </MDBCol>
-                <MDBCol md='7' col='7' className='text-right pr-5'>
-                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Gender=="Female").length}</h5>
-                  <b className='font-small'>Female Students</b>
-                </MDBCol>
-              </MDBRow>
-            </MDBCard>
-          </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -204,8 +113,98 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
+              <MDBRow className='mt-3'>
+                <MDBCol md='5' col='5' className='text-left pl-4'>
+                  <MDBBtn
+                    tag='a'
+                    floating
+                    size='lg'
+                    color='warning'
+                    className='ml-4'
+                    style={{ padding: 0 }}
+                  >
+                    <MDBIcon icon='user' size='2x' />
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol md='7' col='7' className='text-right pr-5'>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Morning").length}</h5>
+                  <b className='font-small'>Morning Shift</b>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+          </div>
+
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
+              <MDBRow className='mt-3'>
+                <MDBCol md='5' col='5' className='text-left pl-4'>
+                  <MDBBtn
+                    tag='a'
+                    floating
+                    size='lg'
+                    color='info'
+                    className='ml-4'
+                    style={{ padding: 0 }}
+                  >
+                    <MDBIcon icon='user' size='2x' />
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol md='7' col='7' className='text-right pr-5'>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Shift=="Evening").length}</h5>
+                  <b className='font-small'>Evening Shift</b>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+          </div>
+
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
+              <MDBRow className='mt-3'>
+                <MDBCol md='5' col='5' className='text-left pl-4'>
+                  <MDBBtn
+                    tag='a'
+                    floating
+                    size='lg'
+                    color='primary'
+                    className='ml-4'
+                    style={{ padding: 0 }}
+                  >
+                    <MDBIcon icon='male' size='2x' />
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol md='7' col='7' className='text-right pr-5'>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Gender=="Male").length}</h5>
+                  <b className='font-small'>Male Students</b>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+          </div>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
+              <MDBRow className='mt-3'>
+                <MDBCol md='5' col='5' className='text-left pl-4'>
+                  <MDBBtn
+                    tag='a'
+                    floating
+                    size='lg'
+                    color='secondary'
+                    className='ml-4'
+                    style={{ padding: 0 }}
+                  >
+                    <MDBIcon icon='female' size='2x' />
+                  </MDBBtn>
+                </MDBCol>
+                <MDBCol md='7' col='7' className='text-right pr-5'>
+                  <h5 className='ml-4 mt-4 mb-2 font-weight-bold mr-4'>{data.filter((student)=>student.Gender=="Female").length}</h5>
+                  <b className='font-small'>Female Students</b>
+                </MDBCol>
+              </MDBRow>
+            </MDBCard>
+          </div>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -225,8 +224,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
@@ -247,8 +246,8 @@ const DV6 = () => {
               </MDBRow>
             </MDBCard>
           </div>
-          <div className="col-md-3">
-            <MDBCard style={{paddingTop:30,paddingBottom:35}}>
+          <div className="col-md-3 mt-4">
+            <MDBCard style={{paddingTop:20,paddingBottom:35}}>
               <MDBRow className='mt-3'>
                 <MDBCol md='5' col='5' className='text-left pl-4'>
                   <MDBBtn
