@@ -325,6 +325,7 @@ const Students = () => {
                                                 <thead>
                                                     <tr>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Image</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Role_Number</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
@@ -333,7 +334,8 @@ const Students = () => {
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Add_Course</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Full Details</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ROA</th>
+                                                        {/* <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th> */}
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -341,6 +343,7 @@ const Students = () => {
                                                         return (
                                                     <tr key={index}>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><img width="50" height="56" src={`http://localhost:3001/image/${student.image}`} alt="Logo" /></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Roll}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
@@ -358,13 +361,14 @@ const Students = () => {
                                                         }
                                                         <td><Link to={{pathname:"/hod/assigncourse",state:student}}><MDBBtn gradient="blue"><i class="fa fa-book" aria-hidden="true"></i></MDBBtn></Link></td>
                                                         <td><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        {
+                                                        <td><Link to={{pathname:"/hod/roa",state:student}}><MDBBtn gradient="blue"><i class="fa fa-trophy" aria-hidden="true"></i></MDBBtn></Link></td>
+                                                        {/* {
                                                             <td>
                                                                 {student.Degree_Status==="Continue"?
-                                                                <MDBBtn gradient="blue" onClick={()=>Degree_toggles("Move to Completed",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Completed"}</b></MDBBtn>:
-                                                                <MDBBtn outline color="primary"  onClick={()=>Degree_toggles("Continue",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Completed"}</b></MDBBtn>}
+                                                                <MDBBtn gradient="blue" onClick={()=>Degree_toggles("Move to Completed",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Graduated"}</b></MDBBtn>:
+                                                                <MDBBtn outline color="primary"  onClick={()=>Degree_toggles("Continue",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Graduated"}</b></MDBBtn>}
                                                             </td>
-                                                        }
+                                                        } */}
                                                     </tr>
                                                     )})}
                                                 </tbody>

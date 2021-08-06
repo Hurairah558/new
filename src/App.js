@@ -61,11 +61,19 @@ import Dashboard_SSIO from './SSIO/Dashboard/Dashboard';
 import Dashboard_RO from './RO/Dashboard/Dashboard';
 import Dashboard_AO from './AO/Dashboard/Dashboard';
 import Dashboard_Instructor from './Instructor/Dashboard/Dashboard';
+import ROA from './HOD/ROA/ROA';
+import AO_Dues from './AO/Fee Management/Dues';
+import RO_Dues from './RO/Students/Dues';
+import ADP_Admissions from './HOD/ADP Admissions/ADP_Admissions';
 function App() {
   return (
     <React.Fragment>
       <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/hod/roa" component={ROA}/>
+          <Route exact path="/hod/adp" component={ADP_Admissions}/>
+          <Route exact path="/ao/dues" component={AO_Dues}/>
+          <Route exact path="/ro/dues" component={RO_Dues}/>
           <Route exact path="/admin" component={Login}/>
           <Route exact path="/ao/dashboard" component={Dashboard_AO}/>
           <Route exact path="/ao/feemanagement" component={AO_Fee_Management}/>

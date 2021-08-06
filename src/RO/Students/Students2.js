@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Redirect ,Link } from "react-router-dom";
 import Headers from '../Header/Header';
 import Select from "react-select";
 import Footer from '../../Footer/Footer';
@@ -59,6 +59,23 @@ const Students = () => {
         })
     }
 
+    const Fall_Spring = [
+		{ value: 'Fall-2021', label: 'Fall-2021', Name : "Fall_Spring" },
+		{ value: 'Spring-2021', label: 'Spring-2021', Name : "Fall_Spring" },
+		{ value: 'Fall-2022', label: 'Fall-2022', Name : "Fall_Spring" },
+		{ value: 'Spring-2022', label: 'Spring-2022', Name : "Fall_Spring" },
+		{ value: 'Fall-2023', label: 'Fall-2023', Name : "Fall_Spring" },
+		{ value: 'Spring-2023', label: 'Spring-2023', Name : "Fall_Spring" },
+		{ value: 'Fall-2024', label: 'Fall-2024', Name : "Fall_Spring" },
+		{ value: 'Spring-2024', label: 'Spring-2024', Name : "Fall_Spring" },
+		{ value: 'Fall-2025', label: 'Fall-2025', Name : "Fall_Spring" },
+		{ value: 'Spring-2025', label: 'Spring-2025', Name : "Fall_Spring" },
+		{ value: 'Fall-2026', label: 'Fall-2026', Name : "Fall_Spring" },
+		{ value: 'Spring-2026', label: 'Spring-2026', Name : "Fall_Spring" },
+		{ value: 'Fall-2027', label: 'Fall-2027', Name : "Fall_Spring" },
+		{ value: 'Spring-2027', label: 'Spring-2021', Name : "Fall_Spring" },
+	]
+
     const Department = [
 		{ value: 'BBA', label: 'BBA', Name : "Department" },
 		{ value: 'Botany', label: 'Botany', Name : "Department" },
@@ -90,6 +107,8 @@ const Students = () => {
 		{ value: '11', label: '11', Name : "Semester" },
 		{ value: '12', label: '12', Name : "Semester" },
 	]
+
+    const [open, setOpen] = React.useState(false)
 
     const Status = [
 		{ value: 'Active', label: 'Active', Name : "Status" },
@@ -151,6 +170,28 @@ const Students = () => {
             Names : e.value,
             Roll : ""
         })
+    }
+
+    const [extras, setextras] = useState({
+        Fall_Spring:"",
+        Total:"",
+        Col:"",
+        Uni:"",
+        Words:""
+    })
+
+    const voucherchangeselect= (e) => {
+        setextras({
+            ...extras,
+            [e.Name] : e.value
+          })
+    }
+
+    const voucherchange= (e) => {
+        setextras({
+            ...extras,
+            [e.target.name] : e.target.value
+          })
     }
 
     if (login==null){
@@ -218,6 +259,52 @@ const Students = () => {
                                         </div>
                                     </div>
                                     <hr/>
+                                    <div className="row">
+                                        <div className="col-md-12 d-flex justify-content-end">
+                                            <Modal
+                                            onClose={() => setOpen(false)}
+                                            onOpen={() => setOpen(true)}
+                                            open={open}
+                                            trigger={<MDBBtn gradient="blue" ><b>Generate Vouchers</b></MDBBtn>}
+                                            style={{margin:'auto',display:'block',paddingTop:-50,height:"37%"}}
+                                            >
+                                                <div className="Student">
+                                                    <div className="container">
+                                                        <Modal.Description>
+                                                            <hr/>
+                                                            <div className="row">
+                                                                <div className="col-md-3">
+                                                                    <Select defaultInputValue="" className="Admission_Form_Select" onChange={voucherchangeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                                                </div>
+                                                                <div className="col-md-3">
+                                                                    <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Total" placeholder="Total Fee" required=""/>
+                                                                </div>
+                                                                <div className="col-md-3">
+                                                                    <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Col" placeholder="College Dues" required=""/>
+                                                                </div>
+                                                                <div className="col-md-3">
+                                                                    <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Uni" placeholder="University Dues" required=""/>
+                                                                </div>
+                                                                <div className="col-md-3">
+                                                                    <textarea style={{fontWeight:'bold',border:"1px solid"}} class="form-control" onChange={voucherchange} id="exampleFormControlTextarea1" name="Words" placeholder="Amout in Words" rows="1"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <hr/>
+                                                        </Modal.Description>
+                                                        <div className="row float-right">
+                                                            <div style={{marginRight:40}} className="col-md-3">
+                                                                <Link to={{pathname:"/ro/voucher",state:{data:data,extra:extras}}}><MDBBtn gradient="blue"><b>Go</b></MDBBtn></Link>
+                                                            </div>
+                                                            <div className="col-md-3">
+                                                                <MDBBtn onClick={() => setOpen(false)} gradient="peach"><b>Cancel</b></MDBBtn>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </Modal>
+                                        </div>
+                                    </div>
+                                    <hr/>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -241,10 +328,10 @@ const Students = () => {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Address</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Dues</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>View</th>
                                             </tr>
                                         </thead>
@@ -258,7 +345,6 @@ const Students = () => {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Father_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
                                                         {
                                                             student.Status==="Inactive"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Status}</td>:
@@ -268,6 +354,7 @@ const Students = () => {
                                                             student.Fee_Status==="Unpaid"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>:
                                                             <td style={{color:"green",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>
                                                         }
+                                                        <td><Link to={{pathname:"/ro/dues",state:student}}><MDBBtn gradient="blue"><i class="fa fa-exclamation" aria-hidden="true"></i></MDBBtn></Link></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student} /></td>
                                                     </tr>
                                             )})}

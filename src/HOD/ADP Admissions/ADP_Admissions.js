@@ -38,7 +38,7 @@ const Students = () => {
             setloading(false)
         }).catch((err)=>{console.log(err)})
 
-        axios.post("http://localhost:3001/api/hod/admissions",{Department:login!=null?login.Department:"",Year:new Date().getFullYear()}).then((res)=>{
+        axios.post("http://localhost:3001/api/hod/admissions/adp",{Department:login!=null?login.Department:"",Year:new Date().getFullYear()}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{console.log(err)})
@@ -53,7 +53,7 @@ const Students = () => {
     })
 
     const changeselect = (e) => {
-		axios.post("http://localhost:3001/api/hod/admissions",{Department:login!=null?login.Department:"",Year:e.value}).then((res)=>{
+		axios.post("http://localhost:3001/api/hod/admissions/adp",{Department:login!=null?login.Department:"",Year:e.value}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
         }).catch((err)=>{console.log(err)})

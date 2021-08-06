@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Redirect ,Link } from "react-router-dom";
 import Headers from '../Header/Header';
 import {Table } from 'semantic-ui-react';
 import Select from "react-select";
@@ -242,6 +242,7 @@ const Students = () => {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Dues</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
                                             </tr>
                                         </thead>
@@ -258,6 +259,7 @@ const Students = () => {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Shift}</td>
+                                                        <td><Link to={{pathname:"/ao/dues",state:student}}><MDBBtn gradient="blue"><i class="fa fa-exclamation" aria-hidden="true"></i></MDBBtn></Link></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>
                                                                 {student.Fee_Status==="Paid"?
                                                                 <MDBBtn gradient="blue" onClick={()=>toggles(student.Fee_Status,student.id)}><b>{student.Status==="Unpaid"?"Unpaid":"Paid"}</b></MDBBtn>:

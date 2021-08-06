@@ -23,67 +23,47 @@ function AssignCourses() {
 
     const Location = useLocation()
 
+    console.log(Location.state.id)
+
     const [formdata,setformdata] = useState({
-        Department : login!=null?login.Department:"",
-        Course_Code : "",
-        Course_Title : ""
+        Activity : "",
+        Position : ""
     })
 
-    const [courses,setcourses] = useState([])
-
-    const [AssignedCourses, setAssignedCourses] = useState(JSON.stringify(login).includes("HOD")?Location.state.Courses:"")
+    const [AssignedROA, setAssignedROA] = useState(JSON.stringify(login).includes("HOD")?Location.state.ROA:"")
 
     useEffect(()=>{
         window.scrollTo(0, 0)
-        axios.post("http://localhost:3001/api/hod/course",{Department:login!=null?login.Department:""}).then((res)=>{
-            setcourses(res.data.data)
-        })
     },[])
 
-    const changeselect = (e) => {
+    const change = (e) => {
 		setformdata({
 		  ...formdata,
-		  [e.Name] : e.value
+		  [e.target.name] : e.target.value
 		})
 	  }
 
     const Add = () => {
-        if(formdata.Course_Code!="" && formdata.Course_Title!=""){
-        setAssignedCourses(AssignedCourses + String(formdata.Course_Code) + String(":") + String(formdata.Course_Title) + String(","))
+        if(formdata.Activity!="" && formdata.Position!=""){
+        setAssignedROA(AssignedROA + String(formdata.Activity) + String(":") + String(formdata.Position) + String(","))
         }
     }
 
     const Reset = () => {
-        setAssignedCourses("")
+        setAssignedROA("")
     }
-    
-    var Course_Title = [
-		
-	]
-
-    courses.map((coursess)=>{
-        Course_Title.push( { value: coursess.Course_Title, label: coursess.Course_Title, Name : "Course_Title" })
-    })
-
-    var Course_Code = [
-		
-	]
-
-    courses.map((coursess)=>{
-        Course_Code.push( { value: coursess.Course_Code, label: coursess.Course_Code, Name : "Course_Code" })
-    })
 
       const [validate,setvalidate] = useState("")
 
       const set=(e) => {
-        if(AssignedCourses===""){
-            setvalidate("No Course Selected")
+        if(AssignedROA===""){
+            setvalidate("No Achievements Added")
         }
         else{
           e.preventDefault()
-            axios.put("http://localhost:3001/api/hod/assigncourse",{
+            axios.put("http://localhost:3001/api/hod/roa",{
             id: Location.state.id,
-            Courses: AssignedCourses,
+            ROA: AssignedROA,
             })
             .then((res)=>{
                 if (res.data.message){
@@ -93,8 +73,8 @@ function AssignCourses() {
                   setvalidate(res.data)
                 }
                 setformdata({
-                  Matric_Percentage : "",
-                  Inter_Percentage : ""
+                  Activity : "",
+                  Position : ""
                 })
               })
             .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
@@ -113,16 +93,16 @@ function AssignCourses() {
                             cascade
                             className='gradient-card-header light-blue lighten-1'
                         >
-                            <h4 className='h4-responsive mb-0 font-weight-bold'>Assign Courses to {JSON.stringify(login).includes("HOD")?Location.state.Full_Name:""}</h4>
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>Record of Achievements for {JSON.stringify(login).includes("HOD")?Location.state.Full_Name:""}</h4>
                         </MDBView>
                             <MDBCardBody>
                             <div className="row">
                                 <div className="col-md-3">
-                                    <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                                    <input className="Admission_Form_Input" onChange={change} type="text" name="Activity" value={formdata.Activity} placeholder="Activity" required=""/>
                                 </div>
                             
                                 <div className="col-md-3">
-                                    <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
+                                    <input className="Admission_Form_Input" onChange={change} type="text" name="Position" value={formdata.Position} placeholder="Position" required=""/>
                                 </div>
                             
                                 <div className="col-md-3">
@@ -140,7 +120,7 @@ function AssignCourses() {
                                 </div>
                             </div>
                             <hr/>
-                            {AssignedCourses!=""?
+                            {AssignedROA!=""?
                             <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
                                 <MDBRow>
                                     <MDBCol md='12'>
@@ -148,18 +128,18 @@ function AssignCourses() {
                                             cascade
                                             className='gradient-card-header light-blue lighten-1'
                                         >
-                                            <h4 className='h4-responsive mb-0 font-weight-bold'>Courses Added</h4>
+                                            <h4 className='h4-responsive mb-0 font-weight-bold'>Record of Achievements Added</h4>
                                         </MDBView>
                                         <MDBCardBody>
                                             <table className="table table-hover table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Code</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Course Title</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Activity</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Position</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {AssignedCourses.split(",").map((coursess)=>{
+                                                    {AssignedROA.split(",").map((coursess)=>{
                                                         return(          
                                                         <tr>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}>{coursess.split(":")[0]}</td>
@@ -196,7 +176,7 @@ function Modals(props) {
       onOpen={() => setOpen(true)}
       open={open}
 		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" style={{width:200}}><b>Assign</b></MDBBtn>}
+		trigger={<MDBBtn gradient="blue" style={{width:200}}><b>Save</b></MDBBtn>}
 	  >
 		<Modal.Header><h1>Response</h1></Modal.Header>
 		<Modal.Content image>

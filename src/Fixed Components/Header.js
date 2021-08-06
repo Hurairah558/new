@@ -130,7 +130,8 @@ const Header = () => {
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/awardlists"><b>Award Lists</b></MDBNavLink></MDBDropdownItem>
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/attendancelist"><b>Attendance Lists</b></MDBNavLink></MDBDropdownItem>
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/addstudent"><b>Add Students</b></MDBNavLink></MDBDropdownItem>
-                            <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/admissions"><b>Admissions</b></MDBNavLink></MDBDropdownItem>
+                            <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/admissions"><b>Fresh Admissions</b></MDBNavLink></MDBDropdownItem>
+                            <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/adp"><b>ADP Admissions</b></MDBNavLink></MDBDropdownItem>
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/addinstructor"><b>Add Instructors</b></MDBNavLink></MDBDropdownItem>
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/addcourses"><b>Add Courses</b></MDBNavLink></MDBDropdownItem>
                             <MDBDropdownItem><MDBNavLink id="HeadLink" to="/hod/assigncourses"><b>Assign Courses</b></MDBNavLink></MDBDropdownItem>

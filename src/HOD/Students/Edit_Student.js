@@ -37,6 +37,8 @@ function AddStudent() {
         Semester : Location.state!=undefined?Location.state.Semester:"",
         Shift : Location.state!=undefined?Location.state.Shift:"",
         Courses : Location.state!=undefined?Location.state.Courses:"",
+        ROA : Location.state!=undefined?Location.state.ROA:"",
+        HOD_Dues : Location.state!=undefined?Location.state.HOD_Dues:"",
 	  });
 
 	const Gender = [
@@ -189,6 +191,17 @@ function AddStudent() {
                             </div>
                         </div>
                         <hr style={{background:"white"}} />
+						<div className="row">
+							<div className="col-md-6">
+                                <p className="Admission_p">Record of Achievements</p>
+                                <textarea class="form-control" style={{marginTop:20}} onChange={change} value={formdata.ROA} id="exampleFormControlTextarea1" name="ROA" placeholder="Record of Achievements" rows="3"></textarea>
+                            </div>
+							<div className="col-md-6">
+                                <p className="Admission_p">Dues</p>
+                                <textarea class="form-control" style={{marginTop:20}} onChange={change} value={formdata.Dues} id="exampleFormControlTextarea1" name="HOD_Dues" placeholder="Dues" rows="3"></textarea>
+                            </div>
+                        </div>
+						<hr style={{background:"white"}} />
                         <div className="row">
                             <div className="col-md-6">
                                 <button className="Admission_Form_button" onClick={set} ><Modals validate={validate} /></button>

@@ -72,23 +72,25 @@ button:hover{
 	box-shadow: 5px 20px 50px #000;
 }
 .Admission_p{
-	color: #fff;
+	/* color: #fff; */
 	transition: .1s ease-in;
 	margin-bottom: -15px;
 	font-weight: bold;
 }
-.Admission_Form_Select,#datetime{
+.Admission_Form_Select{
 	margin: 20px auto;
 	width: 200px;
 	margin-left: -0px;
 	font-weight: bold;
+	border: 1px solid ;
+	border-radius: 5px;
 }
 
 .Admission_Form_Select_Instrcutor{
 	font-weight: bold;
 	width: 230px;
 	margin: 20px auto;
-	margin-top: -0px;
+	margin-top: -0px;	
 }
 
 /* #h{
@@ -96,7 +98,7 @@ button:hover{
 } */
 
 .Admission_Form_Category{
-	color: #fff;
+	/* color: #fff; */
 	text-decoration: underline;
 }
 .Admission_Form_Select_Dept{
@@ -104,9 +106,11 @@ button:hover{
 	width: 300px;
 	margin-left: 7px;
 	font-weight: bold;
+	border: 1px solid ;
+	border-radius: 5px;
 }
 .Admission_Select_p{
-	color: #fff;
+	/* color: #fff; */
 	margin-left: 7px;
 	margin-bottom: -15px;
 	font-weight: bold;
