@@ -103,6 +103,12 @@ const Header = () => {
                     <MDBNavItem>
                         <MDBNavLink to="/ao/feerecord"><b>Fee Record</b></MDBNavLink>
                     </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ao/visiting"><b>Visiting Bill</b></MDBNavLink>
+                    </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ao/employee"><b>Salary to Employee</b></MDBNavLink>
+                    </MDBNavItem>
                         <MDBNavItem>
                     <MDBNavLink to="/ao/password/reset"><b>Change Password</b></MDBNavLink>
                         </MDBNavItem>

@@ -22,7 +22,7 @@ function Admission_Form() {
 	const [message, setmessage] = useState("Admission Closed")
 
 	useEffect(()=>{
-		axios.get("http://localhost:3001/api/ro/admission_control/").then((res)=>{
+		axios.get("http://localhost:3001/api/ro/admission_control").then((res)=>{
 			if (res.data.data[0].Open === "Open"){
 				setopen(true)
 			}
@@ -61,9 +61,164 @@ function Admission_Form() {
 	]
 
 	const Domicile = [
-		{ value: 'Sialkot', label: 'Sialkot', Name : "Domicile" },
-		{ value: 'Lahore', label: 'Lahore', Name : "Domicile" },
-		{ value: 'Gujranwala', label: 'Gujranwala', Name : "Domicile" }
+		{value: 'Abbottabad' , label: 'Abbottabad' ,Name: 'Domicile'},
+		{value: 'Astore' , label: 'Astore' ,Name: 'Domicile'},
+		{value: 'Attock' , label: 'Attock' ,Name: 'Domicile'},
+		{value: 'Awaran' , label: 'Awaran' ,Name: 'Domicile'},
+		{value: 'Badin' , label: 'Badin' ,Name: 'Domicile'},
+		{value: 'Bagh' , label: 'Bagh' ,Name: 'Domicile'},
+		{value: 'Bahawalnagar' , label: 'Bahawalnagar' ,Name: 'Domicile'},
+		{value: 'Bahawalpur' , label: 'Bahawalpur' ,Name: 'Domicile'},
+		{value: 'Bajaur' , label: 'Bajaur' ,Name: 'Domicile'},
+		{value: 'Bannu' , label: 'Bannu' ,Name: 'Domicile'},
+		{value: 'Barkhan' , label: 'Barkhan' ,Name: 'Domicile'},
+		{value: 'Batagram' , label: 'Batagram' ,Name: 'Domicile'},
+		{value: 'Bhakkar' , label: 'Bhakkar' ,Name: 'Domicile'},
+		{value: 'Bhimber' , label: 'Bhimber' ,Name: 'Domicile'},
+		{value: 'Buner' , label: 'Buner' ,Name: 'Domicile'},
+		{value: 'Chagai' , label: 'Chagai' ,Name: 'Domicile'},
+		{value: 'Chakwal' , label: 'Chakwal' ,Name: 'Domicile'},
+		{value: 'Charsadda' , label: 'Charsadda' ,Name: 'Domicile'},
+		{value: 'Chiniot' , label: 'Chiniot' ,Name: 'Domicile'},
+		{value: 'Dadu' , label: 'Dadu' ,Name: 'Domicile'},
+		{value: 'Darel' , label: 'Darel' ,Name: 'Domicile'},
+		{value: 'Dera Bugti' , label: 'Dera Bugti' ,Name: 'Domicile'},
+		{value: 'Dera Ghazi Khan' , label: 'Dera Ghazi Khan' ,Name: 'Domicile'},
+		{value: 'Dera Ismail Khan' , label: 'Dera Ismail Khan' ,Name: 'Domicile'},
+		{value: 'Diamer' , label: 'Diamer' ,Name: 'Domicile'},
+		{value: 'Duki' , label: 'Duki' ,Name: 'Domicile'},
+		{value: 'Faisalabad' , label: 'Faisalabad' ,Name: 'Domicile'},
+		{value: 'Ghanche' , label: 'Ghanche' ,Name: 'Domicile'},
+		{value: 'Ghizer' , label: 'Ghizer' ,Name: 'Domicile'},
+		{value: 'Ghotki' , label: 'Ghotki' ,Name: 'Domicile'},
+		{value: 'Gilgit' , label: 'Gilgit' ,Name: 'Domicile'},
+		{value: 'Gujranwala' , label: 'Gujranwala' ,Name: 'Domicile'},
+		{value: 'Gujrat' , label: 'Gujrat' ,Name: 'Domicile'},
+		{value: 'Gupis Yasin' , label: 'Gupis Yasin' ,Name: 'Domicile'},
+		{value: 'Gwadar' , label: 'Gwadar' ,Name: 'Domicile'},
+		{value: 'Hafizabad' , label: 'Hafizabad' ,Name: 'Domicile'},
+		{value: 'Hangu' , label: 'Hangu' ,Name: 'Domicile'},
+		{value: 'Haripur' , label: 'Haripur' ,Name: 'Domicile'},
+		{value: 'Harnai' , label: 'Harnai' ,Name: 'Domicile'},
+		{value: 'Hattian' , label: 'Hattian' ,Name: 'Domicile'},
+		{value: 'Haveli' , label: 'Haveli' ,Name: 'Domicile'},
+		{value: 'Hunza' , label: 'Hunza' ,Name: 'Domicile'},
+		{value: 'Hyderabad' , label: 'Hyderabad' ,Name: 'Domicile'},
+		{value: 'Islamabad' , label: 'Islamabad' ,Name: 'Domicile'},
+		{value: 'Jacobabad' , label: 'Jacobabad' ,Name: 'Domicile'},
+		{value: 'Jafarabad' , label: 'Jafarabad' ,Name: 'Domicile'},
+		{value: 'Jamshoro' , label: 'Jamshoro' ,Name: 'Domicile'},
+		{value: 'Jhal Magsi' , label: 'Jhal Magsi' ,Name: 'Domicile'},
+		{value: 'Jhang' , label: 'Jhang' ,Name: 'Domicile'},
+		{value: 'Jhelum' , label: 'Jhelum' ,Name: 'Domicile'},
+		{value: 'Kachhi' , label: 'Kachhi' ,Name: 'Domicile'},
+		{value: 'Kalat' , label: 'Kalat' ,Name: 'Domicile'},
+		{value: 'Karachi Central' , label: 'Karachi Central' ,Name: 'Domicile'},
+		{value: 'Karachi East' , label: 'Karachi East' ,Name: 'Domicile'},
+		{value: 'Karachi South' , label: 'Karachi South' ,Name: 'Domicile'},
+		{value: 'Karachi West' , label: 'Karachi West' ,Name: 'Domicile'},
+		{value: 'Karak' , label: 'Karak' ,Name: 'Domicile'},
+		{value: 'Kashmore ' , label: 'Kashmore ' ,Name: 'Domicile'},
+		{value: 'Kasur' , label: 'Kasur' ,Name: 'Domicile'},
+		{value: 'Kech' , label: 'Kech' ,Name: 'Domicile'},
+		{value: 'Khairpur' , label: 'Khairpur' ,Name: 'Domicile'},
+		{value: 'Khanewal' , label: 'Khanewal' ,Name: 'Domicile'},
+		{value: 'Kharan' , label: 'Kharan' ,Name: 'Domicile'},
+		{value: 'Kharmang' , label: 'Kharmang' ,Name: 'Domicile'},
+		{value: 'Khushab' , label: 'Khushab' ,Name: 'Domicile'},
+		{value: 'Khuzdar' , label: 'Khuzdar' ,Name: 'Domicile'},
+		{value: 'Khyber' , label: 'Khyber' ,Name: 'Domicile'},
+		{value: 'Killa Abdullah' , label: 'Killa Abdullah' ,Name: 'Domicile'},
+		{value: 'Kohat' , label: 'Kohat' ,Name: 'Domicile'},
+		{value: 'Kohlu' , label: 'Kohlu' ,Name: 'Domicile'},
+		{value: 'Kolai Pallas' , label: 'Kolai Pallas' ,Name: 'Domicile'},
+		{value: 'Korangi' , label: 'Korangi' ,Name: 'Domicile'},
+		{value: 'Kotli' , label: 'Kotli' ,Name: 'Domicile'},
+		{value: 'Kurram' , label: 'Kurram' ,Name: 'Domicile'},
+		{value: 'Lahore' , label: 'Lahore' ,Name: 'Domicile'},
+		{value: 'Lakki Marwat' , label: 'Lakki Marwat' ,Name: 'Domicile'},
+		{value: 'Larkana' , label: 'Larkana' ,Name: 'Domicile'},
+		{value: 'Lasbela' , label: 'Lasbela' ,Name: 'Domicile'},
+		{value: 'Layyah' , label: 'Layyah' ,Name: 'Domicile'},
+		{value: 'Lodhran' , label: 'Lodhran' ,Name: 'Domicile'},
+		{value: 'Loralai' , label: 'Loralai' ,Name: 'Domicile'},
+		{value: 'Lower Chitral' , label: 'Lower Chitral' ,Name: 'Domicile'},
+		{value: 'Lower Dir' , label: 'Lower Dir' ,Name: 'Domicile'},
+		{value: 'Lower Kohistan' , label: 'Lower Kohistan' ,Name: 'Domicile'},
+		{value: 'Malakand' , label: 'Malakand' ,Name: 'Domicile'},
+		{value: 'Malir' , label: 'Malir' ,Name: 'Domicile'},
+		{value: 'Mandi Bahauddin' , label: 'Mandi Bahauddin' ,Name: 'Domicile'},
+		{value: 'Mansehra' , label: 'Mansehra' ,Name: 'Domicile'},
+		{value: 'Mardan' , label: 'Mardan' ,Name: 'Domicile'},
+		{value: 'Mastung' , label: 'Mastung' ,Name: 'Domicile'},
+		{value: 'Matiari' , label: 'Matiari' ,Name: 'Domicile'},
+		{value: 'Mianwali' , label: 'Mianwali' ,Name: 'Domicile'},
+		{value: 'Mirpur Khas' , label: 'Mirpur Khas' ,Name: 'Domicile'},
+		{value: 'Mirpur' , label: 'Mirpur' ,Name: 'Domicile'},
+		{value: 'Mohmand' , label: 'Mohmand' ,Name: 'Domicile'},
+		{value: 'Multan' , label: 'Multan' ,Name: 'Domicile'},
+		{value: 'Musakhel' , label: 'Musakhel' ,Name: 'Domicile'},
+		{value: 'Muzaffarabad' , label: 'Muzaffarabad' ,Name: 'Domicile'},
+		{value: 'Muzaffargarh' , label: 'Muzaffargarh' ,Name: 'Domicile'},
+		{value: 'Nagar' , label: 'Nagar' ,Name: 'Domicile'},
+		{value: 'Nankana Sahib' , label: 'Nankana Sahib' ,Name: 'Domicile'},
+		{value: 'Narowal' , label: 'Narowal' ,Name: 'Domicile'},
+		{value: 'Naseerabad' , label: 'Naseerabad' ,Name: 'Domicile'},
+		{value: 'Naushahro Firoze' , label: 'Naushahro Firoze' ,Name: 'Domicile'},
+		{value: 'Neelum' , label: 'Neelum' ,Name: 'Domicile'},
+		{value: 'North Waziristan' , label: 'North Waziristan' ,Name: 'Domicile'},
+		{value: 'Nowshera' , label: 'Nowshera' ,Name: 'Domicile'},
+		{value: 'Nushki' , label: 'Nushki' ,Name: 'Domicile'},
+		{value: 'Okara' , label: 'Okara' ,Name: 'Domicile'},
+		{value: 'Orakzai' , label: 'Orakzai' ,Name: 'Domicile'},
+		{value: 'Pakpattan' , label: 'Pakpattan' ,Name: 'Domicile'},
+		{value: 'Panjgur' , label: 'Panjgur' ,Name: 'Domicile'},
+		{value: 'Peshawar' , label: 'Peshawar' ,Name: 'Domicile'},
+		{value: 'Pishin' , label: 'Pishin' ,Name: 'Domicile'},
+		{value: 'Poonch' , label: 'Poonch' ,Name: 'Domicile'},
+		{value: 'Qambar Shahdadkot' , label: 'Qambar Shahdadkot' ,Name: 'Domicile'},
+		{value: 'Qilla Saifullah' , label: 'Qilla Saifullah' ,Name: 'Domicile'},
+		{value: 'Quetta' , label: 'Quetta' ,Name: 'Domicile'},
+		{value: 'Rahim Yar Khan' , label: 'Rahim Yar Khan' ,Name: 'Domicile'},
+		{value: 'Rajanpur' , label: 'Rajanpur' ,Name: 'Domicile'},
+		{value: 'Rawalpindi' , label: 'Rawalpindi' ,Name: 'Domicile'},
+		{value: 'Roundu' , label: 'Roundu' ,Name: 'Domicile'},
+		{value: 'Sahiwal' , label: 'Sahiwal' ,Name: 'Domicile'},
+		{value: 'Sanghar' , label: 'Sanghar' ,Name: 'Domicile'},
+		{value: 'Sargodha' , label: 'Sargodha' ,Name: 'Domicile'},
+		{value: 'Shaheed Benazirabad' , label: 'Shaheed Benazirabad' ,Name: 'Domicile'},
+		{value: 'Shaheed Sikandarabad' , label: 'Shaheed Sikandarabad' ,Name: 'Domicile'},
+		{value: 'Shangla' , label: 'Shangla' ,Name: 'Domicile'},
+		{value: 'Sheikhupura' , label: 'Sheikhupura' ,Name: 'Domicile'},
+		{value: 'Sherani' , label: 'Sherani' ,Name: 'Domicile'},
+		{value: 'Shigar' , label: 'Shigar' ,Name: 'Domicile'},
+		{value: 'Shikarpur' , label: 'Shikarpur' ,Name: 'Domicile'},
+		{value: 'Sialkot' , label: 'Sialkot' ,Name: 'Domicile'},
+		{value: 'Sibi' , label: 'Sibi' ,Name: 'Domicile'},
+		{value: 'Skardu' , label: 'Skardu' ,Name: 'Domicile'},
+		{value: 'Sohbatpur' , label: 'Sohbatpur' ,Name: 'Domicile'},
+		{value: 'South Waziristan' , label: 'South Waziristan' ,Name: 'Domicile'},
+		{value: 'Sudhnutti' , label: 'Sudhnutti' ,Name: 'Domicile'},
+		{value: 'Sujawal' , label: 'Sujawal' ,Name: 'Domicile'},
+		{value: 'Sukkur' , label: 'Sukkur' ,Name: 'Domicile'},
+		{value: 'Swabi' , label: 'Swabi' ,Name: 'Domicile'},
+		{value: 'Swat' , label: 'Swat' ,Name: 'Domicile'},
+		{value: 'Tando Allahyar' , label: 'Tando Allahyar' ,Name: 'Domicile'},
+		{value: 'Tando Muhammad Khan' , label: 'Tando Muhammad Khan' ,Name: 'Domicile'},
+		{value: 'Tangir' , label: 'Tangir' ,Name: 'Domicile'},
+		{value: 'Tank' , label: 'Tank' ,Name: 'Domicile'},
+		{value: 'Tharparkar' , label: 'Tharparkar' ,Name: 'Domicile'},
+		{value: 'Thatta' , label: 'Thatta' ,Name: 'Domicile'},
+		{value: 'Toba Tek Singh' , label: 'Toba Tek Singh' ,Name: 'Domicile'},
+		{value: 'Tor Ghar' , label: 'Tor Ghar' ,Name: 'Domicile'},
+		{value: 'Umerkot' , label: 'Umerkot' ,Name: 'Domicile'},
+		{value: 'Upper Chitral' , label: 'Upper Chitral' ,Name: 'Domicile'},
+		{value: 'Upper Dir' , label: 'Upper Dir' ,Name: 'Domicile'},
+		{value: 'Upper Kohistan' , label: 'Upper Kohistan' ,Name: 'Domicile'},
+		{value: 'Vehari' , label: 'Vehari' ,Name: 'Domicile'},
+		{value: 'Washuk' , label: 'Washuk' ,Name: 'Domicile'},
+		{value: 'Zhob' , label: 'Zhob' ,Name: 'Domicile'},
+		{value: 'Ziarat' , label: 'Ziarat' ,Name: 'Domicile'},
 	]
 
 	const Shift = [
@@ -77,6 +232,8 @@ function Admission_Form() {
 	]
 
 	const [isADP, setisADP] = useState(false)
+
+	const [img, setimg] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
 
 	const [formdata,setformdata] = useState({
 		Full_Name : "",
@@ -109,9 +266,32 @@ function Admission_Form() {
 		ADP_Board : "",
 	  });
 
+	//   const result = (e)=> {
+
+	// 	var config = {
+	// 		headers: {'User-Agent': 'http://www.bisegrw.edu.pk'}
+	// 	};
+
+	// 	  axios.post("http://www.bisegrw.edu.pk/result-card-matric.html",{year:2017,class:12,rno:133710},{headers: { 'User-Agent': 'http://www.bisegrw.edu.pk' }}
+	// 	  ).then((res)=>{
+	// 		console.log(res)
+	// 	  })
+	//   }
+
 	  const [file, setfile] = useState(null)
 
 	  const imageHandler = (e) => {
+
+		const reader = new FileReader();
+		reader.onload = () => {
+			if(reader.readyState==2){
+				setimg(reader.result)
+			}
+		}
+
+		reader.readAsDataURL(e.target.files[0])
+
+
 			setfile(e.target.files[0])
 			setformdata({
 				...formdata,
@@ -126,6 +306,7 @@ function Admission_Form() {
 		}
 		if (size>100000){
 			setvalidate("Image Size Should be less than 100KB")
+			alert("Image Size Should be less than 100KB")
 		}
 
 		else{
@@ -224,24 +405,27 @@ function Admission_Form() {
 						<h2 className='mb-0 font-weight-bold'>Admission Form</h2>
 						</MDBView>
 						<MDBCardBody>
+
+						{/* <button onClick={result}>Result</button> */}
+
 						<div className="container">
 						{!Loading?
 							open?
 								<form  role="form" method="post" onSubmit={imagesub} encType="multipart/form-data">
-										<div style={{marginLeft:-0}} className="row">
-											<div className="col-md-4">	
-												<p className="Admission_Select_p">Fresh / ADP <span className="text-danger">*</span></p>
-												<Select className="Admission_Form_Select_Dept" onChange={changeselects} name="Fresh_ADP" placeholder="Fresh / ADP" options={Fresh_ADP} required />							
-											</div>
-											<div className="col-md-4">	
-												<p className="Admission_Select_p">BS Department <span className="text-danger">*</span></p>
-												<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required/>							
-											</div>
-											<div className="col-md-4">	
-												<p className="Admission_Select_p">Shift <span className="text-danger">*</span></p>
-												<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required/>							
-											</div>
+									<div className="row">
+										<div className="col-md-4">	
+											<p className="Admission_Select_p">Fresh / ADP <span className="text-danger">*</span></p>
+											<Select className="Admission_Form_Select_Dept" onChange={changeselects} name="Fresh_ADP" placeholder="Fresh / ADP" options={Fresh_ADP} required />							
 										</div>
+										<div className="col-md-4">	
+											<p className="Admission_Select_p">BS Department <span className="text-danger">*</span></p>
+											<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required/>							
+										</div>
+										<div className="col-md-4">	
+											<p className="Admission_Select_p">Shift <span className="text-danger">*</span></p>
+											<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required/>							
+										</div>
+									</div>
 									<MDBCard style={{marginTop:30}} cascade narrow>
 										<MDBRow>
 											<MDBCol md='12'>
@@ -254,57 +438,81 @@ function Admission_Form() {
 												<MDBCardBody style={{paddingTop:30,paddingBottom:30}}>
 													<div className="container">
 														<div className="row">
-															<div className="col-md-3">
-																<p className="Admission_p">Student's Name <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="Full_Name" placeholder="Student's Name" required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Father's Name <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="Father_Name" placeholder="Father's Name" required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Gender <span className="text-danger">*</span></p>
-																<Select className="Admission_Form_Select" onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
-																<input style={{marginTop:30}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
-															</div>
-														</div>
-														<div className="row">
-															<div className="col-md-3">
-																<p className="Admission_p">CNIC / B-Form <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="CNIC" placeholder="CNIC / B-Form" required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Date Of Birth <span className="text-danger">*</span></p>
-																<div className="form-group" id="datetime">
-																	<input className="Admission_Form_Input" onChange={change} type="date" name="DOB" required/>
+															<div className="col-md-9">
+																<div className="row">
+																	<div className="col-md-4">
+																		<p className="Admission_p">Student's Name <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" style={{textTransform:"uppercase"}} onChange={change} type="text" name="Full_Name" placeholder="Student's Name" required/>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Father's Name <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" onChange={change} type="text" name="Father_Name" placeholder="Father's Name" required/>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Gender <span className="text-danger">*</span></p>
+																		<Select className="Admission_Form_Select" onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required/>
+																	</div>
+																	{/* <div className="col-md-3">
+																		<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
+																		<img src={img} height="120" width="120" alt="GMC" />
+																		<input style={{marginTop:30}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
+																	</div> */}
+																</div>
+															
+																{/* <div className="row">
+																	<div className="col-md-3">
+																	</div>
+																	<div className="col-md-3">
+																	</div>
+																	<div className="col-md-3">
+																	</div>
+																	<div className="col-md-3">
+																		<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
+																		<img src={img} height="120" width="120" alt="GMC" />
+																		<input style={{marginTop:30}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
+																	</div>
+																</div> */}
+																<div className="row">
+																	<div className="col-md-4">
+																		<p className="Admission_p">CNIC / B-Form <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" maxLength="13" minLength="13" onChange={change} type="text" name="CNIC" placeholder="34601xxxxxxxx" required/>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Date Of Birth <span className="text-danger">*</span></p>
+																		<div className="form-group" id="datetime">
+																			<input className="Admission_Form_Input" onChange={change} type="date" name="DOB" required/>
+																		</div>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Email <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" onChange={change} type="email" name="Email" placeholder="Email" required/>
+																	</div>
+																</div>
+																<div className="row">
+																	<div className="col-md-4">
+																		<p className="Admission_p">Phone (WhatsApp) <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" onChange={change} type="text" name="Phone" placeholder="Phone (WhatsApp)" required/>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Guardian's Phone (WhatsApp) <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" onChange={change} type="text" name="Guardian_Phone" placeholder="Guardian's (WhatsApp)" required/>
+																	</div>
+																	<div className="col-md-4">
+																		<p className="Admission_p">Address <span className="text-danger">*</span></p>
+																		<input className="Admission_Form_Input" onChange={change} type="text" name="Address" placeholder="Address" required/>
+																	</div>
+																</div>
+																<div className="row">
+																	<div className="col-md-4">
+																		<p className="Admission_p">Domicile <span className="text-danger">*</span></p>
+																		<Select className="Admission_Form_Select" onChange={changeselect} name="Domicile" placeholder="Domicile" options={Domicile} required/>
+																	</div>
 																</div>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Email <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="email" name="Email" placeholder="Email" required/>
-															</div>
-														</div>
-														<div className="row">
-															<div className="col-md-3">
-																<p className="Admission_p">Phone (WhatsApp) <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="Phone" placeholder="Phone (WhatsApp)" required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Guardian's Phone (WhatsApp) <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="Guardian_Phone" placeholder="Guardian's Phone (WhatsApp)" required/>
-															</div>
-															<div className="col-md-3">
-																<p className="Admission_p">Address <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} type="text" name="Address" placeholder="Address" required/>
-															</div>
-														</div>
-														<div className="row">
-															<div className="col-md-3">
-																<p className="Admission_p">Domicile <span className="text-danger">*</span></p>
-																<Select className="Admission_Form_Select" onChange={changeselect} name="Domicile" placeholder="Domicile" options={Domicile} required/>
+																<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
+																<img style={{marginTop:20}} src={img} height="120" width="120" alt="GMC" />
+																<input style={{marginTop:10}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
 															</div>
 														</div>
 													</div>
@@ -337,7 +545,7 @@ function Admission_Form() {
 																<input type="number" name="Matric_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Matric" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Matric Year <span className="text-danger">*</span></p>
+																<p className="Admission_p">Passing Year <span className="text-danger">*</span></p>
 																<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Matric Year" required/>
 															</div>
 															<div className="col-md-3">
@@ -375,7 +583,7 @@ function Admission_Form() {
 																<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Inter Year <span className="text-danger">*</span></p>
+																<p className="Admission_p">Passing Year <span className="text-danger">*</span></p>
 																<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required/>
 															</div>
 															<div className="col-md-3">
@@ -414,12 +622,12 @@ function Admission_Form() {
 																<input type="number" name="ADP_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Roll #" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Total Marks</p>
-																<input type="number" name="ADP_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks" required/>
+																<p className="Admission_p">Total Marks/GPA</p>
+																<input type="number" name="ADP_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks/GPA" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Obtained Marks</p>
-																<input type="number" name="ADP_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks" required/>
+																<p className="Admission_p">Obtained Marks/GPA</p>
+																<input type="text" name="ADP_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks/GPA" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Passing Year</p>

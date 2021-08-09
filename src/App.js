@@ -65,6 +65,10 @@ import ROA from './HOD/ROA/ROA';
 import AO_Dues from './AO/Fee Management/Dues';
 import RO_Dues from './RO/Students/Dues';
 import ADP_Admissions from './HOD/ADP Admissions/ADP_Admissions';
+import Visiting from './AO/Visiting Bill/visiting';
+import Bill from './AO/Visiting Bill/Bill';
+import Employee from './AO/Salary To Employee/Employee';
+import EmployeeBill from './AO/Salary To Employee/Bill';
 function App() {
   return (
     <React.Fragment>
@@ -72,6 +76,10 @@ function App() {
           <Route exact path="/" component={Home}/>
           <Route exact path="/hod/roa" component={ROA}/>
           <Route exact path="/hod/adp" component={ADP_Admissions}/>
+          <Route exact path="/ao/visiting" component={Visiting}/>
+          <Route exact path="/ao/bill" component={Bill}/>
+          <Route exact path="/ao/employee" component={Employee}/>
+          <Route exact path="/ao/employeebill" component={EmployeeBill}/>
           <Route exact path="/ao/dues" component={AO_Dues}/>
           <Route exact path="/ro/dues" component={RO_Dues}/>
           <Route exact path="/admin" component={Login}/>

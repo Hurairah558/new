@@ -104,7 +104,7 @@ button:hover{
 .Admission_Form_Select_Dept{
 	margin: 20px auto;
 	width: 300px;
-	margin-left: 7px;
+	/* margin-left: 7px; */
 	font-weight: bold;
 	border: 1px solid ;
 	border-radius: 5px;
@@ -116,6 +116,36 @@ button:hover{
 	font-weight: bold;
 }
 
+.bill{
+	margin: 20px auto;
+	width: 300px;
+	margin-left: 7px;
+	font-weight: bold;
+	border: 1px solid ;
+	border-radius: 5px;
+}
+
+.bill_p{
+	margin-left: 20px;
+	transition: .1s ease-in;
+	margin-bottom: -15px;
+	font-weight: bold;
+}
+.bill_Input{
+	width: 300px;
+	height: 20px;
+	background: #ffffff;
+	justify-content: center;
+	display: flex;
+	font-weight: bold;
+	margin: 20px auto;
+	margin-left: 20px;
+	padding: 20px;
+	/* outline:#000; */
+	border: 1px solid ;
+	border-radius: 5px;
+	transition: .2s ease-in;
+}
 .error{
 	margin:auto;
 }
