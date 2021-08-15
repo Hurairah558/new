@@ -6,22 +6,24 @@ import Header from'../../Fixed Components/Header';
 import { useLocation } from 'react-router-dom';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function AssignCourses() {
 
     const login = JSON.parse(localStorage.getItem("HOD"))
 
-    const [op, setop] = useState(1)
-
     const Location = useLocation()
+
+    const [message, setmessage] = useState("")
+
+    const [op, setop] = useState(1)
 
     const [formdata,setformdata] = useState({
         Department : login!=null?login.Department:"",
@@ -52,10 +54,6 @@ function AssignCourses() {
         setAssignedCourses(AssignedCourses + String(formdata.Course_Code) + String(":") + String(formdata.Course_Title) + String(","))
         }
     }
-
-    const Reset = () => {
-        setAssignedCourses("")
-    }
     
     var Course_Title = [
 		
@@ -76,8 +74,11 @@ function AssignCourses() {
       const [validate,setvalidate] = useState("")
 
       const set=(e) => {
+        setop(0.8)
         if(AssignedCourses===""){
             setvalidate("No Course Selected")
+            setmodal(true)
+			    setop(1)
         }
         else{
           e.preventDefault()
@@ -96,14 +97,46 @@ function AssignCourses() {
                   Matric_Percentage : "",
                   Inter_Percentage : ""
                 })
+                setmodal(true)
+			    setop(1)
               })
-            .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
+              .catch((err)=>{
+                setmessage("Something Went Wrong! Please Try Again After Sometime")
+			    setop(1)
+            })
         }
       }
+
+      const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
+      if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>	
             <div className="Student">
                 <div className="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -130,16 +163,9 @@ function AssignCourses() {
                                 </div>
 
                                 <div className="col-md-3">
-                                    <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Reset}> Reset </MDBBtn>
+                                    <MDBBtn gradient="blue"style={{marginTop:20}} onClick={set} >Assign</MDBBtn>
                                 </div>
                             </div>
-                            <hr/>
-                            <div className="row">
-                                <div className="col-md-12 d-flex justify-content-center">
-                                    <button style={{border:'none',background:"transparent",marginTop:15}} onClick={set} > <Modals validate={validate} /> </button>
-                                </div>
-                            </div>
-                            <hr/>
                             {AssignedCourses!=""?
                             <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
                                 <MDBRow>

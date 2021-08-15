@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios';
-import { Redirect } from "react-router-dom";
+import { Redirect ,Link} from "react-router-dom";
 import Headers from '../../Fixed Components/Header';
 import { Header, Modal , Table} from 'semantic-ui-react';
 import Select from 'react-select';
 import Footer from '../../Footer/Footer';
+import { Export } from '../../Export';
 import { 
     MDBRow,
     MDBCol,
@@ -101,6 +102,11 @@ const Students = () => {
                                     <hr/>
                                         <Select style className="Admission_Form_Select w-100" onChange={changeselect} name="Years" placeholder="Year Of Admission" options={Years} required />
                                     <hr/>
+                                    <div className="row">
+                                        <div className="col-md-12 d-flex justify-content-center">
+                                            <Export csvData={data} fileName={"Students"} />
+                                        </div>
+                                    </div>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -132,12 +138,12 @@ const Students = () => {
                                             return (
                                                 <tr key={index}>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
-                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><img width="50" height="56" src={`http://localhost:3001/image/${student.image}`} alt="Logo" /></td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><img width="56" height="56" src={`http://localhost:3001/image/${student.image}`} alt="Logo" /></td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
                                                     <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
-                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student}/></td>
+                                                    <td style={{fontWeight:'bold',textAlign:'center'}}><Link to={{pathname:"/hod/student/profile",state:{student}}}><MDBBtn gradient="blue" >View</MDBBtn></Link></td>
                                                 </tr>
                                         )})}
                                     </tbody>

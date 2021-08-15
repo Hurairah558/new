@@ -1,18 +1,17 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react';
-import { Button, Modal , Table} from 'semantic-ui-react';
 import Select from "react-select";
 import Header from'../../Fixed Components/Header';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function AssignCourses() {
 
@@ -94,8 +93,11 @@ function AssignCourses() {
       const [validate,setvalidate] = useState("")
 
       const set=(e) => {
+        setop(0.8)
             if(AssignedCourses===""){
                 setvalidate("No Course Selected")
+                setmodal(true)
+			    setop(1)
             }
             else{
           e.preventDefault()
@@ -115,12 +117,22 @@ function AssignCourses() {
                   Matric_Percentage : "",
                   Inter_Percentage : ""
                 })
+                setmodal(true)
+			    setop(1)
               })
               .catch((err)=>{
                 setmessage("Something Went Wrong! Please Try Again After Sometime")
+			    setop(1)
             })
         }
       }
+
+      const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
 
       if(message!=""){
         return (
@@ -134,6 +146,17 @@ function AssignCourses() {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>	
             <div className="Student">
                 <div className="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -170,7 +193,7 @@ function AssignCourses() {
                                         </div>
                                     
                                         <div className="col-md-3">
-                                            <button onClick={set} style={{border:'none',background:"transparent",marginTop:15}}> <Modals validate={validate} /> </button>
+                                            <MDBBtn gradient="blue" onClick={set} style={{marginTop:20}}> Assign </MDBBtn>
                                         </div>
                                     </div>
                                     <hr/>
@@ -220,24 +243,3 @@ function AssignCourses() {
 }
 
 export default AssignCourses;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue"><b>Assign</b></MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 style={{marginLeft:"100px"}}>{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

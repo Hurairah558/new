@@ -30,7 +30,7 @@ function AssignCourses() {
         Position : ""
     })
 
-    const [AssignedROA, setAssignedROA] = useState(JSON.stringify(login).includes("HOD")?Location.state.ROA:"")
+    const [AssignedROA, setAssignedROA] = useState(JSON.stringify(login).includes("HOD")?Location.state.ROA==null?"":Location.state.ROA:"")
 
     useEffect(()=>{
         window.scrollTo(0, 0)

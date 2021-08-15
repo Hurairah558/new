@@ -20,7 +20,7 @@ const FooterPagePro = () => {
             </h6>
             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
             <p>
-            <b>Dr. Nawaz</b>
+            <b>Name ---</b>
             </p>
           </MDBCol>
           <MDBCol md="3" lg="3" xl="3" className="mb-4">
@@ -29,7 +29,7 @@ const FooterPagePro = () => {
             </h6>
             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
             <p>
-            <b>Ahsan Ilyas</b>
+            <b>Name ---</b>
             </p>
           </MDBCol>
           <MDBCol md="3" lg="3" xl="3" className="mb-4">
@@ -38,7 +38,7 @@ const FooterPagePro = () => {
             </h6>
             <hr className="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style={{ width: "60px" }} />
             <p>
-            <b>Sardar</b>
+            <b>Name ---</b>
             </p>
           </MDBCol>
           <MDBCol md="3" lg="3" xl="3" className="mb-4">

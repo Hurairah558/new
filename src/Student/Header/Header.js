@@ -91,6 +91,9 @@ const Header = () => {
             <MDBNavbarToggler onClick={toggleCollapse} />
             <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
             <MDBNavbarNav left>
+                <MDBNavItem>
+                    <MDBNavLink to="/"><b>Home</b></MDBNavLink>
+                </MDBNavItem>
                 { login!=null?
                 <MDBNavItem>
                     <MDBNavLink to="/student/profile"><b>Profile</b></MDBNavLink>

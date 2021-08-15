@@ -11,13 +11,19 @@ import {
 	MDBCard,
 	MDBCardBody,
 	MDBView,
-	MDBBtn
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function Admission_Form() {
 
 	const [Loading, setLoading] = useState(true)
 
 	const [open, setopen] = useState(false)
+
+	const [op, setop] = useState(1)
+
+	const [messages, setmessages] = useState("")
 
 	const [message, setmessage] = useState("Admission Closed")
 
@@ -30,6 +36,7 @@ function Admission_Form() {
 		})
 		.catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
+			setmessages("Something Went Wrong! Please Try Again After Sometime")
 			setLoading(false)
 		})
 	})
@@ -263,19 +270,20 @@ function Admission_Form() {
 		ADP_Total_Marks : "",
 		ADP_Obtained_Marks : "",
 		ADP_Year : "",
-		ADP_Board : "",
+		ADP_Board : ""
 	  });
 
-	//   const result = (e)=> {
+	//   const check = (e)=> {
 
-	// 	var config = {
-	// 		headers: {'User-Agent': 'http://www.bisegrw.edu.pk'}
-	// 	};
+	// 	var xm = new XMLHttpRequest()
 
-	// 	  axios.post("http://www.bisegrw.edu.pk/result-card-matric.html",{year:2017,class:12,rno:133710},{headers: { 'User-Agent': 'http://www.bisegrw.edu.pk' }}
-	// 	  ).then((res)=>{
-	// 		console.log(res)
-	// 	  })
+	// 	xm.open("POST","https://cors-anywhere.herokuapp.com/http://www.bisegrw.edu.pk/result-card-matric.html")
+	// 	xm.send()
+
+	// 	//   axios.post("https://cors-anywhere.herokuapp.com/http://www.bisegrw.edu.pk/result-card-matric.html",{year:2017,class:12,rno:133710}
+	// 	//   ).then((res)=>{
+	// 	// 	console.log(res)
+	// 	//   })
 	//   }
 
 	  const [file, setfile] = useState(null)
@@ -299,14 +307,30 @@ function Admission_Form() {
 			  })
 	  }
 
+
+	  const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
+
 	  const imagesub = (e) => {
 		e.preventDefault()
+
+		setLoading(true)
+
+		setop(0.3)
+
 		if(file!=null){
 			var size = file.size
 		}
 		if (size>100000){
 			setvalidate("Image Size Should be less than 100KB")
-			alert("Image Size Should be less than 100KB")
+			setmodal(true)
+			setop(1)
+			setLoading(false)
 		}
 
 		else{
@@ -315,7 +339,10 @@ function Admission_Form() {
 		  .then((res)=>{
 			  if (res.data.message){
 			  	setvalidate(res.data.message)
-				  alert(res.data.message)
+				  setmodal(true)
+				  setop(1)
+				  setLoading(false)
+				  
 				  const formData = new FormData();
 					formData.append('image',file)
 					formData.append(String(formdata.image),file)
@@ -339,10 +366,15 @@ function Admission_Form() {
 			  }
 			  else{
 				setvalidate(res.data)
-				alert(res.data)
+				setmodal(true)
+				  setop(1)
+				  setLoading(false)
 			  }
 			})
-		  .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
+		  .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")
+		  setmessages("Something Went Wrong! Please Try Again After Sometime")
+		  setLoading(false)
+		})
 		}
 	
 }
@@ -373,28 +405,33 @@ function Admission_Form() {
 		  [e.Name] : e.value
 		})
 	  }
-  
-	  const set = (e) => {
-		e.preventDefault()
-		  axios.post("http://localhost:3001/api/student/addmissonform",formdata)
-		  .then((res)=>{
-			  if (res.data.message){
-			  	setvalidate(res.data.message)
-				  alert(res.data.message)
-			  }
-			  else{
-				setvalidate(res.data)
-				alert(res.data)
-			  }
-			})
-		  .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")})
-	  }
+
+	  if(messages!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
   return (
     <React.Fragment>
 		<Header/>
-		<div className="Student">
-			<div class="container">
+		<MDBContainer>
+			<MDBModal isOpen={modal} centered>
+				<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+				<MDBModalBody onClick={toggle}>
+					<h3><b>{validate}</b></h3>
+				</MDBModalBody>
+				<MDBModalFooter>
+				<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+				</MDBModalFooter>
+			</MDBModal>
+		</MDBContainer>
+		<div className="Student" style={{opacity:op}}>
+			<div className="container">
+				{/* <button onClick={check}>check</button> */}
 				<MDBCard cascade narrow>
 					<MDBRow>
 					<MDBCol md='12'>
@@ -406,24 +443,22 @@ function Admission_Form() {
 						</MDBView>
 						<MDBCardBody>
 
-						{/* <button onClick={result}>Result</button> */}
-
 						<div className="container">
 						{!Loading?
 							open?
 								<form  role="form" method="post" onSubmit={imagesub} encType="multipart/form-data">
 									<div className="row">
-										<div className="col-md-4">	
+										<div className="col-md-4">
 											<p className="Admission_Select_p">Fresh / ADP <span className="text-danger">*</span></p>
-											<Select className="Admission_Form_Select_Dept" onChange={changeselects} name="Fresh_ADP" placeholder="Fresh / ADP" options={Fresh_ADP} required />							
+											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselects} name="Fresh_ADP" placeholder="Fresh / ADP" options={Fresh_ADP} required />							
 										</div>
 										<div className="col-md-4">	
 											<p className="Admission_Select_p">BS Department <span className="text-danger">*</span></p>
-											<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required/>							
+											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required/>							
 										</div>
 										<div className="col-md-4">	
 											<p className="Admission_Select_p">Shift <span className="text-danger">*</span></p>
-											<Select className="Admission_Form_Select_Dept" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required/>							
+											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required/>							
 										</div>
 									</div>
 									<MDBCard style={{marginTop:30}} cascade narrow>
@@ -452,26 +487,7 @@ function Admission_Form() {
 																		<p className="Admission_p">Gender <span className="text-danger">*</span></p>
 																		<Select className="Admission_Form_Select" onChange={changeselect} name="Gender" placeholder="Male/Female" options={Gender} required/>
 																	</div>
-																	{/* <div className="col-md-3">
-																		<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
-																		<img src={img} height="120" width="120" alt="GMC" />
-																		<input style={{marginTop:30}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
-																	</div> */}
 																</div>
-															
-																{/* <div className="row">
-																	<div className="col-md-3">
-																	</div>
-																	<div className="col-md-3">
-																	</div>
-																	<div className="col-md-3">
-																	</div>
-																	<div className="col-md-3">
-																		<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
-																		<img src={img} height="120" width="120" alt="GMC" />
-																		<input style={{marginTop:30}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
-																	</div>
-																</div> */}
 																<div className="row">
 																	<div className="col-md-4">
 																		<p className="Admission_p">CNIC / B-Form <span className="text-danger">*</span></p>
@@ -510,9 +526,9 @@ function Admission_Form() {
 																</div>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Upload Picture <span className="text-danger">*</span></p>
+																<p className="Admission_p ml-2">Upload Picture <span className="text-danger">*</span></p>
 																<img style={{marginTop:20}} src={img} height="120" width="120" alt="GMC" />
-																<input style={{marginTop:10}} type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
+																<input style={{marginTop:10,color:"white"}} className="ml-3" type="file" name="image" accept="image/*" multiple={false} onChange={imageHandler} required/>
 															</div>
 														</div>
 													</div>
@@ -534,23 +550,23 @@ function Admission_Form() {
 														<div className="row">
 															<div className="col-md-3">
 																<p className="Admission_p">Roll <span className="text-danger">*</span></p>
-																<input type="number" name="Matric_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Matric Roll #" required/>
+																<input type="number" name="Matric_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Roll #" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Total Marks <span className="text-danger">*</span></p>
-																<input type="number" name="Matric_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Matric" required/>
+																<input type="number" name="Matric_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Obtained Marks <span className="text-danger">*</span></p>
-																<input type="number" name="Matric_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Matric" required/>
+																<input type="number" name="Matric_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Passing Year <span className="text-danger">*</span></p>
-																<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Matric Year" required/>
+																<input type="number" name="Matric_Year" onChange={change} className="Admission_Form_Input" placeholder="Passing Year" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Matric Board <span className="text-danger">*</span></p>
-																<input name="Matric_Board" onChange={change} className="Admission_Form_Input" placeholder="Matric Board" required/>
+																<p className="Admission_p">Board <span className="text-danger">*</span></p>
+																<input name="Matric_Board" onChange={change} className="Admission_Form_Input" placeholder="Board" required/>
 															</div>
 														</div>
 													</div>
@@ -572,23 +588,23 @@ function Admission_Form() {
 														<div className="row">
 															<div className="col-md-3">
 																<p className="Admission_p">Roll <span className="text-danger">*</span></p>
-																<input type="number" name="Inter_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Inter Roll #" required/>
+																<input type="number" name="Inter_Roll" onChange={change} className="Admission_Form_Input" placeholder="Your Roll #" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Total Marks <span className="text-danger">*</span></p>
-																<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks in Inter" required/>
+																<input type="number" name="Inter_Total_Marks" onChange={change} className="Admission_Form_Input" placeholder="Total Marks" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Obtained Marks <span className="text-danger">*</span></p>
-																<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks in Inter" required/>
+																<input type="number" name="Inter_Obtained_Marks" onChange={change} className="Admission_Form_Input" placeholder="Obtained Marks" required/>
 															</div>
 															<div className="col-md-3">
 																<p className="Admission_p">Passing Year <span className="text-danger">*</span></p>
-																<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Inter Year" required/>
+																<input type="number" name="Inter_Year" onChange={change} className="Admission_Form_Input" placeholder="Passing Year" required/>
 															</div>
 															<div className="col-md-3">
-																<p className="Admission_p">Inter Board <span className="text-danger">*</span></p>
-																<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Inter Board" required/>
+																<p className="Admission_p">Board <span className="text-danger">*</span></p>
+																<input className="Admission_Form_Input" onChange={change} name="Inter_Board" placeholder="Board" required/>
 															</div>
 															{!isADP?
 															<>
@@ -665,25 +681,3 @@ function Admission_Form() {
   );
 }
 export default Admission_Form;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" style={{paddingLeft:50,paddingRight:50}}><b>Submit Form</b></MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

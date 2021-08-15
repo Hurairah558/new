@@ -5,15 +5,16 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
 import { Table , Button, Modal} from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
+import {Export} from '../../Export';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 const MeritListData = () => {
     
@@ -56,6 +57,7 @@ const MeritListData = () => {
     })
 
     useEffect(()=>{
+        setop(0.8)
         axios.post("http://localhost:3001/hod/meritlistcurrent2",{Department:login!=null?login.Department:""}).then((res)=>{
             setCurrentData(res.data.data[0])
                 axios.post("http://localhost:3001/hod/meritlist2",filter).then((res)=>{
@@ -63,8 +65,10 @@ const MeritListData = () => {
                 }).catch((err)=>{
                     setmessage("Something Went Wrong! Please Try Again After Sometime")
                 })
+			    setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
+			    setop(1)
         })
         axios.get("http://localhost:3001/api/hod/admissions/years").then((res)=>{
             setYear(res.data.data)
@@ -116,6 +120,7 @@ const MeritListData = () => {
     const [validate,setvalidate] = useState("")
 
     const Apply_MeritList =()=>{
+        setop(0.8)
         axios.post("http://localhost:3001/hod/meritlistcontroller2",{formData}).then((res)=>{
                 if (res.data.message){
                     setvalidate(res.data.message)
@@ -124,8 +129,11 @@ const MeritListData = () => {
                   setvalidate(res.data)
                 }
                 update_data()
+                setmodal(true)
+			    setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
+			    setop(1)
         })
     }
 
@@ -153,11 +161,14 @@ const MeritListData = () => {
     }
 
     const toggles=(t,id)=>{
+        setop(0.8)
         let Status = t
         axios.put(`http://localhost:3001/api/students/status/${id}`,{Statuss:Status}).then((res=>{
             update_data()
+			    setop(1)
         })).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
+			    setop(1)
         })
     }
 
@@ -180,6 +191,13 @@ const MeritListData = () => {
         { value: "False", label: "False", Name : "Display" },
     ]
 
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
     if(message!=""){
         return (
             <React.Fragment>
@@ -192,6 +210,17 @@ const MeritListData = () => {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>	
             <div className="Student">
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -220,7 +249,7 @@ const MeritListData = () => {
                                     </div>
                                     <div className="row">
                                     <div className="col-md-12">
-                                            <button style={{margin:'auto',display:'block',border:'none',background:"transparent",marginTop:10}} onClick={Apply_MeritList} ><Modals validate={validate} /></button>
+                                            <MDBBtn gradient="blue" style={{margin:'auto',display:'block',marginTop:20}} onClick={Apply_MeritList} >Generate Merit List</MDBBtn>
                                         </div>
                                     </div>
                                 </MDBCardBody>
@@ -251,7 +280,7 @@ const MeritListData = () => {
                                         <tr>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.MeritList}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Department}</b></td>
-                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Morning</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Evening</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.NOS_Start} to {CurrentData.NOS_End}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Display==1?"True":"False"}</b></td>
                                         </tr>
@@ -294,6 +323,11 @@ const MeritListData = () => {
                             <h4 className='h4-responsive mb-0 font-weight-bold'>{login.Department} &nbsp;&nbsp;&nbsp;{data.length>0?data[0].Shift:""} &nbsp;&nbsp;&nbsp; Merit List &nbsp;&nbsp;&nbsp; {data.length>0?data[0].Year:""}</h4>
                         </MDBView>
                             <MDBCardBody>
+                                <div className="row">
+                                    <div className="col-md-12 d-flex justify-content-center mb-4">
+                                        <Export csvData={data.slice(CurrentData.NOS_Start-1,CurrentData.NOS_End)} fileName={"Students"} />
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div className="col-md-12">
                                         <table className="table table-hover table-bordered">
@@ -302,8 +336,13 @@ const MeritListData = () => {
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ID</th>
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
-                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>CNIC</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>MTM</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>MOM</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>MB</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ITM</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>IOM</th>
+                                                    <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>IB</th>
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Merit</th>
                                                     <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Move to</th>
                                                 </tr>
@@ -315,8 +354,13 @@ const MeritListData = () => {
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{index+1}</b></td>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.id}</b></td>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
-                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}>{student.CNIC}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Matric_Total_Marks}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Matric_Obtained_Marks}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Matric_Board}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Inter_Total_Marks}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Inter_Obtained_Marks}</td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Inter_Board}</td>
                                                             <td style={{fontWeight:'bold',textAlign:'center'}}>{parseFloat(student.merit).toFixed(2)} %</td>
                                                             {
                                                                 <td style={{fontWeight:'bold',textAlign:'center'}}>
@@ -345,25 +389,3 @@ const MeritListData = () => {
 }
 
 export default MeritListData;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" ><b>Generate Merit List</b></MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

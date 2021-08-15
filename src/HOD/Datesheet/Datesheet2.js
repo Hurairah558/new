@@ -5,14 +5,14 @@ import Select from "react-select";
 import Footer from '../../Footer/Footer';
 import { Table, Modal  } from 'semantic-ui-react';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 
 function Datesheet() {
@@ -226,6 +226,7 @@ function Datesheet() {
                 }
                 update()
                 setop(1)
+                setmodal(true)
                 setloading(false)
                 })
                 .catch((err)=>{
@@ -234,6 +235,13 @@ function Datesheet() {
                     setop(1)
                 })
           }
+
+    const [modal, setmodal] = useState(false);
+
+
+    const toggle = (state) =>{
+    setmodal(!modal)
+    }
 
     if(message!=""){
         return (
@@ -247,48 +255,59 @@ function Datesheet() {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
             <div className="Student">
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
-                        <MDBRow>
-                            <MDBCol md='12'>
-                            <MDBView
-                                cascade
-                                className='gradient-card-header light-blue lighten-1'
-                            >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>Generate Datesheet</h4>
-                            </MDBView>
-                                <MDBCardBody>
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor's Department" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
-                                        </div>
-                                        <div className="col-md-3">
-                                            <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
-                                        </div>
+                    <MDBRow>
+                        <MDBCol md='12'>
+                        <MDBView
+                            cascade
+                            className='gradient-card-header light-blue lighten-1'
+                        >
+                            <h4 className='h4-responsive mb-0 font-weight-bold'>Generate Datesheet</h4>
+                        </MDBView>
+                            <MDBCardBody>
+                                <div className="row">
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Title}  name="Course_Title" placeholder="Course Title" required />
                                     </div>
-                                </MDBCardBody>
-                            </MDBCol>
-                        </MDBRow>
-                    </MDBCard>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Time_Slot}  name="Time_Slot" placeholder="Time Slot" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                                    </div>
+                                    <div className="col-md-3">
+                                        <MDBBtn gradient="blue" style={{marginTop:20}} onClick={send} >Generate Datesheet</MDBBtn>
+                                    </div>
+                                </div>
+                            </MDBCardBody>
+                        </MDBCol>
+                    </MDBRow>
+                </MDBCard>
                     
                     <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
                         <MDBRow>
@@ -371,25 +390,3 @@ function Datesheet() {
 }
 
 export default Datesheet;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" >Generate Datesheet</MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

@@ -6,14 +6,14 @@ import Select from 'react-select';
 import { Button, Modal , Table } from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function AddInstructor() {
 
@@ -52,8 +52,10 @@ function AddInstructor() {
     }
 
 	const Delete =(id)=>{
+		setop(0.8)
         axios.delete(`http://localhost:3001/api/hod/instructors/${id}`).then((res)=>{
             update()
+			setop(1)
         }).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
 		})
@@ -70,6 +72,7 @@ function AddInstructor() {
     const [validate,setvalidate] = useState("")
 
 	const Add = (e) => {
+		setop(0.8)
 		e.preventDefault()
 		axios.post("http://localhost:3001/api/hod/addinstructor",formData).then((res)=>{
 			if (res.data.message){
@@ -79,9 +82,12 @@ function AddInstructor() {
 			  setvalidate(res.data)
 			}
 			update()
+			setmodal(true)
+			setop(1)
 		})
 		.catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
+			setop(1)
 		})
 	}
 
@@ -92,6 +98,13 @@ function AddInstructor() {
 		{ value: 'Lecturer', label: 'Lecturer', Name : "Designation" },
 		{ value: 'CTI', label: 'CTI', Name : "Designation" }
 	]
+
+	const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
 
 	if(message!=""){
         return (
@@ -104,31 +117,42 @@ function AddInstructor() {
 
     return (
         <React.Fragment>
-            <Header/>			
-			<div className="d-flex justify-content-center" >
-				<div className="d-flex justify-content-center">
-					<div id="Login_Form" className="align-bottom">
+            <Header/>	
+			<MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>		
+			<div className="d-flex justify-content-center" style={{opacity:op}} >
+				<div className="d-flex justify-content-center" style={{opacity:op}}>
+					<div id="Login_Form" className="align-bottom" style={{opacity:op}}>
 						<div className="signup">
-							<form>
+							<form onSubmit={Add} style={{opacity:op}}>
 								<label name="chk" className="Login_Labels" aria-hidden="true">Add Instructor</label>
 								<div className="row">
 									<div className="col-md-12">
-										<input className="Login_inputs" onChange={change} type="text" name="Name" placeholder="Name" value={formData.Full_Name} required=""/>
+										<input className="Login_inputs" onChange={change} type="text" name="Name" placeholder="Name" value={formData.Full_Name} required/>
 									</div>
 									<div className="col-md-12">
-										<input className="Login_inputs" onChange={change} type="text" name="Email" placeholder="Email" value={formData.Email} required=""/>
+										<input className="Login_inputs" onChange={change} type="text" name="Email" placeholder="Email" value={formData.Email} required/>
 									</div>
 									<div className="col-md-12 d-flex justify-content-center">
 										<Select className="Admission_Form_Select_Instrcutor" onChange={changeselect} name="Designation" placeholder="Designation" options={Designation} required />
 									</div>
 									<div className="col-md-12">
-										<input className="Login_inputs" onChange={change} type="text" name="Username" placeholder="Username" value={formData.Username} required=""/>
+										<input className="Login_inputs" onChange={change} type="text" name="Username" placeholder="Username" value={formData.Username} required/>
 									</div>
 									<div className="col-md-12">
-										<input className="Login_inputs" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required=""/>
+										<input className="Login_inputs" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required/>
 									</div>
 								</div>
-								<button style={{marginTop:10}} className="Login_Button" onClick={Add} ><Modals validate={validate} /></button>
+								<button style={{marginTop:10}} type="submit" className="Login_Button" >Add Instructor</button>
 							</form>
 						</div>
 					</div>

@@ -4,14 +4,14 @@ import Header from '../../Fixed Components/Header';
 import { Button, Modal , Table } from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function AddCourses() {
 
@@ -55,8 +55,10 @@ function AddCourses() {
     }
 
     const Delete =(id)=>{
+        setop(0.8)
         axios.delete(`http://localhost:3001/api/hod/courses/${id}`).then((res)=>{
             update()
+			setop(1)
         }).catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
 		})
@@ -66,7 +68,7 @@ function AddCourses() {
     const [validate,setvalidate] = useState("")
 
     const set=(e) => {
-
+        setop(0.8)
         e.preventDefault()
         axios.post("http://localhost:3001/api/hod/addcourses",formdata)
         .then((res)=>{
@@ -77,12 +79,22 @@ function AddCourses() {
             setvalidate(res.data)
             }
             update()
+            setmodal(true)
+			setop(1)
         })
         .catch((err)=>{
 			setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setop(1)
 		})
         update()
     }
+
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
 
     if(message!=""){
         return (
@@ -96,6 +108,17 @@ function AddCourses() {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
             <div className="Student">
                 <div className="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -108,19 +131,20 @@ function AddCourses() {
                                     <h4 className='h4-responsive mb-0 font-weight-bold'>Add Courses</h4>
                                 </MDBView>
                                 <MDBCardBody>
-                                    <div className="row">
-                                        <div className="col-md-3 ml-4">
-                                            <input className="Admission_Form_Input" onChange={change} type="text" name="Course_Title" value={formdata.Course_Title} placeholder="Course Title" required=""/>
+                                    <form onSubmit={set}>
+                                        <div className="row">
+                                            <div className="col-md-3 ml-4">
+                                                <input className="Admission_Form_Input" onChange={change} type="text" name="Course_Title" value={formdata.Course_Title} placeholder="Course Title" required/>
+                                            </div>
+                                        
+                                            <div className="col-md-3">
+                                                <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} type="text" name="Course_Code" value={formdata.Course_Code} placeholder="Course Code" required/>
+                                            </div>
+                                            <div className="col-md-3">
+                                                <MDBBtn gradient="blue" type="submit" style={{width:"100px",marginTop:20}} > Add </MDBBtn>
+                                            </div>
                                         </div>
-                                    
-                                        <div className="col-md-3">
-                                            <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} type="text" name="Course_Code" value={formdata.Course_Code} placeholder="Course Code" required=""/>
-                                        </div>
-                                    
-                                        <div className="col-md-3">
-                                            <button className="Admission_Form_button" onClick={set} style={{width:"100px"}} > <Modals validate={validate} /> </button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -176,24 +200,3 @@ function AddCourses() {
 }
 
 export default AddCourses;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-        style={{height:"18%",margin:"auto"}}
-		trigger={<Button style={{background:"transparent",color:"white",width:"100%"}} >Add</Button>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

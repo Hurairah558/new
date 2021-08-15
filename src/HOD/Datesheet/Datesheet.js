@@ -3,16 +3,15 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Footer from '../../Footer/Footer';
-import { Table, Modal  } from 'semantic-ui-react';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 
 function Datesheet() {
@@ -226,6 +225,7 @@ function Datesheet() {
                 }
                 update()
                 setop(1)
+                setmodal(true)
                 setloading(false)
                 })
                 .catch((err)=>{
@@ -234,6 +234,13 @@ function Datesheet() {
                     setop(1)
                 })
           }
+
+    const [modal, setmodal] = useState(false);
+
+
+    const toggle = (state) =>{
+    setmodal(!modal)
+    }
 
     if(message!=""){
         return (
@@ -247,6 +254,17 @@ function Datesheet() {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
             <div className="Student">
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -267,7 +285,7 @@ function Datesheet() {
                                         <Select className="Admission_Form_Select" onChange={changeselect} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
                                     </div>
                                     <div className="col-md-3">
-                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor's Department" required />
+                                        <Select className="Admission_Form_Select" onChange={changeselect} options={Instructor_Department}  name="Instructor_Department" placeholder="Instructor Department" required />
                                     </div>
                                     <div className="col-md-3">
                                         <Select className="Admission_Form_Select" onChange={changeselect} options={Instructorss}  name="Instructor" placeholder="Instructor" required />
@@ -282,7 +300,7 @@ function Datesheet() {
                                         <Select className="Admission_Form_Select" onChange={changeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
                                     </div>
                                     <div className="col-md-3">
-                                        <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
+                                        <MDBBtn gradient="blue" style={{marginTop:20}} onClick={send} >Generate Datesheet</MDBBtn>
                                     </div>
                                 </div>
                             </MDBCardBody>
@@ -371,25 +389,3 @@ function Datesheet() {
 }
 
 export default Datesheet;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" >Generate Datesheet</MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

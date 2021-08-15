@@ -6,15 +6,15 @@ import { Button, Modal } from 'semantic-ui-react';
 import { useLocation } from 'react-router-dom';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
     MDBIcon,
-    MDBSpinner 
-  
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function AddStudent() {
 
@@ -175,11 +175,10 @@ function AddStudent() {
     })
 }
 
-console.log(formdata)
-
 	const [validate,setvalidate] = useState("")
   
 	  const set = (e) => {
+        setop(0.3)
 		e.preventDefault()
 		  axios.put(`http://localhost:3001/api/hod/edit/time`,formdata)
 		  .then((res)=>{
@@ -189,16 +188,46 @@ console.log(formdata)
 			  else{
 				setvalidate(res.data)
 			  }
+              setop(1)
+                setmodal(true)
 			})
             .catch((err)=>{
                 setmessage("Something Went Wrong! Please Try Again After Sometime")
+                setop(1)
             })
 	  }
+
+    const [modal, setmodal] = useState(false);
+
+
+    const toggle = (state) =>{
+    setmodal(!modal)
+    }
+
+    if(message!=""){
+        return (
+            <React.Fragment>
+                <Header/>
+                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+            </React.Fragment>
+        )
+    }
 
   return (
     <React.Fragment>
 		<Header/>
-		<div className="Student">
+        <MDBContainer>
+            <MDBModal isOpen={modal} centered>
+                <MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+                <MDBModalBody onClick={toggle}>
+                    <h3><b>{validate}</b></h3>
+                </MDBModalBody>
+                <MDBModalFooter>
+                <MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+                </MDBModalFooter>
+            </MDBModal>
+        </MDBContainer>
+		<div className="Student" style={{opacity:op}}>
             <div className="container">
                 <MDBCard style={{opacity:op}} style={{marginTop:30}} cascade narrow>
                     <MDBRow>
@@ -242,7 +271,7 @@ console.log(formdata)
                                         <Select className="Admission_Form_Select" defaultInputValue={Location.state!=undefined?Location.state.Room_no:""} onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
                                     </div>
                                     <div className="col-md-3">
-                                        <button style={{border:'none',background:"transparent",marginTop:15}} onClick={set} ><Modals validate={validate} /></button>
+                                        <MDBBtn gradient="blue" style={{marginTop:20}} onClick={set} >Edit Time Table</MDBBtn>
                                     </div>
                                 </div>
                             </MDBCardBody>
@@ -256,25 +285,3 @@ console.log(formdata)
   );
 }
 export default AddStudent;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" ><b>Edit Time Table</b></MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

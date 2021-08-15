@@ -2,19 +2,18 @@ import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import Select from "react-select";
 import Header from '../../Fixed Components/Header';
-import { Table , Button, Modal  } from 'semantic-ui-react';
 import { Link } from "react-router-dom";
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
     MDBIcon,
-    MDBSpinner 
-  
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 
 const TimeTable_Generate = () => {
@@ -52,10 +51,13 @@ const TimeTable_Generate = () => {
     }
 
     const Delete =(id)=>{
+        setop(0.3)
         axios.delete(`http://localhost:3001/api/hod/timetable/${id}`).then((res)=>{
             update()
+            setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setop(1)
         })
     }
 
@@ -196,8 +198,10 @@ const TimeTable_Generate = () => {
 }
 
         const changeselects = (e) => {
+            setop(0.3)
             axios.post("http://localhost:3001/api/hod/timetable",{Department:login!=null?login.Department:"",Fall_Spring:e.value}).then((res)=>{
                 setdata(res.data.data)
+                setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
         })
@@ -206,7 +210,7 @@ const TimeTable_Generate = () => {
         const [validate,setvalidate] = useState("")
 
         const send = (e) => {
-
+            setop(0.3)
             e.preventDefault()
               axios.post(`http://localhost:3001/api/hod/timetablegenerate`,FormData)
               .then((res)=>{
@@ -216,14 +220,24 @@ const TimeTable_Generate = () => {
                 else{
                   setvalidate(res.data)
                 }
+                setop(1)
+                setmodal(true)
                 update()
                 })
                 .catch((err)=>{
                     setmessage("Something Went Wrong! Please Try Again After Sometime")
+                    setop(1)
                 })
           }
 
-        if(message!=""){
+    const [modal, setmodal] = useState(false);
+
+
+    const toggle = (state) =>{
+    setmodal(!modal)
+    }
+      
+    if(message!=""){
         return (
             <React.Fragment>
                 <Header/>
@@ -235,7 +249,18 @@ const TimeTable_Generate = () => {
     return (
         <React.Fragment>
             <Header/>
-            <div className="Student">
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
+            <div className="Student" style={{opacity:op}}>
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
                         <MDBRow>
@@ -279,7 +304,7 @@ const TimeTable_Generate = () => {
                                             <Select className="Admission_Form_Select" onChange={changeselect} options={Room_no}  name="Room_no" placeholder="Room No." required />
                                         </div>
                                         <div className="col-md-3">
-                                            <button style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
+                                            <MDBBtn gradient="blue" style={{marginTop:20}} onClick={send} >Generate Time Table</MDBBtn>
                                         </div>
                                     </div>
                                 </MDBCardBody>
@@ -369,25 +394,3 @@ const TimeTable_Generate = () => {
 }
 
 export default TimeTable_Generate;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" ><b>Generate Time Table</b></MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 className="d-flex justify-content-center">{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-				<hr/>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }

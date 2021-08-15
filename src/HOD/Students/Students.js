@@ -87,12 +87,17 @@ const Students = () => {
             setdata(res.data.data)
             setloading(false)
             setmtoggle("")
-            axios.get("http://localhost:3001/api/alll/students").then((res)=>{
-                setseach(res.data.data)
-            }).catch((err)=>{
-                setmessage("Something Went Wrong! Please Try Again After Sometime")
-                setloading(false)
+            setop(1)
+
+        }).catch((err)=>{
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+            setloading(false)
         })
+        axios.post("http://localhost:3001/api/hod/students/search",{Department:login!=null?login.Department:""}).then((res)=>{
+            setseach(res.data.data)
+            setloading(false)
+            setmtoggle("")
+            setop(1)
 
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
@@ -153,7 +158,7 @@ const Students = () => {
 		
 	]
 
-    seach.filter((student)=>student.Department==login!=null?login.Department:"").map((Stu)=>{
+    seach.map((Stu)=>{
         Names.push( { value: Stu.Full_Name, label: Stu.Full_Name, Name : "Names" })
     })
 
@@ -161,14 +166,14 @@ const Students = () => {
 		
 	]
 
-    seach.filter((student)=>student.Department==login!=null?login.Department:"").map((Stu)=>{
+    seach.filter((student)=>student.Roll!="").map((Stu)=>{
         Roll.push( { value: Stu.Roll, label: Stu.Roll, Name : "Roll" })
     })
 
     
 
     const changeselect = (e) => {
-
+        setop(0.3)
         setfilter({
             ...filter,
             Names : "",
@@ -178,6 +183,7 @@ const Students = () => {
     }
 
     const seachbyroll = (e) => {
+        setop(0.3)
         setfilter({
             ...filter,
             Status:"",
@@ -193,6 +199,7 @@ const Students = () => {
     }
 
     const seachbyname = (e) => {
+        setop(0.3)
         setfilter({
             ...filter,
             Status:"",
@@ -326,15 +333,15 @@ const Students = () => {
                                                     <tr>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Sr#</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Image</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Role_Number</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Roll#</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Student's Name</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee_Status</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Add_Course</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Add Course</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Full Details</th>
-                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ROA</th>
+                                                        {/* <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ROA</th> */}
                                                         {/* <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th> */}
                                                     </tr>
                                                 </thead>
@@ -353,15 +360,15 @@ const Students = () => {
                                                             <td style={{color:"green"}} ><b>{student.Fee_Status}</b></td>
                                                         }
                                                         {
-                                                            <td>
+                                                            <td style={{fontWeight:'bold',textAlign:'center'}}>
                                                                 {student.Status==="Active"?
                                                                 <MDBBtn gradient="blue" onClick={()=>toggles(student.Status,student.id)}><b>{student.Status==="Inactive"?"Inactive":"Active"}</b></MDBBtn>:
                                                                 <MDBBtn outline color="primary"  onClick={()=>toggles(student.Status,student.id)}><b>{student.Status==="Inactive"?"Inactive":"Active"}</b></MDBBtn>}
                                                             </td>
                                                         }
                                                         <td><Link to={{pathname:"/hod/assigncourse",state:student}}><MDBBtn gradient="blue"><i class="fa fa-book" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        <td><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        <td><Link to={{pathname:"/hod/roa",state:student}}><MDBBtn gradient="blue"><i class="fa fa-trophy" aria-hidden="true"></i></MDBBtn></Link></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></td>
+                                                        {/* <td><Link to={{pathname:"/hod/roa",state:student}}><MDBBtn gradient="blue"><i class="fa fa-trophy" aria-hidden="true"></i></MDBBtn></Link></td> */}
                                                         {/* {
                                                             <td>
                                                                 {student.Degree_Status==="Continue"?
