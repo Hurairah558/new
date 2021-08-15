@@ -138,7 +138,7 @@ function Login () {
 								<input className="Login_input" onChange={change} type="Password" name="Password" placeholder="Password" value={formData.Password} required/>
 								{/* <div style={{background:"transparent"}} className="Login_Button" onClick={Login} ><Modals validate={validate} /></div> */}
 								<button type="submit" className="Login_Button" ><b>Login</b></button>
-								<Link to="/forget/password"> <p className="Login_p" >Forget Password ?</p></Link>
+								{/* <Link to="/forget/password"> <p className="Login_p" >Forget Password ?</p></Link> */}
 							</form>
 						</div>
 					</div>

@@ -353,7 +353,7 @@ const Students = () => {
                                                             <td style={{color:"green",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>
                                                         }
                                                         <td><Link to={{pathname:"/ro/dues",state:student}}><MDBBtn gradient="blue"><i class="fa fa-exclamation" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student} /></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><Link to={{pathname:"/ro/student/profile",state:{student}}}><MDBBtn gradient="blue" >View</MDBBtn></Link></td>
                                                     </tr>
                                             )})}
                                         </tbody>

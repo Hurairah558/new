@@ -182,9 +182,9 @@ function AssignCourses() {
                                             <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Add}> Add </MDBBtn>
                                         </div>
 
-                                        <div className="col-md-3">
+                                        {/* <div className="col-md-3">
                                             <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Reset}> Reset </MDBBtn>
-                                        </div>
+                                        </div> */}
                                     </div>
                                     <hr/>
                                     <div className="row ml-4">

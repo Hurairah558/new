@@ -319,8 +319,6 @@ function Admission_Form() {
 	  const imagesub = (e) => {
 		e.preventDefault()
 
-		setLoading(true)
-
 		setop(0.3)
 
 		if(file!=null){
@@ -332,6 +330,7 @@ function Admission_Form() {
 			setop(1)
 			setLoading(false)
 		}
+		
 
 		else{
 
@@ -341,7 +340,6 @@ function Admission_Form() {
 			  	setvalidate(res.data.message)
 				  setmodal(true)
 				  setop(1)
-				  setLoading(false)
 				  
 				  const formData = new FormData();
 					formData.append('image',file)
@@ -368,12 +366,10 @@ function Admission_Form() {
 				setvalidate(res.data)
 				setmodal(true)
 				  setop(1)
-				  setLoading(false)
 			  }
 			})
 		  .catch((err)=>{setvalidate("Something Went Wrong! Please Try Again After Sometime")
 		  setmessages("Something Went Wrong! Please Try Again After Sometime")
-		  setLoading(false)
 		})
 		}
 	
