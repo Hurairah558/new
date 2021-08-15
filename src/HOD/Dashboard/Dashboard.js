@@ -434,7 +434,36 @@ const DV6 = () => {
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7' className='d-flex justify-content-center'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Admissions</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Fresh Admissions</h5>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+
+                    </Link>
+                
+              
+            </div>
+            <div className="col-md-4">
+              
+                
+                    <Link to="/hod/adp" className="nav-link text-white" href="#">
+
+                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
+                        <MDBRow className='mt-3'>
+                            <MDBCol md='5' col='5' className='text-left d-flex justify-content-center'>
+                                <MDBBtn
+                                    tag='a'
+                                    floating
+                                    size='lg'
+                                    color='secondary'
+                                    className='ml-4'
+                                    style={{ padding: 0 }}
+                                >
+                                    <MDBIcon icon='address-card' size='2x' />
+                                </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md='7' col='7' className='d-flex justify-content-center'>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>ADP Admissions</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>

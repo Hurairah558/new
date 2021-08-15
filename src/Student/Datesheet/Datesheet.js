@@ -15,11 +15,7 @@ import {
 
 function Datesheet() {
 
-    const [data,setdata] = useState([{
-      Fall_Spring:"",
-      Department:"",
-      Shift:""
-    }])
+    const [data,setdata] = useState([])
     const [message, setmessage] = useState("")
     const [Loading,setLoading] = useState(false)
 
@@ -83,7 +79,7 @@ const Department = [
                     </MDBCol>
                   </MDBRow>
                 </MDBCard>
-                {data[0].Department!=""?
+                {data.length>0?
                 !Loading?
                       <MDBCard style={{marginTop:30}} cascade narrow>
                         <MDBRow>

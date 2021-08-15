@@ -229,7 +229,7 @@ const Students = () => {
                                 cascade
                                 className='gradient-card-header light-blue lighten-1'
                             >
-                                <h4 className='h4-responsive mb-0 font-weight-bold'>Students {data.length}</h4>
+                                <h4 className='h4-responsive mb-0 font-weight-bold'>Students : {data.length}</h4>
                             </MDBView>
                                 <MDBCardBody>
                                     <table className="table table-hover table-bordered">
@@ -240,8 +240,6 @@ const Students = () => {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Address</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
@@ -257,8 +255,6 @@ const Students = () => {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Father_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
                                                         {
                                                             student.Status==="Inactive"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Status}</td>:

@@ -238,8 +238,6 @@ const Students = () => {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Address</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Email</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Shift</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Dues</th>
@@ -255,8 +253,6 @@ const Students = () => {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Full_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Father_Name}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Address}</td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Email}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Shift}</td>
                                                         <td><Link to={{pathname:"/ao/dues",state:student}}><MDBBtn gradient="blue"><i class="fa fa-exclamation" aria-hidden="true"></i></MDBBtn></Link></td>

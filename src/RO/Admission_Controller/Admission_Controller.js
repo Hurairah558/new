@@ -1,17 +1,16 @@
 import axios from 'axios';
 import React,{ useState,useEffect} from 'react';
 import Header from '../Header/Header';
-import { Button, Modal } from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function Admission_Controller() {
 
@@ -95,7 +94,7 @@ function Admission_Controller() {
     const [validate,setvalidate] = useState("")
 
     const set=(e) => {
-
+		setop(0.8)
         e.preventDefault()
 		  axios.put("http://localhost:3001/api/ro/meritlist/formula",formdata)
 		  .then((res)=>{
@@ -110,11 +109,17 @@ function Admission_Controller() {
 				Matric_Percentage : "",
 				Inter_Percentage : ""
 			  })
+			  setmodal(true)
+			setop(1)
 			})
-		  .catch((err)=>{setmessage("Something Went Wrong! Please Try Again After Sometime")})
+			.catch((err)=>{
+				setmessage("Something Went Wrong! Please Try Again After Sometime")
+				setop(1)
+			})
     }
 
     const toggles=(t)=>{
+		setop(0.8)
         setloadingmessage("Loading...")
         let openstatus = t
         axios.put(`http://localhost:3001/api/ro/admission_control`,{Admission_Controller:openstatus}).then((res=>{
@@ -123,10 +128,21 @@ function Admission_Controller() {
 				Matric_Percentage : "",
 				Inter_Percentage : ""
 			  })
-        }))
+			setop(1)
+        })).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+			setop(1)
+		})
     }
 
-	if(message!=""){
+	const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
+	  if(message!=""){
         return (
             <React.Fragment>
                 <Header/>
@@ -138,10 +154,21 @@ function Admission_Controller() {
     return (
         <React.Fragment>
             <Header/>
+			<MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
             {!Loading?
-            <div className="Student">
+            <div className="Student"  style={{opacity:op}}>
                 <div className="container">
-					<MDBCard style={{opacity:op}} cascade narrow>
+					<MDBCard cascade narrow>
                         <MDBRow>
                             <MDBCol md='12'>
                             <MDBView
@@ -175,19 +202,21 @@ function Admission_Controller() {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>Merit List Formula</h4>
                             </MDBView>
                                 <MDBCardBody>
-								<div className="row d-flex justify-content-center">
-									<div className="col-md-3">
-										<input className="Admission_Form_Input" onChange={change} type="text" name="Matric_Percentage" value={formdata.Matric_Percentage} placeholder="Matric Percentage" required=""/>
-									</div>
-								
-									<div className="col-md-3">
-										<input className="Admission_Form_Input d-flex justify-content-center" onChange={change} type="text" name="Inter_Percentage" value={formdata.Inter_Percentage} placeholder="Inter Percentage" required=""/>
-									</div>
-								
-									<div className="col-md-3">
-										<button onClick={set} style={{marginTop:18,border:'none',background:"transparent"}} > <Modals validate={validate} /> </button>
-									</div>
-								</div>
+									<form onSubmit={set}>
+										<div className="row d-flex justify-content-center">
+											<div className="col-md-3 d-flex justify-content-center">
+												<input className="Admission_Form_Input" onChange={change} type="text" name="Matric_Percentage" value={formdata.Matric_Percentage} placeholder="Matric Percentage" required/>
+											</div>
+										
+											<div className="col-md-3 d-flex justify-content-center">
+												<input className="Admission_Form_Input" onChange={change} type="text" name="Inter_Percentage" value={formdata.Inter_Percentage} placeholder="Inter Percentage" required/>
+											</div>
+										
+											<div className="col-md-3">
+												<MDBBtn gradient="blue" type="submit" style={{marginTop:20}} > <b>Set</b> </MDBBtn>
+											</div>
+										</div>
+									</form>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
@@ -229,27 +258,5 @@ function Admission_Controller() {
 }
 
 export default Admission_Controller;
-
-
-function Modals(props) {
-	const [open, setOpen] = React.useState(false)
-	return (
-	<Modal
-	  onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-      open={open}
-		style={{height:"23%",margin:"auto"}}
-		trigger={<MDBBtn gradient="blue" >set</MDBBtn>}
-	  >
-		<Modal.Header><h1>Response</h1></Modal.Header>
-		<Modal.Content image>
-			<Modal.Description>
-				<h2 style={{marginLeft:"100px"}}>{String(props.validate).replaceAll('"',"").replaceAll('_'," ")}</h2>
-			</Modal.Description>
-		</Modal.Content>
-	</Modal>
-	)
-  }
-
 
   

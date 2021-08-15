@@ -38,8 +38,8 @@ const Time_Table = () => {
 
     const changeselect = (e) => {
       setLoading(true)
-            axios.post("http://localhost:3001/api/hod/timetable",{Department:e.value}).then((res)=>{
-                setdata(res.data.data)
+            axios.post("http://localhost:3001/api/hod/timetable",{Department:e.value}).then((res)=>{  
+            setdata(res.data.data)
                 setLoading(false)
         }).catch((err)=>{
           setmessage("Something Went Wrong! Please Try Again After Sometime")

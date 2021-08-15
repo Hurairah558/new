@@ -5,14 +5,14 @@ import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function Fee_Record() {
 
@@ -28,14 +28,16 @@ function Fee_Record() {
 
 
     const changeselectsemester = (e) => {
+        setop(0.8)
         setloading(true)
         axios.post("http://localhost:3001/api/ao/old/students/record",{Fall_Spring:e.value}).then((res)=>{
             setdata(res.data.data)
             setloading(false)
-
+            setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
             setloading(false)
+            setop(1)
         })
     }
 
@@ -59,6 +61,7 @@ function Fee_Record() {
     const [validate,setvalidate] = useState("")
 
     const Create = (e) => {
+        setop(0.8)
         axios.post("http://localhost:3001/api/ao/students/record",{Fall_Spring:Semester}).then((res)=>{
             if (res.data.message){
                 setvalidate(res.data.message)
@@ -66,9 +69,12 @@ function Fee_Record() {
             else{
               setvalidate(res.data)
             }
+            setmodal(true)
+			setop(1)
         }).catch((err)=>{
             setmessage("Something Went Wrong! Please Try Again After Sometime")
             setloading(false)
+			setop(1)
         })
     }
 
@@ -79,7 +85,14 @@ function Fee_Record() {
     //     }))
     // }
 
-    if(message!=""){
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
+	  if(message!=""){
         return (
             <React.Fragment>
                 <Header/>
@@ -91,9 +104,20 @@ function Fee_Record() {
     return (
         <React.Fragment>
             <Header/>
-            <div className="Student">
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
+            <div className="Student" style={{opacity:op}}>
                 <div className="container">
-                    <MDBCard style={{opacity:op}} cascade narrow>
+                    <MDBCard cascade narrow>
                         <MDBRow>
                             <MDBCol md='12'>
                             <MDBView
@@ -109,9 +133,9 @@ function Fee_Record() {
                                         </div>
 
                                         <div className="col-md-3">
-                                            <button style={{border:'none',background:"transparent",marginTop:20}} onClick={Create} >
-                                                <Modals validate={validate} />
-                                            </button>
+                                            <MDBBtn gradient="blue" style={{marginTop:20}} onClick={Create} >
+                                                <b>Create Record</b>
+                                            </MDBBtn>
                                         </div>
 
                                     </div>

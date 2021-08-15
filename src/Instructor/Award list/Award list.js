@@ -2,7 +2,6 @@ import axios from 'axios';
 import React,{useState} from 'react';
 import { useEffect } from 'react';
 import Select from "react-select";
-import { Button, Modal } from 'semantic-ui-react';
 import Header from '../Header/Header';
 import Footer from '../../Footer/Footer';
 import { 
@@ -23,7 +22,7 @@ const Awardlist = () => {
 
     const [validate,setvalidate] = useState("")
 
-    const [attendanceddata, setawarddata] = useState({})
+    const [awarddata, setawarddata] = useState({})
 
     const [op, setop] = useState(1)
 
@@ -35,7 +34,6 @@ const Awardlist = () => {
 	  const toggle = (state) =>{
 		setmodal(!modal)
 	  }
-
 
     useEffect(()=>{
         axios.post("http://localhost:3001/api/all/courses",{Department:login!=null?login.Department:""}).then((res)=>{
@@ -58,7 +56,7 @@ const Awardlist = () => {
 
     
     const Course_Change=(e)=> {
-        setop(0.3)
+        setop(0.8)
         axios.post("http://localhost:3001/api/instructor/get/awardlist",{Course:e.value}).then((res)=>{
             setdata(res.data.data)
 
@@ -75,12 +73,13 @@ const Awardlist = () => {
             res.data.data.map((student,index)=>{
                 d[`Roll${index}`] = student.Roll
                 d[`Name${index}`] = student.Full_Name
-                d[`Attendance${index}`] = ""
+                d[`Mids${index}`] = ""
+                d[`Sessional${index}`] = ""
             })
             setawarddata(d)
 
         })
-		setop(1)
+        setop(1)
     }
 
 
@@ -158,7 +157,7 @@ const Awardlist = () => {
 
     const changeselect = (e) => {
         setawarddata({
-            ...attendanceddata,
+            ...awarddata,
             [e.Name] : e.value
           })
     }
@@ -166,15 +165,15 @@ const Awardlist = () => {
     
     
     const change = (e) => {
-        setawarddata({...attendanceddata,
+        setawarddata({...awarddata,
                 [e.target.name] : e.target.value
             })
 	}
 
     const Upload = (e) => {
-		setop(0.8)
+        setop(0.8)
 		e.preventDefault()
-		axios.post("http://localhost:3001/api/instructor/awardlist",attendanceddata).then((res)=>{
+		axios.post("http://localhost:3001/api/instructor/awardlist",awarddata).then((res)=>{
             if (res.data.message){
                 setvalidate(res.data.message)
             }
@@ -185,19 +184,19 @@ const Awardlist = () => {
 				setop(1)
 		})
         .catch((err)=>{
-          setmessage("Something Went Wrong! Please Try Again After Sometime")
-            setop(1)
-        })
-	}
-
-    if(message!=""){
-        return (
-            <React.Fragment>
-                <Header/>
-                <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
-            </React.Fragment>
-        )
-    }
+            setmessage("Something Went Wrong! Please Try Again After Sometime")
+              setop(1)
+          })
+      }
+  
+      if(message!=""){
+          return (
+              <React.Fragment>
+                  <Header/>
+                  <h1 className="d-flex justify-content-center" style={{marginTop:350}} >{message}</h1>
+              </React.Fragment>
+          )
+      }
 
     return (
         <React.Fragment>
@@ -222,13 +221,13 @@ const Awardlist = () => {
                                 cascade
                                 className='gradient-card-header light-blue lighten-1'
                             >
-                                <h2 className='h4-responsive mb-0 font-weight-bold'>Upload Attendance List</h2>
+                                <h2 className='h4-responsive mb-0 font-weight-bold'>Upload Award List</h2>
                             </MDBView>
                                 <MDBCardBody style={{paddingTop:30,paddingBottom:30}}>
-                                    <hr />
+                                    <hr style={{background:"white"}} />
                                     <p className="Admission_p">Select Course Code <span className="text-danger">*</span></p>
                                     <Select className="Admission_Form_Select" onChange={Course_Change} options={Course_Code}  name="Course_Code" placeholder="Course Code" required />
-                                    <hr />
+                                    <hr style={{background:"white"}} />
                                     <div className="row mb-4">
                                         <div className="col-md-3">
                                             <p className="Admission_p">Course Title <span className="text-danger">*</span></p>
@@ -247,9 +246,9 @@ const Awardlist = () => {
                                             <Select className="Admission_Form_Select" onChange={changeselect} options={Semester}  name="Semester" placeholder="Semester" required />
                                         </div>
                                     </div>
-                                    <hr />
+                                    <hr style={{background:"white"}} />
                                     {data.map((student, index) => ( 
-                                    <div style={{marginLeft:100}} className="row" key={index}>
+                                    <div className="row" key={index}>
                                         <div className="col-md-1">
                                             <h2 className="mt-4">{index+1}</h2>
                                         </div>
@@ -259,8 +258,11 @@ const Awardlist = () => {
                                         <div className="col-md-3">
                                             <input className="Admission_Form_Input" value={student.Full_Name} onChange={change} type="text" name={`Name`+index} placeholder="Name" required=""/>
                                         </div>
+                                        <div className="col-md-2">
+                                            <input className="Admission_Form_Input" style={{width:80}} onChange={change} type="text" name={`Mids`+index} placeholder="Mids" required=""/>
+                                        </div>
                                         <div className="col-md-3">
-                                            <input className="Admission_Form_Input" onChange={change} type="text" name={`Attendance`+index} placeholder="Attendance %" required=""/>
+                                            <input className="Admission_Form_Input" onChange={change} type="text" name={`Sessional`+index} placeholder="Sessional" required=""/>
                                         </div>
                                     </div>
                                     )
