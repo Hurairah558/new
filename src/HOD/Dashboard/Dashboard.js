@@ -434,7 +434,7 @@ const DV6 = () => {
                                 </MDBBtn>
                             </MDBCol>
                             <MDBCol md='7' col='7' className='d-flex justify-content-center'>
-                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Fresh Admissions</h5>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>Admissions</h5>
                             </MDBCol>
                         </MDBRow>
                     </MDBCard>
@@ -443,7 +443,7 @@ const DV6 = () => {
                 
               
             </div>
-            <div className="col-md-4">
+            {/* <div className="col-md-4">
               
                 
                     <Link to="/hod/adp" className="nav-link text-white" href="#">
@@ -471,7 +471,7 @@ const DV6 = () => {
                     </Link>
                 
               
-            </div>
+            </div> */}
             <div className="col-md-4">
               
                 

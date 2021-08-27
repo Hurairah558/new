@@ -104,6 +104,9 @@ const Header = () => {
                     <MDBNavItem>
                         <MDBNavLink to="/ro/admission_controller"><b>Admission Controller</b></MDBNavLink>
                     </MDBNavItem>
+                    <MDBNavItem>
+                        <MDBNavLink to="/ro/sms"><b>GSM Controller</b></MDBNavLink>
+                    </MDBNavItem>
                     {/* <MDBNavItem>
                         <MDBNavLink to="/ro/voucher"><b>Voucher</b></MDBNavLink>
                     </MDBNavItem> */}

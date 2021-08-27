@@ -4,7 +4,6 @@ import Select from 'react-select';
 import axios from 'axios';
 import Header from '../Header/Header';
 import Footer from '../../Footer/Footer';
-import { Button, Modal } from 'semantic-ui-react';
 import { 
 	MDBRow,
 	MDBCol,
@@ -444,15 +443,15 @@ function Admission_Form() {
 							open?
 								<form  role="form" method="post" onSubmit={imagesub} encType="multipart/form-data">
 									<div className="row">
-										<div className="col-md-4">
+										{/* <div className="col-md-4">
 											<p className="Admission_Select_p">Fresh / ADP <span className="text-danger">*</span></p>
 											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselects} name="Fresh_ADP" placeholder="Fresh / ADP" options={Fresh_ADP} required />							
-										</div>
-										<div className="col-md-4">	
+										</div> */}
+										<div className="col-md-6">	
 											<p className="Admission_Select_p">BS Department <span className="text-danger">*</span></p>
 											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselect} name="Department" placeholder="Select Department" options={Department} required/>							
 										</div>
-										<div className="col-md-4">	
+										<div className="col-md-6">	
 											<p className="Admission_Select_p">Shift <span className="text-danger">*</span></p>
 											<Select className="Admission_Form_Select_Dept w-100" onChange={changeselect} name="Shift" placeholder="Select Shift" options={Shift} required/>							
 										</div>

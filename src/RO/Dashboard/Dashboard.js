@@ -347,6 +347,34 @@ const DV6 = () => {
             <div className="col-md-4">
               
                 
+                    <Link to="/ro/sms" className="nav-link text-white" href="#">
+                    <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>
+                        <MDBRow className='mt-3'>
+                            <MDBCol md='5' col='5' className='text-left pl-4'>
+                                <MDBBtn
+                                    tag='a'
+                                    floating
+                                    size='lg'
+                                    color='secondary'
+                                    className='ml-4'
+                                    style={{ padding: 0 }}
+                                >
+                                    <MDBIcon icon='tools' size='2x' />
+                                </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md='7' col='7'>
+                                <h5 style={{marginTop:30,color:'black'}} className='font-weight-bold'>GSM Controller</h5>
+                            </MDBCol>
+                        </MDBRow>
+                    </MDBCard>
+                        </Link>
+                
+              
+            </div>
+
+            <div className="col-md-4">
+              
+                
                     <Link to="/ro/password/reset" className="nav-link text-white" href="#">
                         
                     <MDBCard className="panel" style={{paddingTop:20,paddingBottom:35}}>

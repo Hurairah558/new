@@ -24,6 +24,10 @@ function Profile() {
     const [validate,setvalidate] = useState("")
 
 
+    const [msg, setmsg] = useState({
+        Message:""
+    })
+
 	  const toggle = (state) =>{
 		setmodal(!modal)
 	  }
@@ -46,6 +50,32 @@ function Profile() {
 		})
     }
 
+    const sms = () => {
+        setop(0.8)
+        axios.get("http://localhost:3001/api/ro/sms/get").then((res)=>{
+            
+
+            axios.get(`http://192.168.0.${res.data.data[0].IP}:${res.data.data[0].Port}/SendSMS?username=${res.data.data[0].Username}&password=${res.data.data[0].Password}&phone=03075156558&message=${msg.Message}`).then((res)=>{
+            
+                console.log(res.data.data[0])
+    
+            })
+
+
+        }).catch((err)=>{
+			setmessage("Something Went Wrong! Please Try Again After Sometime")
+			setop(1)
+		})
+    }
+
+    const change = (e) => {
+        setmsg({...msg,[e.target.name]: e.target.value})
+    }
+
+    const toggles = (state) =>{
+		setmodal(!modal)
+	  }
+
     if(message!=""){
         return (
             <React.Fragment>
@@ -64,6 +94,20 @@ function Profile() {
 					<MDBModalBody onClick={toggle}>
 						<h3><b>{validate}</b></h3>
 					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggles}><h2><b>Message</b></h2></MDBModalHeader>
+                        <div className="col-md-4">
+                            <input className="Admission_Form_Input" onChange={change} type="text" name="Message" placeholder="Type Your Message" required/>
+                        </div>
+                        <div className="col-md-6 d-flex justify-content-center">
+                            <MDBBtn gradient="peach" onClick={sms}><b>Send Message</b></MDBBtn>
+                        </div>
 					<MDBModalFooter>
 					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
 					</MDBModalFooter>
@@ -249,11 +293,16 @@ function Profile() {
                                     cascade
                                     className='gradient-card-header light-blue lighten-1'
                                 >
-                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Reset Password</h4>
+                                    <h4 className='h4-responsive mb-0 font-weight-bold'>Actions</h4>
                                 </MDBView>
                                 <MDBCardBody>
-                                    <div className="row d-flex justify-content-center">
-                                        <MDBBtn gradient="blue" onClick={Reset}><b>Reset Password</b></MDBBtn>
+                                    <div className="row">
+                                        <div className="col-md-6 d-flex justify-content-center">
+                                            <MDBBtn gradient="blue" onClick={Reset}><b>Reset Password</b></MDBBtn>
+                                        </div>
+                                        <div className="col-md-6 d-flex justify-content-center">
+                                            <MDBBtn gradient="peach" onClick={toggles}><b>Send Message</b></MDBBtn>
+                                        </div>
                                     </div>
                                 </MDBCardBody>
                             </MDBCol>

@@ -3,7 +3,6 @@ import Select from 'react-select';
 import './MeritList_Controller_Design.css';
 import React, { useEffect, useState } from 'react'
 import Header from '../../Fixed Components/Header';
-import { Table , Button, Modal} from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import {Export} from '../../Export';
 import { 
@@ -280,7 +279,7 @@ const MeritListData = () => {
                                         <tr>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.MeritList}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Department}</b></td>
-                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Evening</b></td>
+                                            <td style={{fontWeight:'bold',textAlign:'center'}}><b>Morning</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.NOS_Start} to {CurrentData.NOS_End}</b></td>
                                             <td style={{fontWeight:'bold',textAlign:'center'}}><b>{CurrentData.Display==1?"True":"False"}</b></td>
                                         </tr>

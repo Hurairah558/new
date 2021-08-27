@@ -71,6 +71,7 @@ import Employee from './AO/Salary To Employee/Employee';
 import EmployeeBill from './AO/Salary To Employee/Bill';
 import HOD_Student_Profile from './HOD/Admissions/Profile';
 import RO_Student_Profile from './RO/Students/Profile';
+import RO_SMS from './RO/GSM/GSM';
 function App() {
   return (
     <React.Fragment>
@@ -86,6 +87,7 @@ function App() {
           <Route exact path="/ro/student/profile" component={RO_Student_Profile}/>
           <Route exact path="/ao/dues" component={AO_Dues}/>
           <Route exact path="/ro/dues" component={RO_Dues}/>
+          <Route exact path="/ro/sms" component={RO_SMS}/>
           <Route exact path="/admin" component={Login}/>
           <Route exact path="/ao/dashboard" component={Dashboard_AO}/>
           <Route exact path="/ao/feemanagement" component={AO_Fee_Management}/>
