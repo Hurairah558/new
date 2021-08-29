@@ -447,7 +447,7 @@ function AddStudent() {
 												</div>
 												<div className="col-md-4">
 													<p className="Admission_p">Dues</p>
-													<textarea class="form-control" style={{marginTop:20}} onChange={change} value={formdata.Dues} id="exampleFormControlTextarea1" name="HOD_Dues" placeholder="Dues" rows="3"></textarea>
+													<textarea class="form-control" style={{marginTop:20}} onChange={change} value={formdata.HOD_Dues} id="exampleFormControlTextarea1" name="HOD_Dues" placeholder="Dues" rows="3"></textarea>
 												</div>
 												<hr className="col-md-12" />
 												<div className="col-md-12 d-flex justify-content-center">

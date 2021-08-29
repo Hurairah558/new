@@ -98,9 +98,9 @@ const Header = () => {
                             </MDBDropdownMenu>
                         </MDBDropdown>
                     </MDBNavItem>
-                    <MDBNavItem>
+                    {/* <MDBNavItem>
                         <MDBNavLink to="/ssio/freeinstructors"><b>Free Instructors</b></MDBNavLink>
-                    </MDBNavItem>
+                    </MDBNavItem> */}
                     <MDBNavItem>
                         <MDBNavLink to="/ssio/announcement"><b>Announcement</b></MDBNavLink>
                     </MDBNavItem>

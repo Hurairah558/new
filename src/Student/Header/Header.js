@@ -134,7 +134,7 @@ const Header = () => {
                     <MDBNavLink to="/student/reset/password"><b>Change Password</b></MDBNavLink>
                 </MDBNavItem>:
                 <MDBNavItem>
-                    <MDBNavLink to="/login"><b>Login</b></MDBNavLink>
+                    <MDBNavLink to="/admin"><b>Login</b></MDBNavLink>
                 </MDBNavItem>}
             </MDBNavbarNav>
             <MDBNavbarNav right>

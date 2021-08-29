@@ -967,7 +967,7 @@ function Vouchers(props) {
         <tr style={{msoYftiIrow: 16}}>
           <td width={291} valign="top" style={{width: '218.5pt', borderTop: 'none', borderLeft: 'double windowtext 1.5pt', borderBottom: 'solid windowtext 1.0pt', borderRight: 'double windowtext 1.5pt', msoBorderTopAlt: 'double windowtext 1.5pt', msoBorderAlt: 'double windowtext 1.5pt', msoBorderBottomAlt: 'solid windowtext .5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
             <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}>Amount in words:</span></u></b></p>
-            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>Four
+            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>
             {props.Words} Only.</span></u></b></p>
           </td>
           <td width={16} valign="top" style={{width: '12.25pt', border: 'none', borderRight: 'solid windowtext 1.0pt', msoBorderLeftAlt: 'double windowtext 1.5pt', msoBorderRightAlt: 'solid windowtext .5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
@@ -975,7 +975,7 @@ function Vouchers(props) {
           </td>
           <td width={291} valign="top" style={{width: '218.5pt', borderTop: 'none', borderLeft: 'double windowtext 1.5pt', borderBottom: 'solid windowtext 1.0pt', borderRight: 'double windowtext 1.5pt', msoBorderTopAlt: 'double windowtext 1.5pt', msoBorderAlt: 'double windowtext 1.5pt', msoBorderBottomAlt: 'solid windowtext .5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
             <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}>Amount in words:</span></u></b></p>
-            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>Four
+            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>
             {props.Words} Only.</span></u></b></p>
           </td>
           <td width={16} valign="top" style={{width: '11.85pt', border: 'none', borderRight: 'double windowtext 1.5pt', msoBorderLeftAlt: 'double windowtext 1.5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
@@ -983,7 +983,7 @@ function Vouchers(props) {
           </td>
           <td width={291} valign="top" style={{width: '218.5pt', borderTop: 'none', borderLeft: 'double windowtext 1.5pt', borderBottom: 'solid windowtext 1.0pt', borderRight: 'double windowtext 1.5pt', msoBorderTopAlt: 'double windowtext 1.5pt', msoBorderAlt: 'double windowtext 1.5pt', msoBorderBottomAlt: 'solid windowtext .5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
             <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}>Amount in words:</span></u></b></p>
-            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>Four
+            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>
             {props.Words} Only.</span></u></b></p>
           </td>
           <td width={16} valign="top" style={{width: '11.65pt', border: 'none', borderRight: 'double windowtext 1.5pt', msoBorderLeftAlt: 'double windowtext 1.5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
@@ -991,7 +991,7 @@ function Vouchers(props) {
           </td>
           <td width={291} valign="top" style={{width: '218.5pt', borderTop: 'none', borderLeft: 'double windowtext 1.5pt', borderBottom: 'solid windowtext 1.0pt', borderRight: 'double windowtext 1.5pt', msoBorderTopAlt: 'double windowtext 1.5pt', msoBorderAlt: 'double windowtext 1.5pt', msoBorderBottomAlt: 'solid windowtext .5pt', padding: '0in 5.4pt 0in 5.4pt'}}>
             <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}>Amount in words:</span></u></b></p>
-            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>Four
+            <p className="MsoNormal" style={{marginBottom: '0in', lineHeight: 'normal'}}><b style={{msoBidiFontWeight: 'normal'}}><u><span style={{fontSize: '9.0pt', msoBidiFontSize: '12.0pt'}}><span style={{msoSpacerun: 'yes'}}></span>
             {props.Words} Only.</span></u></b></p>
           </td>
           <td width={179} valign="top" style={{width: '134.2pt', border: 'none', msoBorderLeftAlt: 'double windowtext 1.5pt', padding: '0in 5.4pt 0in 5.4pt'}}>

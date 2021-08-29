@@ -7,14 +7,14 @@ import { Table , Modal} from 'semantic-ui-react';
 import {Export} from '../../Export';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 
 const Students = () => {
@@ -145,6 +145,7 @@ const Students = () => {
         setloading(true)
         axios.post("http://localhost:3001/api/hod/semesterupgrade",{Department:login!=null?login.Department:""}).then((res)=>{  
             setmtoggle("Upgrade")
+            toggless()
             setloading(false)
             setop(1)
         }).catch((err)=>{
@@ -214,6 +215,14 @@ const Students = () => {
         })
     }
 
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggless = (state) =>{
+		setmodal(!modal)
+	  }
+
+
     if(message!=""){
         return (
             <React.Fragment>
@@ -226,6 +235,23 @@ const Students = () => {
     return (
         <React.Fragment>
             <Headers/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader><h2>Semester Upgrade</h2></MDBModalHeader>
+                        <h2 className="d-flex justify-content-center ml-4 mb-4 mt-4"><b>Are You Sure You Want to Upgrade the Semester of Paid and Active Students? <br/><br/> This Operation can't be Undone</b></h2>
+                        <hr/>
+					<MDBModalBody>
+					</MDBModalBody>
+					<MDBModalFooter>
+                        <div  className="col-md-3">
+                            <MDBBtn onClick={Upgrade} gradient="blue"><b>Yes</b></MDBBtn>
+                        </div>
+                        <div className="col-md-3">
+                            <MDBBtn onClick={toggless} gradient="peach"><b>No</b></MDBBtn>
+                        </div>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>	
             <div className="Student">
                 <div className="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -272,12 +298,12 @@ const Students = () => {
                                             </div>
                                         </div>
                                         <div style={{opacity:op}} className="row">
-                                            <div className="col-md-12">
+                                            <div className="col-md-12 float-right">
                                                 <hr style={{fontWeight:'bold'}}/>
-                                                <button style={{background:'transparent',border:'none'}} className="float-right">
+                                                {/* <button style={{background:'transparent',border:'none'}} className="float-right"> */}
                                                     
-                                                    
-                                                    <Modal
+                                                <MDBBtn gradient="blue" className="float-right" onClick={toggless}><b>Semester Upgrade</b></MDBBtn>
+                                                    {/* <Modal
                                                         onClose={() => setOpen(false)}
                                                         onOpen={() => setOpen(true)}
                                                         open={open}
@@ -297,10 +323,10 @@ const Students = () => {
                                                                 <MDBBtn onClick={() => setOpen(false)} gradient="peach"><b>No</b></MDBBtn>
                                                             </div>
                                                         </div>
-                                                    </Modal>
+                                                    </Modal> */}
 
 
-                                                </button>
+                                                {/* </button> */}
                                             </div>
                                         </div>
                                         <hr style={{fontWeight:'bold'}}/>
@@ -341,8 +367,8 @@ const Students = () => {
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Add Course</th>
                                                         <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Full Details</th>
-                                                        {/* <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ROA</th> */}
-                                                        {/* <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th> */}
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>ROA</th>
+                                                        <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Degree Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -368,14 +394,14 @@ const Students = () => {
                                                         }
                                                         <td><Link to={{pathname:"/hod/assigncourse",state:student}}><MDBBtn gradient="blue"><i class="fa fa-book" aria-hidden="true"></i></MDBBtn></Link></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><Link to={{pathname:"/hod/editstudent",state:student}}><MDBBtn gradient="blue"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        {/* <td><Link to={{pathname:"/hod/roa",state:student}}><MDBBtn gradient="blue"><i class="fa fa-trophy" aria-hidden="true"></i></MDBBtn></Link></td> */}
-                                                        {/* {
+                                                        <td><Link to={{pathname:"/hod/roa",state:student}}><MDBBtn gradient="blue"><i class="fa fa-trophy" aria-hidden="true"></i></MDBBtn></Link></td>
+                                                        {
                                                             <td>
                                                                 {student.Degree_Status==="Continue"?
                                                                 <MDBBtn gradient="blue" onClick={()=>Degree_toggles("Move to Completed",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Graduated"}</b></MDBBtn>:
                                                                 <MDBBtn outline color="primary"  onClick={()=>Degree_toggles("Continue",student.id)}><b>{student.Degree_Status==="Completed"?"Completed":"Move to Graduated"}</b></MDBBtn>}
                                                             </td>
-                                                        } */}
+                                                        }
                                                     </tr>
                                                     )})}
                                                 </tbody>

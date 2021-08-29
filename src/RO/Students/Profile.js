@@ -55,7 +55,7 @@ function Profile() {
         axios.get("http://localhost:3001/api/ro/sms/get").then((res)=>{
             
 
-            axios.get(`http://192.168.0.${res.data.data[0].IP}:${res.data.data[0].Port}/SendSMS?username=${res.data.data[0].Username}&password=${res.data.data[0].Password}&phone=03075156558&message=${msg.Message}`).then((res)=>{
+            axios.get(`http://192.168.0.${res.data.data[0].IP}:${res.data.data[0].Port}/SendSMS?username=${res.data.data[0].Username}&password=${res.data.data[0].Password}&phone=${Location.state.student.Phone}&message=${msg.Message}`).then((res)=>{
             
                 console.log(res.data.data[0])
     

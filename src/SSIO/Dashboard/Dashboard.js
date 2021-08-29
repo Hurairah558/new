@@ -316,7 +316,7 @@ const DV6 = () => {
                         </Link>
                 
             </div>
-            <div className="col-md-4">
+            {/* <div className="col-md-4">
               
                 
                     <Link to="/ssio/freeinstructors" className="nav-link text-white" href="#">
@@ -342,7 +342,7 @@ const DV6 = () => {
                         </Link>
                 
               
-            </div>
+            </div> */}
             <div className="col-md-4">
               
                 

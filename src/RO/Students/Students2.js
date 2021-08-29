@@ -7,14 +7,14 @@ import Footer from '../../Footer/Footer';
 import { Button, Header, Modal , Table } from 'semantic-ui-react';
 import {Export} from '../../Export';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 const Students = () => {
 
@@ -194,6 +194,13 @@ const Students = () => {
           })
     }
 
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
     if (login==null){
         return <Redirect to="/login"/>;
     }
@@ -219,6 +226,45 @@ const Students = () => {
     return (
         <React.Fragment>
             <Headers/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader><h2><b>Generate Vouchers</b></h2></MDBModalHeader>
+					<MDBModalBody>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <Select defaultInputValue="" className="Admission_Form_Select" onChange={voucherchangeselect} options={Fall_Spring}  name="Fall_Spring" placeholder="Fall / Spring" required />
+                            </div>
+                            <div className="col-md-6">
+                                <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Total" placeholder="Total Fee" required=""/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Col" placeholder="College Dues" required=""/>
+                            </div>
+                            <div className="col-md-6">
+                                <input className="Admission_Form_Input" onChange={voucherchange} type="text" name="Uni" placeholder="University Dues" required=""/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <textarea style={{fontWeight:'bold',border:"1px solid"}} class="form-control" onChange={voucherchange} id="exampleFormControlTextarea1" name="Words" placeholder="Amout in Words" rows="2"></textarea>
+                            </div>
+                        </div>
+					</MDBModalBody>
+					<MDBModalFooter>
+                        <div className="row">
+                            <div style={{marginRight:40}} className="col-md-3">
+                                <Link to={{pathname:"/ro/voucher",state:{data:data,extra:extras}}}><MDBBtn gradient="blue"><b>Generate</b></MDBBtn></Link>
+                            </div>
+                            <div className="col-md-3">
+                                <MDBBtn onClick={toggle} gradient="peach"><b>Cancel</b></MDBBtn>
+                            </div>
+                        </div>
+					{/* <MDBBtn color="primary" onClick={toggle}>Close</MDBBtn> */}
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>	
             <div className="Student">
                 <div className="container">
                     <MDBCard cascade narrow>
@@ -261,7 +307,8 @@ const Students = () => {
                                     <hr/>
                                     <div className="row">
                                         <div className="col-md-12 d-flex justify-content-end">
-                                            <Modal
+                                            <MDBBtn gradient="blue" onClick={toggle} ><b>Generate Vouchers</b></MDBBtn>
+                                            {/* <Modal
                                             onClose={() => setOpen(false)}
                                             onOpen={() => setOpen(true)}
                                             open={open}
@@ -301,7 +348,7 @@ const Students = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </Modal>
+                                            </Modal> */}
                                         </div>
                                     </div>
                                     <hr/>
@@ -328,8 +375,8 @@ const Students = () => {
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Father's Name</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Department</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Semester</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Status</th>
-                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Fee Status</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>AO Dues</th>
+                                                <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>HOD Dues</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>Dues</th>
                                                 <th  className="text-primary" style={{fontSize:15,fontWeight:'bolder',textAlign:'center'}}>View</th>
                                             </tr>
@@ -344,16 +391,18 @@ const Students = () => {
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}><b>{student.Father_Name}</b></td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Department}</td>
                                                         <td style={{fontWeight:'bold',textAlign:'center'}}>{student.Semester}</td>
-                                                        {
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.AO_Dues===null?"No Dues":student.AO_Dues===""?"No Dues":student.AO_Dues}</td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}>{student.HOD_Dues===null?"No Dues":student.HOD_Dues===""?"No Dues":student.HOD_Dues}</td>
+                                                        {/* {
                                                             student.Status==="Inactive"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Status}</td>:
                                                             <td style={{color:"green",fontWeight:'bold',textAlign:'center'}} >{student.Status}</td>
                                                         }
                                                         {
                                                             student.Fee_Status==="Unpaid"?<td style={{color:"red",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>:
                                                             <td style={{color:"green",fontWeight:'bold',textAlign:'center'}} >{student.Fee_Status}</td>
-                                                        }
+                                                        } */}
                                                         <td><Link to={{pathname:"/ro/dues",state:student}}><MDBBtn gradient="blue"><i class="fa fa-exclamation" aria-hidden="true"></i></MDBBtn></Link></td>
-                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><Modals student={student} /></td>
+                                                        <td style={{fontWeight:'bold',textAlign:'center'}}><Link to={{pathname:"/ro/student/profile",state:{student}}}><MDBBtn gradient="blue" >View</MDBBtn></Link></td>
                                                     </tr>
                                             )})}
                                         </tbody>
@@ -370,69 +419,3 @@ const Students = () => {
 }
 
 export default Students;
-
-
-
-
-
-
-
-function Modals(props) {
-    const [open, setOpen] = React.useState(false)
-  
-    return (
-        <Modal
-        onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
-        open={open}
-        trigger={<MDBBtn gradient="blue" >View</MDBBtn>}
-        style={{margin:'auto',display:'block',height:"80%"}}
-      >
-          <div className="Student">
-            <Modal.Description>
-                <Header>
-                    <hr/>
-                        <div className="d-flex justify-content-center"><h1 className="mb-4 text-primary"><b>Full Profile Information</b></h1></div>
-                    <hr/>
-                </Header>
-                <h2 className="mb-4">
-                    <div className="row">
-                        <div className="col-md-6 d-flex justify-content-center">
-                            <b>{props.student.Full_Name}</b>
-                        </div>
-                        <div className="col-md-6 d-flex justify-content-center">
-                            <b>{props.student.Roll}</b>
-                        </div>
-                    </div>
-                </h2>
-                <hr/>
-                
-                <div style={{marginLeft:"100px"}} className="row">
-                    <div className="col-md-6 mt-4">
-                        <p className="card-text"><b>Department</b> : {props.student.Department}</p>
-                        <p className="card-text"><b>CNIC</b>: {props.student.CNIC}</p>
-                        <p className="card-text"><b>Gender</b>: {props.student.Gender}</p>
-                        <p className="card-text"><b>DOB</b> : {props.student.DOB}</p>
-                        <p className="card-text"><b>Phone</b> : {props.student.Phone}</p>
-                        <p className="card-text"><b>Email</b> : {props.student.Email}</p>
-                        <p className="card-text"><b>Address</b> : {props.student.Address}</p>
-                        <p className="card-text"><b>Shift</b> : {props.student.Shift}</p>
-                    </div>
-                    <div className="col-md-6 mt-4">
-                        <p className="card-title"><b>Matric Roll</b>: {props.student.Matric_Roll}</p>
-                        <p className="card-title"><b>Matric Total Marks</b> : {props.student.Matric_Total}</p>
-                        <p className="card-text"><b>Matric Obtained Marks</b> : {props.student.Matric_Obtained_Marks}</p>
-                        <p className="card-text"><b>Matric Year</b> : {props.student.Matric_Year}</p>
-                        <p className="card-text"><b>Matric Board</b>: {props.student.Matric_Board}</p>
-                        <p className="card-text"><b>Inter Roll</b> : {props.student.Inter_Roll}</p>
-                        <p className="card-text"><b>Inter Total Marks</b> : {props.student.Inter_Total}</p>
-                        <p className="card-text"><b>Inter Obtained Marks</b> : {props.student.Inter_Obtained_Marks}</p>
-                        <p className="card-text"><b>Inter Year</b> : {props.student.Inter_Year}</p>
-                        <p className="card-text"><b>Inter Board</b> : {props.student.Inter_Board}</p>
-                    </div>
-                </div>
-            </Modal.Description>
-          </div>
-      </Modal>
-    )
-  }

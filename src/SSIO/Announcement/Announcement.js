@@ -4,14 +4,14 @@ import Header from '../Header/Header';
 import { Table , Button, Modal  } from 'semantic-ui-react';
 import Footer from '../../Footer/Footer';
 import { 
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBView,
-    MDBBtn,
-    MDBSpinner 
-  
+	MDBRow,
+	MDBCol,
+	MDBCard,
+	MDBCardBody,
+	MDBView,
+	MDBBtn,
+	MDBSpinner,
+	MDBContainer, MDBModal, MDBModalHeader, MDBModalFooter,MDBModalBody
   } from 'mdbreact';
 function Announcement() {
 
@@ -43,6 +43,7 @@ function Announcement() {
                   setvalidate(res.data)
                 }
                   update()
+                  setmodal(true)
                 setFormData({
                     Subject: '',
                     Announcement: '',
@@ -81,6 +82,13 @@ function Announcement() {
     })
     }
 
+    const [modal, setmodal] = useState(false);
+
+
+	  const toggle = (state) =>{
+		setmodal(!modal)
+	  }
+
     if(message!=""){
         return (
             <React.Fragment>
@@ -93,6 +101,17 @@ function Announcement() {
     return (
         <React.Fragment>
             <Header/>
+            <MDBContainer>
+				<MDBModal isOpen={modal} centered>
+					<MDBModalHeader onClick={toggle}><h2><b>Response</b></h2></MDBModalHeader>
+					<MDBModalBody onClick={toggle}>
+						<h3><b>{validate}</b></h3>
+					</MDBModalBody>
+					<MDBModalFooter>
+					<MDBBtn color="primary" onClick={toggle}>Close</MDBBtn>
+					</MDBModalFooter>
+				</MDBModal>
+			</MDBContainer>
             <div className="Student">
                 <div class="container">
                 <MDBCard style={{opacity:op}} cascade narrow>
@@ -105,17 +124,19 @@ function Announcement() {
                                 <h4 className='h4-responsive mb-0 font-weight-bold'>Make Announcements</h4>
                             </MDBView>
                                 <MDBCardBody>
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} value={formData.Subject} type="text" name="Subject" placeholder="Subject" required=""/>
+                                    <form onSubmit={send}>
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <input className="Admission_Form_Input d-flex justify-content-center" onChange={change} value={formData.Subject} type="text" name="Subject" placeholder="Subject" required/>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <textarea class="form-control" onChange={change} value={formData.Announcement} id="exampleFormControlTextarea1" name="Announcement" placeholder="Announcement" rows="3" required></textarea>
+                                            </div>
+                                            <div className="col-md-12">
+                                                <MDBBtn gradient="blue" type="submit" className="float-right" ><b>Submit</b></MDBBtn>
+                                            </div>
                                         </div>
-                                        <div className="col-md-9">
-                                            <textarea class="form-control" onChange={change} value={formData.Announcement} id="exampleFormControlTextarea1" name="Announcement" placeholder="Announcement" rows="3"></textarea>
-                                        </div>
-                                        <div className="col-md-12">
-                                            <button className="float-right" style={{border:'none',background:"transparent",marginTop:10}} onClick={send} ><Modals validate={validate} /></button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </MDBCardBody>
                             </MDBCol>
                         </MDBRow>
